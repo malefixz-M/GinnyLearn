@@ -23,7 +23,14 @@ export default {
     }
     try {
       const html = await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS);
-      const corpo = JSON.stringify({ aggiornato: new Date().toISOString(), compiti: leggiCompiti(html) });
+      const compiti = leggiCompiti(html);
+      if (url.searchParams.has('diagnosi')) {
+        // solo numeri e intestazioni, niente nomi
+        const t = tabella(html);
+        return new Response(JSON.stringify({ trovataTabella: !!t, colonne: t ? t.intestazioni : [], righeTabella: t ? t.righe.length : 0, compiti: compiti.length,
+          dal: (html.match(/name="[^"]*TextBoxDataDa"[^>]*value="([^"]*)"/) || [])[1], al: (html.match(/name="[^"]*TextBoxDataA"[^>]*value="([^"]*)"/) || [])[1] }, null, 1), { headers: cors });
+      }
+      const corpo = JSON.stringify({ aggiornato: new Date().toISOString(), compiti });
       ctx.waitUntil(cache.put(chiave, new Response(corpo, { headers: { 'Cache-Control': `max-age=${DURATA_CACHE}` } })));
       return new Response(corpo, { headers: cors });
     } catch (e) {
@@ -59,6 +66,25 @@ const nascosti = html => {
   return out;
 };
 
+// tutti i campi del form come li invierebbe il browser (hidden, testo, select)
+function campiForm(html) {
+  const out = nascosti(html);
+  for (const m of html.matchAll(/<input[^>]*type="text"[^>]*>/g)) {
+    const n = m[0].match(/name="([^"]+)"/), v = m[0].match(/value="([^"]*)"/);
+    if (n) out[decodifica(n[1])] = v ? decodifica(v[1]) : '';
+  }
+  for (const m of html.matchAll(/<select[^>]*name="([^"]+)"[^>]*>([\s\S]*?)<\/select>/g)) {
+    const sel = m[2].match(/<option[^>]*selected[^>]*value="([^"]*)"/) || m[2].match(/<option[^>]*value="([^"]*)"[^>]*selected/) || m[2].match(/<option[^>]*value="([^"]*)"/);
+    out[decodifica(m[1])] = sel ? decodifica(sel[1]) : '';
+  }
+  return out;
+}
+function dataIt(giorniAvanti) {
+  const d = new Date(Date.now() + giorniAvanti * 864e5);
+  const [a, m, g] = d.toLocaleDateString('en-CA', { timeZone: 'Europe/Rome' }).split('-');
+  return `${g}/${m}/${a}`;
+}
+
 async function scaricaCompiti(scuola, user, pass) {
   if (!scuola || !user || !pass) throw new Error('credenziali mancanti');
   const BASE = `https://scuolaonline.soluzione-web.it/${scuola}/`;
@@ -72,21 +98,52 @@ async function scaricaCompiti(scuola, user, pass) {
     method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(campi).toString()
   });
   const pag = await vai(jar, BASE + 'Compiti/List.aspx');
-  if (!pag.html.includes('GridViewCompiti')) throw new Error(/LoginPrincipale/.test(pag.html) ? 'login non riuscito' : 'pagina compiti non trovata');
+  if (!pag.html.includes('GridViewCompiti') && !pag.html.includes('TextBoxDataDa')) throw new Error(/LoginPrincipale/.test(pag.html) ? 'login non riuscito' : 'pagina compiti non trovata');
+  // la lista predefinita copre solo 7 giorni: rifà la ricerca "Cerca" da oggi a +21 giorni
+  try {
+    const campi = { ...campiForm(pag.html), __EVENTTARGET: 'ctl00$ContentPlaceHolder1$LinkButtonCerca', __EVENTARGUMENT: '' };
+    for (const k of Object.keys(campi)) {
+      if (k.endsWith('TextBoxDataDa')) campi[k] = dataIt(0);
+      if (k.endsWith('TextBoxDataA')) campi[k] = dataIt(21);
+      if (k.endsWith('DropDownListPageSize')) campi[k] = campi[k] || '10';
+    }
+    const cerca = await vai(jar, BASE + 'Compiti/List.aspx', {
+      method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(campi).toString()
+    });
+    if (leggiCompiti(cerca.html).length >= leggiCompiti(pag.html).length) return cerca.html;
+  } catch (e) { /* se la ricerca fallisce usa la lista predefinita */ }
   return pag.html;
 }
 
 /* ---- lettura tabella ---- */
-export function leggiCompiti(html) {
-  const i = html.indexOf('GridViewCompiti'); if (i < 0) return [];
-  const fine = html.indexOf('</table>', i), tab = html.slice(i, fine);
-  const out = [];
+// Nell'HTML del server le celle NON hanno data-content (lo aggiunge il JavaScript della pagina):
+// le colonne si riconoscono dalle intestazioni <th>.
+function tabella(html) {
+  const i = html.indexOf('GridViewCompiti'); if (i < 0) return null;
+  const inizio = html.lastIndexOf('<table', i), fine = html.indexOf('</table>', i);
+  const tab = html.slice(inizio < 0 ? i : inizio, fine < 0 ? undefined : fine);
+  const intestazioni = [...tab.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map(m => testo(m[1]).replace(/:$/, ''));
+  const righe = [];
   for (const r of tab.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)) {
-    const cella = et => { const m = r[1].match(new RegExp(`data-content="${et}:?"[^>]*>([\\s\\S]*?)<\\/td>`)); return m ? testo(m[1]) : ''; };
+    if (/<th/i.test(r[1])) continue;
+    const celle = {}; let n = 0;
+    for (const c of r[1].matchAll(/<td([^>]*)>([\s\S]*?)<\/td>/g)) {
+      const dc = (c[1].match(/data-content="([^"]*)"/) || [])[1];
+      celle[(dc || intestazioni[n] || '').replace(/:\s*$/, '').trim()] = c[2]; n++;
+    }
+    righe.push({ celle, grezzo: r[1] });
+  }
+  return { intestazioni, righe };
+}
+export function leggiCompiti(html) {
+  const t = tabella(html); if (!t) return [];
+  const out = [];
+  for (const { celle, grezzo } of t.righe) {
+    const cella = k => celle[k] ? testo(celle[k]) : '';
     const consegna = cella('Data consegna'), compito = cella('Compito');
-    if (!consegna || !compito) continue;
+    if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(consegna) || !compito) continue;
     const [g, m, a] = consegna.split('/');
-    const idSol = (r[1].match(/HiddenFieldIdTabellaCollegata[^>]*value="(\d+)"/) || [])[1];
+    const idSol = (grezzo.match(/HiddenFieldIdTabellaCollegata[^>]*value="(\d+)"/) || [])[1];
     const materiaGrezza = cella('Materia').replace(/\s*\(.*\)\s*$/, '');
     out.push({
       id: 'sol-' + (idSol || `${a}${m}${g}-${hash(compito)}`),

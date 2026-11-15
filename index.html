@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B2A6B">
+<title>Quaderno dei giochi</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Kalam:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --carta:#FDFDF8; --quadretto:#DCE8F3; --margine:#F2A7A7;
+  --inchiostro:#1B2A6B; --inchiostro-2:#4A5799; --rosso:#E5383B; --giallo:#FFC93C;
+  --mate:#4361EE; --storia:#D9820B; --geo:#219A5B;
+  --ok:#2BB673; --ko:#E5383B;
+  --r-s:10px; --r-m:18px; --r-l:28px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{
+  font-family:"Baloo 2",system-ui,sans-serif; color:var(--inchiostro); background:var(--carta);
+  background-image:
+    linear-gradient(90deg,transparent 46px,var(--margine) 46px,var(--margine) 48px,transparent 48px),
+    linear-gradient(var(--quadretto) 1px,transparent 1px),
+    linear-gradient(90deg,var(--quadretto) 1px,transparent 1px);
+  background-size:100% 100%,24px 24px,24px 24px;
+  font-size:18px; line-height:1.35; overscroll-behavior:none; user-select:none;
+}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:focus-visible{outline:3px solid var(--giallo);outline-offset:3px}
+.penna{font-family:"Kalam",cursive}
+#app{max-width:980px;margin:0 auto;padding:18px 18px 110px 66px;min-height:100%}
+h1,h2,h3{margin:0;line-height:1.1}
+h1{font-size:40px;font-weight:800}
+h2{font-size:26px;font-weight:800;margin:28px 0 12px}
+.muted{color:var(--inchiostro-2)}
+
+/* header */
+.top{display:flex;align-items:center;gap:14px}
+.avatar{width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--inchiostro);display:grid;place-items:center;font-size:36px;flex:none}
+.stelle-tot{margin-left:auto;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:4px 16px;font-weight:800;font-size:22px;box-shadow:3px 3px 0 var(--inchiostro)}
+
+/* quaderni materie */
+.quaderni{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.quaderno{position:relative;text-align:left;border-radius:6px var(--r-m) var(--r-m) 6px;padding:20px 18px 18px 34px;min-height:170px;color:#fff;
+  border:3px solid var(--inchiostro);box-shadow:5px 5px 0 var(--inchiostro);transition:transform .12s}
+.quaderno:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--inchiostro)}
+.quaderno::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:8px;background:repeating-linear-gradient(transparent 0 10px,rgba(255,255,255,.55) 10px 16px)}
+.quaderno .ico{font-size:52px;line-height:1}
+.quaderno .nome{font-size:30px;font-weight:800;margin-top:6px}
+.quaderno .etichetta{position:absolute;right:14px;bottom:14px;background:#fff;color:var(--inchiostro);border-radius:6px;padding:2px 10px;font-size:15px;font-weight:700;transform:rotate(-3deg)}
+.bg-matematica{background:var(--mate)} .bg-storia{background:var(--storia)} .bg-geografia{background:var(--geo)}
+.c-matematica{color:var(--mate)} .c-storia{color:var(--storia)} .c-geografia{color:var(--geo)}
+
+/* liste */
+.riga{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:2.5px solid var(--inchiostro);border-radius:var(--r-m);padding:14px 16px;margin-bottom:12px}
+.riga .grande{font-size:22px;font-weight:700}
+.riga .ico{font-size:34px;flex:none}
+.badge-nuovo{background:var(--rosso);color:#fff;border-radius:6px;padding:0 8px;font-size:14px;font-weight:700;transform:rotate(-4deg);display:inline-block;margin-left:6px}
+.stelline{margin-left:auto;font-size:22px;letter-spacing:2px;white-space:nowrap}
+.indietro{font-size:20px;font-weight:700;padding:6px 0;margin-bottom:6px}
+
+/* compiti */
+.giorno{margin:22px 0 8px;font-size:22px;font-weight:800}
+.compito{display:flex;align-items:flex-start;gap:14px;background:#fff;border:2.5px solid var(--inchiostro);border-left-width:10px;border-radius:var(--r-s);padding:12px 14px;margin-bottom:10px}
+.compito.matematica{border-left-color:var(--mate)} .compito.storia{border-left-color:var(--storia)} .compito.geografia{border-left-color:var(--geo)}
+.spunta{width:40px;height:40px;flex:none;border:3px solid var(--inchiostro);border-radius:8px;background:#fff;font-size:32px;line-height:30px;color:var(--rosso);font-family:Kalam,cursive}
+.compito.fatto .testo{text-decoration:line-through;text-decoration-color:var(--rosso);text-decoration-thickness:3px;opacity:.6}
+.compito .testo{font-size:20px;font-weight:600}
+.compito .meta{font-size:15px}
+.verifica{background:var(--rosso);color:#fff;border-radius:6px;padding:0 8px;font-size:14px;font-weight:700;margin-left:6px}
+.btn{color:var(--inchiostro);display:inline-flex;align-items:center;gap:8px;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:8px 20px;font-weight:800;font-size:20px;box-shadow:3px 3px 0 var(--inchiostro)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--inchiostro)}
+.btn.piccolo{font-size:16px;padding:4px 14px;margin-top:8px}
+.btn.bianco{background:#fff}
+.vuoto{background:#fff;border:2.5px dashed var(--inchiostro-2);border-radius:var(--r-m);padding:22px;text-align:center}
+
+/* nav */
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:8px;padding:10px 10px calc(10px + env(safe-area-inset-bottom));background:var(--inchiostro);z-index:5}
+nav button{color:#fff;display:flex;flex-direction:column;align-items:center;font-size:15px;font-weight:700;padding:4px 22px;border-radius:14px;opacity:.7}
+nav button span{font-size:28px;line-height:1.1}
+nav button.on{opacity:1;background:rgba(255,255,255,.14)}
+
+/* premi */
+.medaglie{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.medaglia{background:#fff;border:2.5px solid var(--inchiostro);border-radius:var(--r-m);padding:14px;text-align:center}
+.medaglia .ico{font-size:44px}
+.medaglia.bloccata{filter:grayscale(1);opacity:.45}
+.avatars{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.avatars button{font-size:34px;width:58px;height:58px;border-radius:50%;background:#fff;border:3px solid transparent}
+.avatars button.on{border-color:var(--inchiostro)}
+input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid var(--inchiostro);border-radius:var(--r-s);width:min(320px,100%);color:var(--inchiostro)}
+
+/* ===== GIOCO ===== */
+.gioco{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;overflow:hidden}
+.mondo-spazio{background:radial-gradient(circle at 20% 15%,#2a3a8f 0,#10194A 55%,#070C2B 100%);color:#fff}
+.mondo-spazio::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(1.5px 1.5px at 10% 20%,#fff,transparent),radial-gradient(1px 1px at 30% 70%,#fff,transparent),radial-gradient(2px 2px at 80% 30%,#ffe9a8,transparent),radial-gradient(1px 1px at 60% 85%,#fff,transparent),radial-gradient(1.5px 1.5px at 90% 75%,#fff,transparent),radial-gradient(1px 1px at 45% 40%,#fff,transparent);background-size:340px 340px}
+.mondo-papiro{background:#F1DDAA;color:#4A2C0A;background-image:radial-gradient(ellipse at 50% 0,rgba(255,255,255,.5),transparent 60%),repeating-linear-gradient(0deg,rgba(120,80,20,.06) 0 2px,transparent 2px 7px)}
+.mondo-mare{background:linear-gradient(#8FD8EE,#3BA7CF);color:#073B4C}
+.mondo-mare::before{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;pointer-events:none;opacity:.35;
+  background:radial-gradient(circle at 50% 0,transparent 22px,#fff 23px,#fff 26px,transparent 27px) 0 0/60px 40px repeat-x}
+.hud{position:relative;display:flex;align-items:center;gap:14px;padding:14px 18px 6px;font-weight:800;font-size:22px}
+.hud .chiudi{font-size:28px;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.2)}
+.mondo-papiro .hud .chiudi{background:rgba(74,44,10,.12)}
+.hud .punti{margin-left:auto}
+.hud .fuoco{min-width:60px}
+.pista{position:relative;margin:4px 24px 0;height:44px}
+.pista .linea{position:absolute;left:0;right:34px;top:50%;border-top:4px dashed currentColor;opacity:.35}
+.pista .meta{position:absolute;right:0;top:2px;font-size:32px}
+.pista .viaggiatore{position:absolute;top:0;font-size:34px;transition:left .5s cubic-bezier(.3,1.4,.5,1);transform:translateX(-50%)}
+.timer{height:10px;margin:6px 24px 0;border-radius:6px;background:rgba(255,255,255,.25);overflow:hidden}
+.mondo-papiro .timer{background:rgba(74,44,10,.15)}
+.timer i{display:block;height:100%;width:100%;background:var(--giallo);transform-origin:left}
+.palco{position:relative;flex:1;overflow:auto;padding:16px 24px 30px;display:flex;flex-direction:column;align-items:center}
+.domanda{font-size:30px;font-weight:800;text-align:center;max-width:780px;margin:12px 0 22px}
+.lacuna{display:inline-block;min-width:110px;border-bottom:4px solid currentColor;margin:0 4px}
+.opzioni{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%;max-width:820px}
+.opz{background:#fff;color:var(--inchiostro);border:3px solid var(--inchiostro);border-radius:var(--r-m);padding:18px;font-size:24px;font-weight:700;box-shadow:4px 4px 0 rgba(0,0,0,.35);min-height:76px}
+.opz:active{transform:translate(2px,2px)}
+.opz.giusta{background:var(--ok);color:#fff;animation:pop .35s}
+.opz.sbagliata{background:var(--ko);color:#fff;animation:scuoti .4s}
+.opz.spenta{opacity:.45}
+.vf{display:flex;gap:18px;width:100%;max-width:700px}
+.vf .opz{flex:1;font-size:32px;min-height:120px}
+.carta-cat{background:#fff;color:var(--inchiostro);border:3px solid var(--inchiostro);border-radius:var(--r-m);padding:26px 40px;font-size:34px;font-weight:800;margin:20px 0 28px;box-shadow:5px 5px 0 rgba(0,0,0,.35);animation:cala .35s}
+.colonne{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;width:100%;max-width:760px}
+.colonne .opz{font-size:22px;min-height:64px;padding:12px}
+.opz.scelta{outline:5px solid var(--giallo);outline-offset:2px}
+.opz.fatta{background:var(--ok);color:#fff;opacity:.85;box-shadow:none}
+.griglia-memory{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%;max-width:min(640px,calc((100vh - 250px) / 3 * .75 * 4 + 36px))}
+.mcard{aspect-ratio:3/4;perspective:800px}
+.mcard .dentro{position:relative;width:100%;height:100%;transition:transform .4s;transform-style:preserve-3d}
+.mcard.girata .dentro,.mcard.presa .dentro{transform:rotateY(180deg)}
+.mcard .faccia{position:absolute;inset:0;border-radius:var(--r-m);border:3px solid var(--inchiostro);display:grid;place-items:center;backface-visibility:hidden;padding:8px;text-align:center;font-weight:800;font-size:20px}
+.mcard .dorso{background:var(--giallo);font-size:40px}
+.mcard .fronte{background:#fff;color:var(--inchiostro);transform:rotateY(180deg)}
+.mcard.presa .fronte{background:var(--ok);color:#fff}
+.sequenza{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:70px;margin-bottom:24px;max-width:820px}
+.sequenza .tassello{background:var(--ok);color:#fff}
+.tassello{background:#fff;color:var(--inchiostro);border:3px solid var(--inchiostro);border-radius:var(--r-s);padding:10px 18px;font-size:24px;font-weight:800;box-shadow:3px 3px 0 rgba(0,0,0,.35)}
+.tassello .n{font-size:15px;opacity:.8;margin-right:6px}
+.mucchio{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:820px}
+.caselle{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0 24px}
+.casella{width:54px;height:64px;border-bottom:5px solid currentColor;font-size:38px;font-weight:800;display:grid;place-items:center}
+.lettere{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:700px}
+.lettera{width:62px;height:62px;font-size:34px;font-weight:800;background:#fff;color:var(--inchiostro);border:3px solid var(--inchiostro);border-radius:12px;box-shadow:3px 3px 0 rgba(0,0,0,.35)}
+.lettera.usata{visibility:hidden}
+.azioni{display:flex;gap:14px;margin-top:26px}
+.scuoti{animation:scuoti .4s}
+.punti-volanti{position:fixed;font-size:34px;font-weight:800;color:var(--giallo);text-shadow:2px 2px 0 #000;pointer-events:none;animation:vola .9s forwards;z-index:30}
+@keyframes pop{50%{transform:scale(1.07)}}
+@keyframes scuoti{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@keyframes vola{to{transform:translateY(-80px);opacity:0}}
+@keyframes cala{from{transform:translateY(-30px) rotate(-4deg);opacity:0}}
+
+/* fine partita */
+.fine{text-align:center;margin:auto;padding:20px}
+.fine .stelle-grandi{font-size:84px;letter-spacing:8px;margin:10px 0}
+.fine .stelle-grandi span{display:inline-block;animation:timbro .45s backwards}
+.fine .stelle-grandi span:nth-child(2){animation-delay:.25s}
+.fine .stelle-grandi span:nth-child(3){animation-delay:.5s}
+.fine .stelle-grandi .spenta{filter:grayscale(1);opacity:.35}
+@keyframes timbro{from{transform:scale(2.4) rotate(-20deg);opacity:0}}
+.fine h1{font-size:46px}
+.record{display:inline-block;background:var(--rosso);color:#fff;padding:4px 16px;border-radius:8px;transform:rotate(-3deg);font-size:24px;margin-top:6px}
+.coriandoli{position:fixed;inset:0;pointer-events:none;z-index:20}
+
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:var(--inchiostro);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:cala .3s}
+@media (max-width:600px){#app{padding-left:58px} h1{font-size:32px} .domanda{font-size:24px} .griglia-memory{grid-template-columns:repeat(3,1fr);max-width:none} .opzioni{grid-template-columns:1fr} .colonne{gap:12px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav id="nav">
+  <button data-go="#/casa"><span>🏠</span>Casa</button>
+  <button data-go="#/compiti"><span>📒</span>Compiti</button>
+  <button data-go="#/premi"><span>🏆</span>Premi</button>
+</nav>
+<script>
+'use strict';
+/* ---------- utilità ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mescola = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const carica = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+const salva = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+const oggiISO = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+const GIORNI = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+function nomeGiorno(iso) {
+  const oggi = new Date(oggiISO()), d = new Date(iso), diff = Math.round((d - oggi) / 864e5);
+  if (diff === 0) return 'Oggi';
+  if (diff === 1) return 'Domani';
+  if (diff === -1) return 'Ieri';
+  const s = `${GIORNI[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]}`;
+  return s[0].toUpperCase() + s.slice(1);
+}
+function toast(t) { const el = document.createElement('div'); el.className = 'toast'; el.textContent = t; document.body.append(el); setTimeout(() => el.remove(), 3200); }
+
+/* ---------- dati ---------- */
+const MATERIE_BASE = {
+  matematica: { nome: 'Matematica', icona: '🚀', mondo: 'spazio' },
+  storia: { nome: 'Storia', icona: '🏺', mondo: 'papiro' },
+  geografia: { nome: 'Geografia', icona: '🧭', mondo: 'mare' }
+};
+const MONDI = {
+  spazio: { viaggiatore: '🚀', meta: '🪐', dorso: '⭐' },
+  papiro: { viaggiatore: '🐎', meta: '🏛️', dorso: '🏺' },
+  mare:   { viaggiatore: '⛵', meta: '🏝️', dorso: '🧭' }
+};
+const TIPI = {
+  quiz:      { nome: 'Quiz a tempo', ico: '⏱️' },
+  verofalso: { nome: 'Vero o falso', ico: '⚖️' },
+  completa:  { nome: 'Completa la frase', ico: '✏️' },
+  abbina:    { nome: 'Abbina le coppie', ico: '🔗' },
+  memory:    { nome: 'Memory', ico: '🃏' },
+  ordina:    { nome: 'Metti in ordine', ico: '🪜' },
+  anagramma: { nome: 'Parole mescolate', ico: '🔤' },
+  categorie: { nome: 'Dividi in gruppi', ico: '🗂️' }
+};
+const ALTRE_MATERIE = {
+  italiano: { nome: 'Italiano', icona: '📖' }, inglese: { nome: 'Inglese', icona: '💂' }, scienze: { nome: 'Scienze', icona: '🔬' },
+  arte: { nome: 'Arte', icona: '🎨' }, musica: { nome: 'Musica', icona: '🎵' }, tecnologia: { nome: 'Tecnologia', icona: '💻' },
+  religione: { nome: 'Religione', icona: '🕊️' }, 'educazione fisica': { nome: 'Ed. fisica', icona: '⚽' }
+};
+const infoMateria = k => materie()[k] || ALTRE_MATERIE[k] || { nome: k ? k[0].toUpperCase() + k.slice(1) : 'Altro', icona: '📘' };
+const AVATAR = ['🦊','🐱','🐼','🦄','🐸','🐧','🦉','🐬','🦋','🐯','🐨','🐙'];
+
+let DATI = carica('ae_dati', null);
+let PROG = carica('ae_prog', { punti: 0, partite: 0, giochi: {}, compitiFatti: {}, temiVisti: [] });
+let PROF = carica('ae_prof', null);
+let PONTE = carica('ae_ponte', []); // compiti arrivati da Scuola Online
+const salvaProg = () => salva('ae_prog', PROG);
+
+/* Punto di aggancio per la futura classifica con le amiche (Firebase).
+   Per ora non invia nulla: tutto resta sul tablet. */
+const Sync = {
+  attivo: false,
+  async inviaPartita(_partita) {},
+  async classifica() { return []; }
+};
+
+async function aggiornaDati() {
+  try {
+    const r = await fetch('data/contenuti.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw 0;
+    const nuovi = await r.json();
+    const prima = DATI;
+    DATI = nuovi; salva('ae_dati', DATI);
+    if (prima && nuovi.versione > prima.versione) {
+      const idPrima = new Set(prima.temi.map(t => t.id));
+      const n = nuovi.temi.filter(t => !idPrima.has(t.id)).length;
+      toast(n ? `Sono arrivati ${n === 1 ? 'un tema nuovo' : n + ' temi nuovi'}!` : 'Esercizi e compiti aggiornati');
+    }
+    if (!location.hash.startsWith('#/gioco')) render();
+    aggiornaCompiti();
+  } catch { if (!DATI) $('#app').innerHTML = '<div class="vuoto">Per la prima apertura serve internet. Collegati e riapri l\'app.</div>'; }
+}
+async function aggiornaCompiti() {
+  if (!DATI?.ponte) return;
+  try {
+    const r = await fetch(DATI.ponte, { cache: 'no-store' });
+    const j = await r.json();
+    if (!Array.isArray(j.compiti)) throw 0;
+    const nuovi = j.compiti.filter(c => !PONTE.some(x => x.id === c.id)).length;
+    PONTE = j.compiti; salva('ae_ponte', PONTE);
+    if (nuovi && carica('ae_ponte_ok', false)) toast(nuovi === 1 ? 'È arrivato un compito nuovo' : `Sono arrivati ${nuovi} compiti nuovi`);
+    salva('ae_ponte_ok', true);
+    if (!location.hash.startsWith('#/gioco')) render();
+  } catch {} // senza internet restano gli ultimi compiti scaricati
+}
+function tuttiCompiti() {
+  const visti = new Set(), out = [];
+  for (const c of [...(DATI.compiti || []), ...PONTE]) if (!visti.has(c.id)) { visti.add(c.id); out.push(c); }
+  return out;
+}
+function temaDelCompito(c) {
+  if (c.tema) return tema(c.tema);
+  const t = (c.testo || '').toLowerCase();
+  return DATI.temi.find(x => x.materia === c.materia && (x.parole || []).some(p => t.includes(p.toLowerCase())));
+}
+const materie = () => ({ ...MATERIE_BASE, ...(DATI?.materie || {}) });
+const tema = id => DATI?.temi.find(t => t.id === id);
+const chiaveG = (tid, i) => tid + '#' + i;
+function stelleTema(t) { return t.giochi.reduce((s, _, i) => s + (PROG.giochi[chiaveG(t.id, i)]?.stelle || 0), 0); }
+function stelleTotali() { return Object.values(PROG.giochi).reduce((s, g) => s + (g.stelle || 0), 0); }
+const str = n => '⭐'.repeat(n) + '<span style="opacity:.25">' + '⭐'.repeat(3 - n) + '</span>';
+
+/* ---------- router ---------- */
+window.addEventListener('hashchange', render);
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-go]'); if (b) { location.hash = b.dataset.go; }
+});
+
+function render() {
+  const app = $('#app'), h = location.hash || '#/casa', [, pag, a, b] = h.split('/');
+  chiudiGioco();
+  document.querySelectorAll('nav button').forEach(x => x.classList.toggle('on', h.startsWith(x.dataset.go) || (pag === 'materia' || pag === 'tema') && x.dataset.go === '#/casa'));
+  if (!PROF) return paginaProfilo(app, true);
+  if (!DATI) { app.innerHTML = '<p class="muted">Carico gli esercizi…</p>'; return; }
+  window.scrollTo(0, 0);
+  if (pag === 'materia') return paginaMateria(app, a);
+  if (pag === 'tema') return paginaTema(app, decodeURIComponent(a));
+  if (pag === 'gioco') return avviaGioco(decodeURIComponent(a), +b);
+  if (pag === 'compiti') return paginaCompiti(app);
+  if (pag === 'premi') return paginaPremi(app);
+  return paginaCasa(app);
+}
+
+/* ---------- pagine ---------- */
+function paginaCasa(app) {
+  const M = materie();
+  const prossimi = tuttiCompiti().filter(c => c.data >= oggiISO() && !PROG.compitiFatti[c.id]).sort((x, y) => x.data.localeCompare(y.data)).slice(0, 3);
+  app.innerHTML = `
+    <div class="top">
+      <div class="avatar">${PROF.avatar}</div>
+      <div><h1>Ciao ${esc(PROF.nome)}!</h1><div class="muted">Cosa ripassiamo oggi?</div></div>
+      <div class="stelle-tot">⭐ ${stelleTotali()}</div>
+    </div>
+    <h2>Le tue materie</h2>
+    <div class="quaderni">
+      ${Object.entries(M).map(([k, m]) => {
+        const temi = DATI.temi.filter(t => t.materia === k);
+        const nuovi = temi.filter(t => !PROG.temiVisti.includes(t.id)).length;
+        return `<button class="quaderno bg-${k}" data-go="#/materia/${k}">
+          <div class="ico">${m.icona}</div><div class="nome">${esc(m.nome)}</div>
+          <div>${temi.length} ${temi.length === 1 ? 'tema' : 'temi'}${nuovi ? ` <span class="badge-nuovo">${nuovi} nuov${nuovi === 1 ? 'o' : 'i'}</span>` : ''}</div>
+          <span class="etichetta penna">${PROF.nome}</span></button>`;
+      }).join('')}
+    </div>
+    <h2>Prossimi compiti</h2>
+    ${prossimi.length ? prossimi.map(compitoHTML).join('') : '<div class="vuoto">Nessun compito in arrivo. Puoi giocare quanto vuoi!</div>'}
+    ${prossimi.length ? '<button class="btn bianco" data-go="#/compiti">Vedi tutti i compiti</button>' : ''}`;
+  legaCompiti(app);
+}
+
+function paginaMateria(app, k) {
+  const m = materie()[k]; if (!m) return paginaCasa(app);
+  const temi = DATI.temi.filter(t => t.materia === k);
+  app.innerHTML = `
+    <button class="indietro" data-go="#/casa">‹ Casa</button>
+    <h1 class="c-${k}">${m.icona} ${esc(m.nome)}</h1>
+    <h2>Scegli un tema</h2>
+    ${temi.length ? temi.map(t => `
+      <button class="riga" data-go="#/tema/${encodeURIComponent(t.id)}">
+        <span class="ico">${m.icona}</span>
+        <span><span class="grande">${esc(t.titolo)}</span>${PROG.temiVisti.includes(t.id) ? '' : '<span class="badge-nuovo">Nuovo</span>'}
+        <br><span class="muted">${t.giochi.length} giochi</span></span>
+        <span class="stelline">⭐ ${stelleTema(t)}/${t.giochi.length * 3}</span>
+      </button>`).join('') : '<div class="vuoto">Qui non ci sono ancora temi. Arriveranno presto!</div>'}`;
+}
+
+function paginaTema(app, id) {
+  const t = tema(id); if (!t) return paginaCasa(app);
+  if (!PROG.temiVisti.includes(id)) { PROG.temiVisti.push(id); salvaProg(); }
+  const m = materie()[t.materia];
+  app.innerHTML = `
+    <button class="indietro" data-go="#/materia/${t.materia}">‹ ${esc(m.nome)}</button>
+    <h1 class="c-${t.materia}">${esc(t.titolo)}</h1>
+    <h2>Scegli un gioco</h2>
+    ${t.giochi.map((g, i) => {
+      const p = PROG.giochi[chiaveG(t.id, i)], tp = TIPI[g.tipo] || { nome: g.tipo, ico: '🎲' };
+      return `<button class="riga" data-go="#/gioco/${encodeURIComponent(t.id)}/${i}">
+        <span class="ico">${tp.ico}</span>
+        <span><span class="grande">${esc(g.titolo || tp.nome)}</span><br><span class="muted">${tp.nome}${p ? ` · record ${p.record} punti` : ''}</span></span>
+        <span class="stelline">${str(p?.stelle || 0)}</span></button>`;
+    }).join('')}`;
+}
+
+function compitoHTML(c) {
+  const m = infoMateria(c.materia), fatto = !!PROG.compitiFatti[c.id], t = temaDelCompito(c);
+  return `<div class="compito ${esc(c.materia.replace(/\s/g, '-'))} ${fatto ? 'fatto' : ''}">
+    <button class="spunta" data-spunta="${esc(c.id)}" aria-label="${fatto ? 'Segna da fare' : 'Segna come fatto'}">${fatto ? '✓' : ''}</button>
+    <div><div class="testo">${esc(c.testo)}${c.verifica ? '<span class="verifica">Verifica</span>' : ''}</div>
+    <div class="meta muted">${m.icona} ${esc(m.nome)} · ${nomeGiorno(c.data)}</div>
+    ${t ? `<button class="btn piccolo" data-go="#/tema/${encodeURIComponent(t.id)}">🎮 Esercitati</button>` : ''}</div></div>`;
+}
+function legaCompiti(app) {
+  app.querySelectorAll('[data-spunta]').forEach(b => b.onclick = () => {
+    const id = b.dataset.spunta;
+    if (PROG.compitiFatti[id]) delete PROG.compitiFatti[id]; else { PROG.compitiFatti[id] = Date.now(); suono('ok'); }
+    salvaProg(); render();
+  });
+}
+
+function paginaCompiti(app) {
+  const oggi = oggiISO();
+  const lista = tuttiCompiti().filter(c => c.data >= new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10)).sort((x, y) => x.data.localeCompare(y.data));
+  const arretrati = lista.filter(c => c.data < oggi && !PROG.compitiFatti[c.id]);
+  const futuri = lista.filter(c => c.data >= oggi);
+  const perGiorno = {}; futuri.forEach(c => (perGiorno[c.data] ||= []).push(c));
+  app.innerHTML = `
+    <h1>📒 Diario dei compiti</h1>
+    ${arretrati.length ? `<div class="giorno" style="color:var(--rosso)">Da recuperare</div>${arretrati.map(compitoHTML).join('')}` : ''}
+    ${Object.keys(perGiorno).length ? Object.entries(perGiorno).map(([d, cs]) => `<div class="giorno">${nomeGiorno(d)}</div>${cs.map(compitoHTML).join('')}`).join('')
+      : '<div class="vuoto" style="margin-top:20px">Nessun compito segnato. Appena le maestre li scrivono sul registro, li trovi qui.</div>'}`;
+  legaCompiti(app);
+}
+
+function paginaPremi(app) {
+  const st = stelleTotali(), M = materie();
+  const perMat = k => DATI.temi.filter(t => t.materia === k).reduce((s, t) => s + stelleTema(t), 0);
+  const fatti = Object.keys(PROG.compitiFatti).length;
+  const med = [
+    ['🌟', 'Prima stella', st >= 1], ['🎯', '10 partite', PROG.partite >= 10], ['💯', '1000 punti', PROG.punti >= 1000],
+    ['🔥', '50 stelle', st >= 50], ['📒', '5 compiti fatti', fatti >= 5],
+    ...Object.entries(M).map(([k, m]) => [m.icona, `10 stelle in ${m.nome}`, perMat(k) >= 10])
+  ];
+  app.innerHTML = `
+    <div class="top"><div class="avatar">${PROF.avatar}</div><div><h1>${esc(PROF.nome)}</h1><div class="muted">${st} stelle · ${PROG.punti} punti · ${PROG.partite} partite</div></div></div>
+    <h2>Medaglie</h2>
+    <div class="medaglie">${med.map(([i, n, ok]) => `<div class="medaglia ${ok ? '' : 'bloccata'}"><div class="ico">${i}</div><b>${n}</b></div>`).join('')}</div>
+    <h2>Classifica con le amiche</h2>
+    <div class="vuoto">Presto potrai sfidare le tue compagne di classe!</div>
+    <h2>Il tuo profilo</h2>
+    <button class="btn bianco" id="modProf">✏️ Cambia nome o avatar</button>
+    <p class="muted" style="font-size:14px;margin-top:30px">Esercizi aggiornati al ${esc(DATI.aggiornato || '')}</p>`;
+  $('#modProf').onclick = () => paginaProfilo(app, false);
+}
+
+function paginaProfilo(app, primo) {
+  let av = PROF?.avatar || AVATAR[0];
+  $('#nav').style.display = primo ? 'none' : '';
+  app.innerHTML = `
+    <h1>${primo ? 'Benvenuta!' : 'Il tuo profilo'}</h1>
+    <h2>Come ti chiami?</h2>
+    <input type="text" id="nome" maxlength="14" placeholder="Il tuo soprannome" value="${esc(PROF?.nome || '')}">
+    <h2>Scegli il tuo avatar</h2>
+    <div class="avatars">${AVATAR.map(a => `<button data-av="${a}" class="${a === av ? 'on' : ''}">${a}</button>`).join('')}</div>
+    <br><button class="btn" id="ok">${primo ? 'Iniziamo!' : 'Salva'}</button>`;
+  app.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; app.querySelectorAll('[data-av]').forEach(x => x.classList.toggle('on', x === b)); });
+  $('#ok').onclick = () => {
+    const nome = $('#nome').value.trim(); if (!nome) { $('#nome').classList.add('scuoti'); setTimeout(() => $('#nome').classList.remove('scuoti'), 400); return; }
+    PROF = { nome, avatar: av, id: PROF?.id || Math.random().toString(36).slice(2, 10) }; salva('ae_prof', PROF);
+    $('#nav').style.display = ''; location.hash = '#/casa'; render();
+  };
+}
+
+/* ---------- suoni ---------- */
+let AC = null, audioOn = carica('ae_audio', true);
+function suono(tipo) {
+  if (!audioOn) return;
+  try {
+    AC ||= new (window.AudioContext || window.webkitAudioContext)();
+    const note = { ok: [660, 880], ko: [220, 160], fine: [523, 659, 784, 1046], gira: [440] }[tipo] || [440];
+    note.forEach((f, i) => {
+      const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + i * 0.09;
+      o.type = tipo === 'ko' ? 'sawtooth' : 'triangle'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+      o.connect(g).connect(AC.destination); o.start(t); o.stop(t + 0.25);
+    });
+  } catch {}
+}
+
+/* ---------- motore di gioco ---------- */
+let G = null;
+function chiudiGioco() { if (G) { clearInterval(G.tick); G.el.remove(); G = null; } }
+
+function avviaGioco(tid, idx) {
+  const t = tema(tid), g = t?.giochi[idx];
+  if (!g || !MOTORI[g.tipo]) { location.hash = '#/casa'; return; }
+  const m = materie()[t.materia] || MATERIE_BASE.matematica, W = MONDI[m.mondo] || MONDI.spazio;
+  const el = document.createElement('div');
+  el.className = 'gioco mondo-' + (m.mondo || 'spazio');
+  el.innerHTML = `
+    <div class="hud"><button class="chiudi" aria-label="Esci">✕</button>
+      <span class="vite"></span><span class="fuoco"></span><span class="punti">0</span>
+      <button class="chiudi audio" aria-label="Suono">${audioOn ? '🔊' : '🔈'}</button></div>
+    <div class="pista"><div class="linea"></div><div class="meta">${W.meta}</div><div class="viaggiatore">${W.viaggiatore}</div></div>
+    <div class="timer" hidden><i></i></div>
+    <div class="palco"></div>`;
+  document.body.append(el);
+  G = { el, t, g, idx, W, punti: 0, serie: 0, giuste: 0, errori: 0, vite: 3, usaVite: false, fatti: 0, totale: 1, pesoErr: 1, tick: null, finito: false };
+  $('.chiudi', el).onclick = () => { location.hash = '#/tema/' + encodeURIComponent(tid); };
+  $('.audio', el).onclick = e => { audioOn = !audioOn; salva('ae_audio', audioOn); e.currentTarget.textContent = audioOn ? '🔊' : '🔈'; };
+  hud();
+  MOTORI[g.tipo]($('.palco', el), g);
+}
+const palco = () => $('.palco', G.el);
+function hud() {
+  if (!G) return;
+  $('.vite', G.el).textContent = G.usaVite ? '❤️'.repeat(G.vite) + '🤍'.repeat(3 - G.vite) : '';
+  $('.fuoco', G.el).textContent = G.serie >= 2 ? '🔥 x' + Math.min(G.serie, 5) : '';
+  $('.punti', G.el).textContent = G.punti + ' punti';
+  const f = Math.min(G.fatti / G.totale, 1);
+  $('.viaggiatore', G.el).style.left = `calc(${f} * (100% - 50px) + 17px)`;
+}
+function puntiVolanti(n, ref) {
+  const r = ref?.getBoundingClientRect?.() || { left: innerWidth / 2, top: innerHeight / 2, width: 0 };
+  const d = document.createElement('div'); d.className = 'punti-volanti'; d.textContent = '+' + n;
+  d.style.left = (r.left + r.width / 2 - 20) + 'px'; d.style.top = (r.top - 10) + 'px';
+  document.body.append(d); setTimeout(() => d.remove(), 900);
+}
+function bene(ref, bonus = 0) {
+  G.giuste++; G.serie++;
+  const p = 10 * Math.min(G.serie, 5) + bonus; G.punti += p;
+  suono('ok'); puntiVolanti(p, ref); hud();
+}
+function male(ref) {
+  G.errori++; G.serie = 0; suono('ko');
+  ref?.classList?.add('scuoti'); setTimeout(() => ref?.classList?.remove('scuoti'), 400);
+  if (G.usaVite) { G.vite--; hud(); if (G.vite <= 0) { setTimeout(() => fine(true), 900); return false; } }
+  hud(); return true;
+}
+function avanza() { G.fatti++; hud(); }
+
+/* timer per domanda: restituisce funzione stop() -> frazione di tempo rimasta */
+function timer(sec, scaduto) {
+  const bar = $('.timer', G.el), i = $('i', bar); bar.hidden = false;
+  const t0 = Date.now(); clearInterval(G.tick);
+  G.tick = setInterval(() => {
+    const f = 1 - (Date.now() - t0) / (sec * 1000);
+    i.style.transform = `scaleX(${Math.max(f, 0)})`;
+    if (f <= 0) { clearInterval(G.tick); scaduto(); }
+  }, 100);
+  return () => { clearInterval(G.tick); return Math.max(0, 1 - (Date.now() - t0) / (sec * 1000)); };
+}
+
+function fine(perso = false) {
+  if (!G || G.finito) return; G.finito = true; clearInterval(G.tick);
+  $('.timer', G.el).hidden = true;
+  const ratio = G.giuste / Math.max(1, G.giuste + G.errori * G.pesoErr);
+  const stelle = perso ? 0 : ratio >= 0.9 ? 3 : ratio >= 0.7 ? 2 : ratio >= 0.4 ? 1 : 0;
+  const k = chiaveG(G.t.id, G.idx), prima = PROG.giochi[k] || { record: 0, stelle: 0 };
+  const record = G.punti > prima.record && !perso;
+  PROG.giochi[k] = { record: Math.max(prima.record, perso ? 0 : G.punti), stelle: Math.max(prima.stelle, stelle), ultima: Date.now() };
+  PROG.punti += G.punti; PROG.partite++; salvaProg();
+  Sync.inviaPartita({ profilo: PROF.id, tema: G.t.id, gioco: G.idx, punti: G.punti, stelle });
+  const tid = G.t.id, idx = G.idx, prossimo = G.t.giochi[idx + 1] ? idx + 1 : null;
+  const frase = perso ? 'Hai finito i cuori!' : stelle === 3 && !G.errori ? 'Perfetto!' : ['Riprova, ce la fai!', 'Ci sei quasi!', 'Bravissima!', 'Fantastico!'][stelle];
+  palco().innerHTML = `<div class="fine">
+    <h1>${frase}</h1>
+    <div class="stelle-grandi">${[0, 1, 2].map(i => `<span class="${i < stelle ? '' : 'spenta'}">⭐</span>`).join('')}</div>
+    <div style="font-size:28px;font-weight:800">${G.punti} punti</div>
+    ${record && prima.record ? '<div class="record penna">Nuovo record!</div>' : ''}
+    <div class="azioni" style="justify-content:center">
+      <button class="btn" id="ancora">🔁 Gioca ancora</button>
+      ${prossimo !== null ? `<button class="btn bianco" id="poi">Prossimo gioco</button>` : `<button class="btn bianco" id="poi">Torna al tema</button>`}
+    </div></div>`;
+  $('#ancora').onclick = () => { chiudiGioco(); avviaGioco(tid, idx); };
+  $('#poi').onclick = () => { location.hash = prossimo !== null ? `#/gioco/${encodeURIComponent(tid)}/${prossimo}` : '#/tema/' + encodeURIComponent(tid); };
+  suono(perso ? 'ko' : 'fine');
+  if (stelle >= 2) coriandoli();
+}
+function coriandoli() {
+  const c = document.createElement('canvas'); c.className = 'coriandoli'; c.width = innerWidth; c.height = innerHeight; document.body.append(c);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { c.remove(); return; }
+  const x = c.getContext('2d'), col = ['#FFC93C', '#E5383B', '#4361EE', '#2BB673', '#fff'];
+  const P = Array.from({ length: 140 }, () => ({ x: innerWidth / 2, y: innerHeight / 3, vx: (Math.random() - .5) * 16, vy: Math.random() * -14 - 4, r: Math.random() * 6 + 4, c: col[Math.random() * 5 | 0], a: Math.random() * 6 }));
+  let n = 0; (function f() { x.clearRect(0, 0, c.width, c.height);
+    P.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .45; p.vx *= .99; p.a += .2; x.save(); x.translate(p.x, p.y); x.rotate(p.a); x.fillStyle = p.c; x.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); x.restore(); });
+    if (++n < 150) requestAnimationFrame(f); else c.remove(); })();
+}
+
+/* ---------- i giochi ---------- */
+const MOTORI = {
+  /* domande a scelta: quiz, completa (r[0] = giusta) */
+  quiz(p, g) { scelte(p, (g.domande || []).map(d => ({ testo: esc(d.d), giusta: d.r[0], opz: d.r })), 18); },
+  completa(p, g) {
+    scelte(p, (g.frasi || []).map(d => ({ testo: esc(d.f).replace(/_{2,}/, '<span class="lacuna"></span>'), giusta: d.r[0], opz: d.r, lacuna: true })), 20);
+  },
+  verofalso(p, g) { scelte(p, (g.frasi || []).map(d => ({ testo: esc(d.f), giusta: d.v ? 'Vero' : 'Falso', opz: ['Vero', 'Falso'], fisse: true })), 10); },
+
+  categorie(p, g) {
+    G.usaVite = true;
+    const gruppi = Object.keys(g.gruppi || {});
+    const carte = mescola(gruppi.flatMap(k => g.gruppi[k].map(v => ({ v, k })))).slice(0, 12);
+    G.totale = carte.length; let i = 0; hud();
+    const giro = () => {
+      if (i >= carte.length) return fine();
+      const c = carte[i];
+      p.innerHTML = `<div class="domanda" style="font-size:22px">Dove va?</div><div class="carta-cat">${esc(c.v)}</div>
+        <div class="opzioni">${gruppi.map(k => `<button class="opz" data-k="${esc(k)}">${esc(k)}</button>`).join('')}</div>`;
+      let chiuso = false;
+      const stop = timer(12, () => rispondi(null));
+      const rispondi = b => {
+        if (chiuso) return; chiuso = true; const resto = stop();
+        const giusto = p.querySelector(`[data-k="${CSS.escape(c.k)}"]`);
+        if (b && b.dataset.k === c.k) { b.classList.add('giusta'); bene(b, Math.round(resto * 10)); }
+        else { b?.classList.add('sbagliata'); giusto.classList.add('giusta'); if (!male(b)) return; }
+        avanza(); i++; setTimeout(giro, b && b.dataset.k === c.k ? 650 : 1300);
+      };
+      p.querySelectorAll('.opz').forEach(b => b.onclick = () => rispondi(b));
+    };
+    giro();
+  },
+
+  abbina(p, g) {
+    const coppie = mescola(g.coppie || []).slice(0, 6); G.totale = coppie.length; hud();
+    const sx = mescola(coppie.map((c, i) => ({ v: c[0], i }))), dx = mescola(coppie.map((c, i) => ({ v: c[1], i })));
+    p.innerHTML = `<div class="domanda" style="font-size:24px">Tocca un elemento a sinistra e poi quello giusto a destra</div>
+      <div class="colonne">${sx.map((a, n) => `<button class="opz" data-l="${a.i}">${esc(a.v)}</button><button class="opz" data-r="${dx[n].i}">${esc(dx[n].v)}</button>`).join('')}</div>`;
+    let sel = null, fatte = 0;
+    p.querySelectorAll('.opz').forEach(b => b.onclick = () => {
+      if (b.classList.contains('fatta')) return;
+      if (!sel || (sel.dataset.l !== undefined) === (b.dataset.l !== undefined)) { sel?.classList.remove('scelta'); sel = b; b.classList.add('scelta'); suono('gira'); return; }
+      const a = sel; sel = null; a.classList.remove('scelta');
+      if ((a.dataset.l ?? a.dataset.r) === (b.dataset.l ?? b.dataset.r)) {
+        a.classList.add('fatta'); b.classList.add('fatta'); bene(b); avanza();
+        if (++fatte === coppie.length) setTimeout(fine, 700);
+      } else { male(b); a.classList.add('scuoti'); setTimeout(() => a.classList.remove('scuoti'), 400); }
+    });
+  },
+
+  memory(p, g) {
+    G.pesoErr = 0.5;
+    const coppie = mescola(g.coppie || []).slice(0, 6); G.totale = coppie.length; hud();
+    const carte = mescola(coppie.flatMap((c, i) => [{ v: c[0], i }, { v: c[1], i }]));
+    p.innerHTML = `<div class="domanda" style="font-size:24px">Trova le coppie che vanno insieme</div>
+      <div class="griglia-memory">${carte.map((c, n) => `<button class="mcard" data-n="${n}" aria-label="Carta"><div class="dentro">
+        <div class="faccia dorso">${G.W.dorso}</div><div class="faccia fronte">${esc(c.v)}</div></div></button>`).join('')}</div>`;
+    let aperte = [], blocco = false, prese = 0;
+    p.querySelectorAll('.mcard').forEach(b => b.onclick = () => {
+      if (blocco || b.classList.contains('girata') || b.classList.contains('presa')) return;
+      b.classList.add('girata'); suono('gira'); aperte.push(b);
+      if (aperte.length < 2) return;
+      const [x, y] = aperte; aperte = [];
+      if (carte[x.dataset.n].i === carte[y.dataset.n].i) {
+        setTimeout(() => { x.classList.replace('girata', 'presa'); y.classList.replace('girata', 'presa'); bene(y); avanza(); if (++prese === coppie.length) setTimeout(fine, 700); }, 350);
+      } else {
+        blocco = true; G.errori++; G.serie = 0; hud();
+        setTimeout(() => { x.classList.remove('girata'); y.classList.remove('girata'); blocco = false; }, 1000);
+      }
+    });
+  },
+
+  ordina(p, g) {
+    const el = g.elementi || []; G.totale = el.length; hud();
+    p.innerHTML = `<div class="domanda" style="font-size:24px">${esc(g.istruzione || 'Tocca gli elementi nell\'ordine giusto')}</div>
+      <div class="sequenza"></div><div class="mucchio">${mescola(el.map((v, i) => ({ v, i }))).map(o => `<button class="tassello" data-i="${o.i}">${esc(o.v)}</button>`).join('')}</div>`;
+    let prossimo = 0; const seq = $('.sequenza', p);
+    p.querySelectorAll('.mucchio .tassello').forEach(b => b.onclick = () => {
+      if (+b.dataset.i === prossimo) {
+        prossimo++; b.remove(); const n = document.createElement('div'); n.className = 'tassello';
+        n.innerHTML = `<span class="n">${prossimo}</span>${esc(el[prossimo - 1])}`; n.style.animation = 'pop .35s'; seq.append(n);
+        bene(n); avanza(); if (prossimo === el.length) setTimeout(fine, 700);
+      } else male(b);
+    });
+  },
+
+  anagramma(p, g) {
+    const parole = mescola(g.parole || []).slice(0, 6); G.totale = parole.length; hud(); let i = 0;
+    const giro = () => {
+      if (i >= parole.length) return fine();
+      const w = parole[i], P = w.p.toUpperCase().replace(/\s/g, '');
+      let lett = P.split(''); do { lett = mescola(lett); } while (lett.join('') === P && P.length > 1);
+      let scelte = [], aiuti = 0;
+      p.innerHTML = `<div class="domanda" style="font-size:24px">${esc(w.indizio || 'Riordina le lettere')}</div>
+        <div class="caselle">${P.split('').map(() => '<div class="casella"></div>').join('')}</div>
+        <div class="lettere">${lett.map((l, n) => `<button class="lettera" data-n="${n}">${l}</button>`).join('')}</div>
+        <div class="azioni"><button class="btn bianco" id="cancella">⌫ Cancella</button><button class="btn bianco" id="aiuto">💡 Aiuto</button><button class="btn bianco" id="salta">Salta</button></div>`;
+      const caselle = [...p.querySelectorAll('.casella')], tasti = [...p.querySelectorAll('.lettera')];
+      const disegna = () => caselle.forEach((c, n) => c.textContent = scelte[n] != null ? lett[scelte[n]] : '');
+      const controlla = () => {
+        if (scelte.length < P.length) return;
+        if (scelte.map(n => lett[n]).join('') === P) { bene($('.caselle', p), aiuti ? 0 : 20); avanza(); i++; setTimeout(giro, 800); }
+        else { male($('.caselle', p)); setTimeout(() => { scelte = scelte.slice(0, aiuti); tasti.forEach((t, n) => t.classList.toggle('usata', scelte.includes(n))); disegna(); }, 450); }
+      };
+      tasti.forEach(t => t.onclick = () => { if (t.classList.contains('usata')) return; scelte.push(+t.dataset.n); t.classList.add('usata'); suono('gira'); disegna(); controlla(); });
+      $('#cancella', p).onclick = () => { if (scelte.length > aiuti) { tasti[scelte.pop()].classList.remove('usata'); disegna(); } };
+      $('#aiuto', p).onclick = () => {
+        scelte.slice(aiuti).forEach(n => tasti[n].classList.remove('usata')); scelte = scelte.slice(0, aiuti);
+        if (aiuti >= P.length) return;
+        const n = lett.findIndex((l, k) => l === P[aiuti] && !scelte.includes(k));
+        scelte.push(n); tasti[n].classList.add('usata'); aiuti++; G.serie = 0; hud(); disegna(); controlla();
+      };
+      $('#salta', p).onclick = () => { G.errori++; G.serie = 0; scelte = []; caselle.forEach((c, n) => c.textContent = P[n]); suono('ko'); avanza(); i++; setTimeout(giro, 1400); };
+    };
+    giro();
+  }
+};
+
+/* motore comune per quiz / completa / vero-falso */
+function scelte(p, domande, sec) {
+  G.usaVite = true;
+  const lista = mescola(domande).slice(0, 10); G.totale = lista.length; hud(); let i = 0;
+  const giro = () => {
+    if (i >= lista.length) return fine();
+    const d = lista[i], opz = d.fisse ? d.opz : mescola(d.opz);
+    p.innerHTML = `<div class="domanda">${d.testo}</div>
+      <div class="${d.fisse ? 'vf' : 'opzioni'}">${opz.map(o => `<button class="opz">${esc(o)}</button>`).join('')}</div>`;
+    const bottoni = [...p.querySelectorAll('.opz')]; let chiuso = false;
+    const stop = timer(sec, () => rispondi(null));
+    const rispondi = b => {
+      if (chiuso) return; chiuso = true; const resto = stop();
+      const giusto = bottoni[opz.indexOf(d.giusta)];
+      bottoni.forEach(x => x !== b && x !== giusto && x.classList.add('spenta'));
+      if (d.lacuna) $('.lacuna', p).textContent = d.giusta;
+      if (b === giusto) { b.classList.add('giusta'); bene(b, Math.round(resto * 10)); }
+      else { b?.classList.add('sbagliata'); giusto.classList.add('giusta'); if (!male(b)) return; }
+      avanza(); i++; setTimeout(giro, b === giusto ? 700 : 1500);
+    };
+    bottoni.forEach(b => b.onclick = () => rispondi(b));
+  };
+  giro();
+}
+
+/* ---------- avvio ---------- */
+render();
+aggiornaDati();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) aggiornaDati(); });
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>

@@ -1,0 +1,706 @@
+{
+  "versione": 1,
+  "aggiornato": "2026-11-14",
+  "materie": {
+    "matematica": {
+      "nome": "Matematica",
+      "icona": "🚀",
+      "mondo": "spazio"
+    },
+    "storia": {
+      "nome": "Storia",
+      "icona": "🏺",
+      "mondo": "papiro"
+    },
+    "geografia": {
+      "nome": "Geografia",
+      "icona": "🧭",
+      "mondo": "mare"
+    }
+  },
+  "temi": [
+    {
+      "id": "mat-frazioni",
+      "materia": "matematica",
+      "titolo": "Le frazioni",
+      "fonte": "Esempio",
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz delle frazioni",
+          "domande": [
+            {
+              "d": "In 3/4, come si chiama il 4?",
+              "r": [
+                "Denominatore",
+                "Numeratore",
+                "Quoziente",
+                "Resto"
+              ]
+            },
+            {
+              "d": "In 3/4, come si chiama il 3?",
+              "r": [
+                "Numeratore",
+                "Denominatore",
+                "Divisore",
+                "Prodotto"
+              ]
+            },
+            {
+              "d": "Quale frazione è uguale a un intero?",
+              "r": [
+                "5/5",
+                "1/5",
+                "5/1",
+                "0/5"
+              ]
+            },
+            {
+              "d": "Quanto vale 1/2 di 20?",
+              "r": [
+                "10",
+                "2",
+                "5",
+                "40"
+              ]
+            },
+            {
+              "d": "Quanto vale 1/4 di 12?",
+              "r": [
+                "3",
+                "4",
+                "6",
+                "48"
+              ]
+            },
+            {
+              "d": "Quale frazione è maggiore?",
+              "r": [
+                "3/4",
+                "1/4",
+                "2/4",
+                "0/4"
+              ]
+            },
+            {
+              "d": "Quale frazione è equivalente a 1/2?",
+              "r": [
+                "2/4",
+                "1/4",
+                "2/3",
+                "3/2"
+              ]
+            },
+            {
+              "d": "Come si scrive 7/10 in numero decimale?",
+              "r": [
+                "0,7",
+                "7,10",
+                "0,07",
+                "7,0"
+              ]
+            },
+            {
+              "d": "Quanto vale 3/4 di 8?",
+              "r": [
+                "6",
+                "2",
+                "4",
+                "24"
+              ]
+            },
+            {
+              "d": "Una frazione con il numeratore più grande del denominatore è...",
+              "r": [
+                "Impropria",
+                "Propria",
+                "Apparente",
+                "Decimale"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Frazione e decimale",
+          "coppie": [
+            [
+              "1/10",
+              "0,1"
+            ],
+            [
+              "1/2",
+              "0,5"
+            ],
+            [
+              "3/10",
+              "0,3"
+            ],
+            [
+              "25/100",
+              "0,25"
+            ],
+            [
+              "7/100",
+              "0,07"
+            ],
+            [
+              "9/10",
+              "0,9"
+            ]
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Che frazione è?",
+          "gruppi": {
+            "Propria": [
+              "2/5",
+              "1/3",
+              "7/9",
+              "3/8"
+            ],
+            "Impropria": [
+              "7/4",
+              "9/5",
+              "5/3",
+              "11/6"
+            ],
+            "Apparente": [
+              "6/3",
+              "8/4",
+              "10/5",
+              "4/4"
+            ]
+          }
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "1/2 è più grande di 1/4",
+              "v": true
+            },
+            {
+              "f": "Il denominatore sta sopra la linea di frazione",
+              "v": false
+            },
+            {
+              "f": "4/4 è uguale a un intero",
+              "v": true
+            },
+            {
+              "f": "0,5 è uguale a 1/5",
+              "v": false
+            },
+            {
+              "f": "Le frazioni decimali hanno come denominatore 10, 100, 1000...",
+              "v": true
+            },
+            {
+              "f": "2/3 è una frazione impropria",
+              "v": false
+            },
+            {
+              "f": "1/3 di 9 è 3",
+              "v": true
+            },
+            {
+              "f": "Con lo stesso denominatore, vince chi ha il numeratore più piccolo",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Dalla più piccola alla più grande",
+          "istruzione": "Tocca le frazioni dalla più piccola alla più grande",
+          "elementi": [
+            "1/8",
+            "1/4",
+            "3/8",
+            "1/2",
+            "3/4",
+            "7/8"
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory equivalenti",
+          "coppie": [
+            [
+              "1/2",
+              "2/4"
+            ],
+            [
+              "1/3",
+              "2/6"
+            ],
+            [
+              "3/4",
+              "6/8"
+            ],
+            [
+              "2/5",
+              "4/10"
+            ],
+            [
+              "1/5",
+              "2/10"
+            ],
+            [
+              "3/3",
+              "1 intero"
+            ]
+          ]
+        }
+      ],
+      "parole": [
+        "frazion"
+      ]
+    },
+    {
+      "id": "sto-etruschi",
+      "materia": "storia",
+      "titolo": "Gli Etruschi",
+      "fonte": "Esempio",
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sugli Etruschi",
+          "domande": [
+            {
+              "d": "Come si chiamava la regione abitata dagli Etruschi?",
+              "r": [
+                "Etruria",
+                "Magna Grecia",
+                "Gallia",
+                "Mesopotamia"
+              ]
+            },
+            {
+              "d": "Come si chiamava il re di una città etrusca?",
+              "r": [
+                "Lucumone",
+                "Faraone",
+                "Console",
+                "Tiranno"
+              ]
+            },
+            {
+              "d": "Chi interpretava la volontà degli dei?",
+              "r": [
+                "Gli aruspici",
+                "I senatori",
+                "Gli scribi",
+                "I mercanti"
+              ]
+            },
+            {
+              "d": "Come si chiamavano i cimiteri etruschi?",
+              "r": [
+                "Necropoli",
+                "Acropoli",
+                "Piramidi",
+                "Ziggurat"
+              ]
+            },
+            {
+              "d": "Da quale isola gli Etruschi prendevano il ferro?",
+              "r": [
+                "Elba",
+                "Sicilia",
+                "Sardegna",
+                "Capri"
+              ]
+            },
+            {
+              "d": "Com'era la tipica ceramica etrusca, il bucchero?",
+              "r": [
+                "Nera e lucida",
+                "Bianca con disegni blu",
+                "Trasparente",
+                "Di legno"
+              ]
+            },
+            {
+              "d": "Quante città formavano la lega etrusca?",
+              "r": [
+                "Dodici",
+                "Tre",
+                "Cento",
+                "Sette"
+              ]
+            },
+            {
+              "d": "Quale popolo alla fine conquistò gli Etruschi?",
+              "r": [
+                "I Romani",
+                "I Greci",
+                "I Fenici",
+                "Gli Egizi"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa la frase",
+          "frasi": [
+            {
+              "f": "Gli Etruschi vivevano nell'attuale Toscana, nel Lazio settentrionale e in ___.",
+              "r": [
+                "Umbria",
+                "Puglia",
+                "Sicilia"
+              ]
+            },
+            {
+              "f": "Il famoso Sarcofago degli Sposi è stato trovato a ___.",
+              "r": [
+                "Cerveteri",
+                "Milano",
+                "Napoli"
+              ]
+            },
+            {
+              "f": "Gli Etruschi erano abili nel lavorare i ___.",
+              "r": [
+                "metalli",
+                "diamanti",
+                "vetri colorati"
+              ]
+            },
+            {
+              "f": "Gli aruspici leggevano il futuro osservando il ___ degli animali.",
+              "r": [
+                "fegato",
+                "pelo",
+                "verso"
+              ]
+            },
+            {
+              "f": "Nelle tombe venivano messi oggetti per la vita nell' ___.",
+              "r": [
+                "aldilà",
+                "acqua",
+                "orto"
+              ]
+            },
+            {
+              "f": "Gli Etruschi commerciavano via mare con Greci e ___.",
+              "r": [
+                "Fenici",
+                "Vichinghi",
+                "Aztechi"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole mescolate",
+          "parole": [
+            {
+              "p": "ETRURIA",
+              "indizio": "La terra degli Etruschi"
+            },
+            {
+              "p": "LUCUMONE",
+              "indizio": "Il re di una città"
+            },
+            {
+              "p": "NECROPOLI",
+              "indizio": "La città dei morti"
+            },
+            {
+              "p": "BUCCHERO",
+              "indizio": "Ceramica nera e lucida"
+            },
+            {
+              "p": "ELBA",
+              "indizio": "Isola del ferro"
+            },
+            {
+              "p": "TARQUINIA",
+              "indizio": "Città famosa per le tombe dipinte"
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "Gli Etruschi avevano un unico re per tutto il popolo",
+              "v": false
+            },
+            {
+              "f": "Le donne etrusche partecipavano ai banchetti",
+              "v": true
+            },
+            {
+              "f": "Alcuni re di Roma erano etruschi",
+              "v": true
+            },
+            {
+              "f": "Gli Etruschi non sapevano scrivere",
+              "v": false
+            },
+            {
+              "f": "Le tombe etrusche erano spesso dipinte",
+              "v": true
+            },
+            {
+              "f": "Gli Etruschi vivevano in Egitto",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory etrusco",
+          "coppie": [
+            [
+              "Lucumone",
+              "Re della città"
+            ],
+            [
+              "Aruspice",
+              "Sacerdote indovino"
+            ],
+            [
+              "Necropoli",
+              "Città dei morti"
+            ],
+            [
+              "Bucchero",
+              "Ceramica nera"
+            ],
+            [
+              "Elba",
+              "Ferro"
+            ],
+            [
+              "Cerveteri",
+              "Sarcofago degli Sposi"
+            ]
+          ]
+        }
+      ],
+      "parole": [
+        "etrusch"
+      ]
+    },
+    {
+      "id": "geo-regioni",
+      "materia": "geografia",
+      "titolo": "Regioni e capoluoghi",
+      "fonte": "Esempio",
+      "giochi": [
+        {
+          "tipo": "abbina",
+          "titolo": "Regione e capoluogo",
+          "coppie": [
+            [
+              "Piemonte",
+              "Torino"
+            ],
+            [
+              "Lombardia",
+              "Milano"
+            ],
+            [
+              "Liguria",
+              "Genova"
+            ],
+            [
+              "Veneto",
+              "Venezia"
+            ],
+            [
+              "Toscana",
+              "Firenze"
+            ],
+            [
+              "Lazio",
+              "Roma"
+            ]
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory del Sud",
+          "coppie": [
+            [
+              "Campania",
+              "Napoli"
+            ],
+            [
+              "Puglia",
+              "Bari"
+            ],
+            [
+              "Calabria",
+              "Catanzaro"
+            ],
+            [
+              "Sicilia",
+              "Palermo"
+            ],
+            [
+              "Sardegna",
+              "Cagliari"
+            ],
+            [
+              "Basilicata",
+              "Potenza"
+            ]
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Nord, Centro o Sud?",
+          "gruppi": {
+            "Nord": [
+              "Piemonte",
+              "Lombardia",
+              "Veneto",
+              "Friuli-Venezia Giulia",
+              "Emilia-Romagna"
+            ],
+            "Centro": [
+              "Toscana",
+              "Umbria",
+              "Marche",
+              "Lazio"
+            ],
+            "Sud e isole": [
+              "Campania",
+              "Puglia",
+              "Calabria",
+              "Sicilia",
+              "Sardegna"
+            ]
+          }
+        },
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz delle regioni",
+          "domande": [
+            {
+              "d": "Quante sono le regioni italiane?",
+              "r": [
+                "20",
+                "15",
+                "25",
+                "12"
+              ]
+            },
+            {
+              "d": "Qual è il capoluogo dell'Umbria?",
+              "r": [
+                "Perugia",
+                "Terni",
+                "Assisi",
+                "Spoleto"
+              ]
+            },
+            {
+              "d": "Qual è la regione più piccola?",
+              "r": [
+                "Valle d'Aosta",
+                "Molise",
+                "Liguria",
+                "Umbria"
+              ]
+            },
+            {
+              "d": "Qual è il capoluogo delle Marche?",
+              "r": [
+                "Ancona",
+                "Pesaro",
+                "Macerata",
+                "Urbino"
+              ]
+            },
+            {
+              "d": "Quale regione non ha il mare?",
+              "r": [
+                "Umbria",
+                "Liguria",
+                "Puglia",
+                "Toscana"
+              ]
+            },
+            {
+              "d": "Qual è la regione più grande?",
+              "r": [
+                "Sicilia",
+                "Piemonte",
+                "Lombardia",
+                "Sardegna"
+              ]
+            },
+            {
+              "d": "Qual è il capoluogo del Molise?",
+              "r": [
+                "Campobasso",
+                "Isernia",
+                "Pescara",
+                "Termoli"
+              ]
+            },
+            {
+              "d": "In quale regione si trova Trento?",
+              "r": [
+                "Trentino-Alto Adige",
+                "Veneto",
+                "Lombardia",
+                "Friuli-Venezia Giulia"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Capoluoghi mescolati",
+          "parole": [
+            {
+              "p": "TORINO",
+              "indizio": "Capoluogo del Piemonte"
+            },
+            {
+              "p": "GENOVA",
+              "indizio": "Capoluogo della Liguria"
+            },
+            {
+              "p": "BOLOGNA",
+              "indizio": "Capoluogo dell'Emilia-Romagna"
+            },
+            {
+              "p": "AOSTA",
+              "indizio": "Capoluogo della Valle d'Aosta"
+            },
+            {
+              "p": "TRIESTE",
+              "indizio": "Capoluogo del Friuli-Venezia Giulia"
+            },
+            {
+              "p": "PALERMO",
+              "indizio": "Capoluogo della Sicilia"
+            }
+          ]
+        }
+      ],
+      "parole": [
+        "regioni",
+        "capoluogh"
+      ]
+    }
+  ],
+  "compiti": [],
+  "ponte": ""
+}

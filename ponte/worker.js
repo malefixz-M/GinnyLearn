@@ -5,6 +5,10 @@
 //   ORIGINE             -> indirizzo dell'app, es. https://TUONOME.github.io (facoltativo, default "*")
 //   VAPID_PUBLIC, VAPID_PRIVATE -> chiavi per le notifiche push (VAPID_PRIVATE come Secret)
 //   KV                  -> binding a un namespace KV (Bindings > KV namespace, nome variabile "KV")
+//   FOTO_CODICE         -> Secret: codice che si scrive una volta sul tablet per poter inviare foto
+//   GH_TOKEN            -> Secret: token GitHub "fine-grained" con permesso Contents: Read and write
+//                          SOLO sulla repo privata delle foto
+//   GH_REPO             -> repo privata delle foto, es. malefixz-M/GinnyLearn-inbox
 // Cron Triggers: "0 14,15,21,22 * * *" (UTC). Il codice lavora solo quando a Roma sono le 16 o le 23,
 // così l'orario resta giusto sia con l'ora solare sia con quella legale.
 const DURATA_CACHE = 15 * 60; // secondi
@@ -32,6 +36,8 @@ export default {
       await env.KV.put('iscrizioni', JSON.stringify(lista.slice(-10)));
       return json({ ok: true, iscritti: lista.length });
     }
+    if (url.pathname === '/pagina') return leggiPagina(url, env, cors);
+    if (url.pathname === '/foto' && req.method === 'POST') return json(...await salvaFoto(req, env));
     if (url.pathname === '/prova-push' && env.KV) {
       await env.KV.put('novita', JSON.stringify({ quando: new Date().toISOString(), titolo: '🔔 Prova', testo: 'Le notifiche funzionano!', quanti: 0 }));
       return json({ inviate: await inviaATutti(env) });
@@ -247,3 +253,32 @@ function maiuscolaIniziale(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 function hash(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) | 0; return (h >>> 0).toString(36); }
+
+// Foto di compiti e schede dal tablet -> cartella inbox/ della repo privata (GH_REPO).
+// Riceve JSON { codice, nome, dati } con dati = immagine in base64 (già rimpicciolita dall'app).
+async function salvaFoto(req, env) {
+  if (!env.GH_TOKEN || !env.GH_REPO || !env.FOTO_CODICE) return [{ errore: 'foto non configurate' }, 501];
+  let b; try { b = await req.json(); } catch { return [{ errore: 'dati non validi' }, 400]; }
+  if (b.codice !== env.FOTO_CODICE) return [{ errore: 'codice sbagliato' }, 403];
+  if (typeof b.dati !== 'string' || b.dati.length > 7_000_000) return [{ errore: 'foto troppo grande' }, 413];
+  const nomeSicuro = String(b.nome || 'foto').replace(/[^\w-]/g, '').slice(0, 60) || 'foto';
+  const ora = new Date().toLocaleString('sv-SE', { timeZone: 'Europe/Rome' }).replace(/[: ]/g, '-');
+  const percorso = `inbox/${ora}_${nomeSicuro}.jpg`;
+  const r = await fetch(`https://api.github.com/repos/${env.GH_REPO}/contents/${percorso}`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${env.GH_TOKEN}`, 'User-Agent': 'ginny-ponte', Accept: 'application/vnd.github+json' },
+    body: JSON.stringify({ message: `Foto dal tablet ${ora}`, content: b.dati })
+  });
+  return r.ok ? [{ ok: true, file: percorso }, 200] : [{ errore: 'GitHub ' + r.status }, 502];
+}
+
+// Pagina di un libro: pagine/<materia>/<n>.jpg nella repo privata. Serve il codice (FOTO_CODICE).
+async function leggiPagina(url, env, cors) {
+  const m = (url.searchParams.get('m') || '').replace(/[^a-z]/g, ''), n = parseInt(url.searchParams.get('n'), 10);
+  if (!env.GH_TOKEN || !env.GH_REPO || url.searchParams.get('codice') !== env.FOTO_CODICE || !m || !(n > 0)) return new Response('no', { status: 403, headers: cors });
+  const r = await fetch(`https://api.github.com/repos/${env.GH_REPO}/contents/pagine/${m}/${n}.jpg`, {
+    headers: { Authorization: `Bearer ${env.GH_TOKEN}`, 'User-Agent': 'ginny-ponte', Accept: 'application/vnd.github.raw' }
+  });
+  if (!r.ok) return new Response('manca', { status: 404, headers: cors });
+  return new Response(r.body, { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, max-age=86400', 'Access-Control-Allow-Origin': cors['Access-Control-Allow-Origin'] } });
+}

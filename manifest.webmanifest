@@ -1,6 +1,6 @@
 {
-  "name": "Quaderno dei giochi",
-  "short_name": "Quaderno",
+  "name": "GinnyLearn",
+  "short_name": "GinnyLearn",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

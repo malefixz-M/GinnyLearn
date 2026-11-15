@@ -1,5 +1,5 @@
 {
-  "versione": 2,
+  "versione": 5,
   "aggiornato": "2026-11-15",
   "materie": {
     "matematica": {
@@ -693,6 +693,88 @@
               "indizio": "Capoluogo della Sicilia"
             }
           ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Città, monti e fiumi",
+          "mappa": "italia",
+          "punti": [
+            {
+              "n": "Roma",
+              "lat": 41.9,
+              "lon": 12.5
+            },
+            {
+              "n": "Milano",
+              "lat": 45.46,
+              "lon": 9.19
+            },
+            {
+              "n": "Torino",
+              "lat": 45.07,
+              "lon": 7.69
+            },
+            {
+              "n": "Napoli",
+              "lat": 40.85,
+              "lon": 14.27
+            },
+            {
+              "n": "Palermo",
+              "lat": 38.12,
+              "lon": 13.36
+            },
+            {
+              "n": "Venezia",
+              "lat": 45.44,
+              "lon": 12.33
+            },
+            {
+              "n": "Firenze",
+              "lat": 43.77,
+              "lon": 11.26
+            },
+            {
+              "n": "Cagliari",
+              "lat": 39.22,
+              "lon": 9.12
+            },
+            {
+              "n": "Bari",
+              "lat": 41.12,
+              "lon": 16.87
+            },
+            {
+              "n": "Monte Bianco",
+              "lat": 45.83,
+              "lon": 6.86,
+              "tipo": "monte"
+            },
+            {
+              "n": "Etna",
+              "lat": 37.75,
+              "lon": 14.99,
+              "tipo": "monte"
+            },
+            {
+              "n": "Vesuvio",
+              "lat": 40.82,
+              "lon": 14.43,
+              "tipo": "monte"
+            },
+            {
+              "n": "Foce del Po",
+              "lat": 44.95,
+              "lon": 12.45,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Lago di Garda",
+              "lat": 45.63,
+              "lon": 10.66,
+              "tipo": "lago"
+            }
+          ]
         }
       ],
       "parole": [
@@ -1010,8 +1092,723 @@
           ]
         }
       ]
+    },
+    {
+      "id": "ing-someany",
+      "materia": "inglese",
+      "titolo": "Some e any",
+      "fonte": "Inglese – some / any",
+      "parole": [
+        "some",
+        "any"
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Some o any?",
+          "domande": [
+            {
+              "d": "There are ___ apples on the table.",
+              "r": [
+                "some",
+                "any",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "Are there ___ biscuits in the box?",
+              "r": [
+                "any",
+                "some",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "I haven't got ___ brothers.",
+              "r": [
+                "any",
+                "some",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "There is ___ milk in the fridge.",
+              "r": [
+                "some",
+                "any",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "Is there ___ bread for breakfast?",
+              "r": [
+                "any",
+                "some",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "We don't have ___ homework today.",
+              "r": [
+                "any",
+                "some",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "Would you like ___ juice?",
+              "r": [
+                "some",
+                "any",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "She has got ___ new pencils.",
+              "r": [
+                "some",
+                "any",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "There aren't ___ cats in the garden.",
+              "r": [
+                "any",
+                "some",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "Can I have ___ water, please?",
+              "r": [
+                "some",
+                "any",
+                "a",
+                "an"
+              ]
+            },
+            {
+              "d": "Quando si usa ANY?",
+              "r": [
+                "Nelle frasi negative e nelle domande",
+                "Solo nelle frasi affermative",
+                "Solo con una cosa sola",
+                "Mai con i nomi plurali"
+              ]
+            },
+            {
+              "d": "Quando si usa SOME?",
+              "r": [
+                "Nelle frasi affermative e quando offri o chiedi qualcosa",
+                "Solo nelle frasi negative",
+                "Solo nelle domande",
+                "Solo con i numeri"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa la frase",
+          "frasi": [
+            {
+              "f": "I've got ___ sweets in my bag.",
+              "r": [
+                "some",
+                "any",
+                "a"
+              ]
+            },
+            {
+              "f": "There isn't ___ cheese on the pizza.",
+              "r": [
+                "any",
+                "some",
+                "a"
+              ]
+            },
+            {
+              "f": "Have you got ___ pets?",
+              "r": [
+                "any",
+                "some",
+                "a"
+              ]
+            },
+            {
+              "f": "There are ___ books on my desk.",
+              "r": [
+                "some",
+                "any",
+                "an"
+              ]
+            },
+            {
+              "f": "He doesn't eat ___ vegetables.",
+              "r": [
+                "any",
+                "some",
+                "a"
+              ]
+            },
+            {
+              "f": "Would you like ___ cake?",
+              "r": [
+                "some",
+                "any",
+                "an"
+              ]
+            },
+            {
+              "f": "Are there ___ eggs in the kitchen?",
+              "r": [
+                "any",
+                "some",
+                "an"
+              ]
+            },
+            {
+              "f": "There is ___ sugar in my tea.",
+              "r": [
+                "some",
+                "any",
+                "a"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Giusta o sbagliata?",
+          "frasi": [
+            {
+              "f": "\"There are some pens on the desk.\" è corretta.",
+              "v": true
+            },
+            {
+              "f": "\"I haven't got some friends here.\" è corretta.",
+              "v": false
+            },
+            {
+              "f": "\"Is there any milk?\" è corretta.",
+              "v": true
+            },
+            {
+              "f": "\"There aren't any trees in the park.\" è corretta.",
+              "v": true
+            },
+            {
+              "f": "\"Are there some chairs?\" è la forma più giusta per una domanda normale.",
+              "v": false
+            },
+            {
+              "f": "\"Would you like some tea?\" è corretta, perché è un'offerta.",
+              "v": true
+            },
+            {
+              "f": "Any si usa nelle frasi affermative.",
+              "v": false
+            },
+            {
+              "f": "Some e any si usano con i nomi plurali e con quelli che non si contano (milk, water, bread).",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Metti some o any",
+          "gruppi": {
+            "some": [
+              "There are ___ dogs.",
+              "I've got ___ crayons.",
+              "There is ___ rice.",
+              "Would you like ___ tea?",
+              "She has ___ friends.",
+              "Can I have ___ bread?"
+            ],
+            "any": [
+              "Are there ___ dogs?",
+              "I haven't got ___ crayons.",
+              "Is there ___ rice?",
+              "There isn't ___ tea.",
+              "Has she got ___ friends?",
+              "We don't need ___ bread."
+            ]
+          }
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Inglese – italiano",
+          "coppie": [
+            [
+              "There are some apples.",
+              "Ci sono delle mele."
+            ],
+            [
+              "There aren't any apples.",
+              "Non ci sono mele."
+            ],
+            [
+              "Are there any apples?",
+              "Ci sono delle mele?"
+            ],
+            [
+              "There is some milk.",
+              "C'è del latte."
+            ],
+            [
+              "There isn't any milk.",
+              "Non c'è latte."
+            ],
+            [
+              "Is there any milk?",
+              "C'è del latte?"
+            ],
+            [
+              "Would you like some cake?",
+              "Vuoi della torta?"
+            ],
+            [
+              "I haven't got any pets.",
+              "Non ho animali."
+            ]
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Metti in ordine la domanda",
+          "istruzione": "Metti le parole in ordine per fare la domanda",
+          "elementi": [
+            "Are",
+            "there",
+            "any",
+            "cats",
+            "in",
+            "the",
+            "garden?"
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory del cibo",
+          "coppie": [
+            [
+              "some bread",
+              "del pane"
+            ],
+            [
+              "some milk",
+              "del latte"
+            ],
+            [
+              "some apples",
+              "delle mele"
+            ],
+            [
+              "any water?",
+              "dell'acqua?"
+            ],
+            [
+              "some cheese",
+              "del formaggio"
+            ],
+            [
+              "any eggs?",
+              "delle uova?"
+            ],
+            [
+              "some juice",
+              "del succo"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ita-sanmartino",
+      "materia": "italiano",
+      "titolo": "San Martino",
+      "fonte": "Poesia \"San Martino\" di G. Carducci; leggenda e festa dell'11 novembre",
+      "parole": [
+        "martin",
+        "carducc"
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "La poesia e la festa",
+          "domande": [
+            {
+              "d": "Chi ha scritto la poesia \"San Martino\"?",
+              "r": [
+                "Giosuè Carducci",
+                "Giovanni Pascoli",
+                "Gianni Rodari",
+                "Giacomo Leopardi"
+              ]
+            },
+            {
+              "d": "Che giorno si festeggia San Martino?",
+              "r": [
+                "11 novembre",
+                "2 novembre",
+                "25 novembre",
+                "11 ottobre"
+              ]
+            },
+            {
+              "d": "Quante strofe ha la poesia?",
+              "r": [
+                "4",
+                "3",
+                "5",
+                "6"
+              ]
+            },
+            {
+              "d": "Quanti versi ha ogni strofa?",
+              "r": [
+                "4",
+                "3",
+                "2",
+                "6"
+              ]
+            },
+            {
+              "d": "Che cosa sale sui colli all'inizio della poesia?",
+              "r": [
+                "La nebbia",
+                "Il fumo",
+                "La neve",
+                "Il sole"
+              ]
+            },
+            {
+              "d": "Come si chiama il vento che fa urlare il mare?",
+              "r": [
+                "Maestrale",
+                "Scirocco",
+                "Libeccio",
+                "Tramontana"
+              ]
+            },
+            {
+              "d": "Che cosa ribolle nei tini?",
+              "r": [
+                "Il vino nuovo",
+                "L'acqua del pozzo",
+                "Il latte",
+                "L'olio"
+              ]
+            },
+            {
+              "d": "Che cosa gira sui ceppi accesi?",
+              "r": [
+                "Lo spiedo",
+                "La ruota",
+                "Il mulino",
+                "La pentola"
+              ]
+            },
+            {
+              "d": "Chi sta sull'uscio a guardare il cielo?",
+              "r": [
+                "Il cacciatore",
+                "Il pescatore",
+                "Il contadino",
+                "Il bambino"
+              ]
+            },
+            {
+              "d": "A che cosa sono paragonati gli uccelli neri?",
+              "r": [
+                "A pensieri lontani da casa (esuli)",
+                "A nuvole di pioggia",
+                "A foglie secche",
+                "A navi nel mare"
+              ]
+            },
+            {
+              "d": "Secondo la leggenda, che cosa fece Martino per un povero?",
+              "r": [
+                "Tagliò a metà il suo mantello e gliene diede una parte",
+                "Gli regalò il suo cavallo",
+                "Gli costruì una casa",
+                "Gli diede la sua spada"
+              ]
+            },
+            {
+              "d": "Che cos'è l'\"estate di San Martino\"?",
+              "r": [
+                "Qualche giorno di sole tiepido a novembre",
+                "Una festa al mare d'estate",
+                "Il primo giorno di neve",
+                "Le vacanze di Natale"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa i versi",
+          "frasi": [
+            {
+              "f": "La ___ agl'irti colli piovigginando sale,",
+              "r": [
+                "nebbia",
+                "pioggia",
+                "neve"
+              ]
+            },
+            {
+              "f": "e sotto il ___ urla e biancheggia il mar;",
+              "r": [
+                "maestrale",
+                "temporale",
+                "fortunale"
+              ]
+            },
+            {
+              "f": "ma per le vie del ___ dal ribollir de' tini",
+              "r": [
+                "borgo",
+                "bosco",
+                "porto"
+              ]
+            },
+            {
+              "f": "va l'aspro odor dei ___ l'anime a rallegrar.",
+              "r": [
+                "vini",
+                "fiori",
+                "pini"
+              ]
+            },
+            {
+              "f": "Gira su' ceppi accesi lo ___ scoppiettando:",
+              "r": [
+                "spiedo",
+                "fuoco",
+                "mulino"
+              ]
+            },
+            {
+              "f": "sta il ___ fischiando su l'uscio a rimirar",
+              "r": [
+                "cacciator",
+                "pescator",
+                "viaggiator"
+              ]
+            },
+            {
+              "f": "tra le rossastre nubi stormi d'uccelli ___,",
+              "r": [
+                "neri",
+                "bianchi",
+                "stanchi"
+              ]
+            },
+            {
+              "f": "com'esuli pensieri, nel ___ migrar.",
+              "r": [
+                "vespero",
+                "mattino",
+                "giardino"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "In ordine: la prima strofa",
+          "istruzione": "Metti in ordine i versi della prima strofa",
+          "elementi": [
+            "La nebbia agl'irti colli",
+            "piovigginando sale,",
+            "e sotto il maestrale",
+            "urla e biancheggia il mar;"
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Le parole difficili",
+          "coppie": [
+            [
+              "irti",
+              "ripidi"
+            ],
+            [
+              "maestrale",
+              "vento da nord-ovest"
+            ],
+            [
+              "borgo",
+              "piccolo paese"
+            ],
+            [
+              "tini",
+              "grandi botti per il vino"
+            ],
+            [
+              "ceppi",
+              "grossi pezzi di legno"
+            ],
+            [
+              "uscio",
+              "porta di casa"
+            ],
+            [
+              "esuli",
+              "lontani da casa"
+            ],
+            [
+              "vespero",
+              "sera"
+            ]
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "In quale strofa?",
+          "gruppi": {
+            "1ª strofa: colli e mare": [
+              "nebbia",
+              "maestrale",
+              "mare che urla"
+            ],
+            "2ª strofa: il borgo": [
+              "tini",
+              "odore dei vini",
+              "vie del borgo"
+            ],
+            "3ª strofa: la casa": [
+              "ceppi accesi",
+              "spiedo",
+              "cacciatore sull'uscio"
+            ],
+            "4ª strofa: il cielo": [
+              "nubi rossastre",
+              "uccelli neri",
+              "vespero"
+            ]
+          }
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La poesia descrive una giornata d'autunno.",
+              "v": true
+            },
+            {
+              "f": "Nella prima strofa il mare è calmo e silenzioso.",
+              "v": false
+            },
+            {
+              "f": "Nel borgo c'è odore di vino nuovo.",
+              "v": true
+            },
+            {
+              "f": "Il cacciatore sta dentro casa a dormire.",
+              "v": false
+            },
+            {
+              "f": "\"Com'esuli pensieri\" è una similitudine.",
+              "v": true
+            },
+            {
+              "f": "Martino era un soldato romano a cavallo.",
+              "v": true
+            },
+            {
+              "f": "Nella leggenda Martino dà al povero tutto il mantello.",
+              "v": false
+            },
+            {
+              "f": "A San Martino, in molti posti, si assaggia il vino nuovo e si mangiano le castagne.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory di San Martino",
+          "coppie": [
+            [
+              "11 novembre",
+              "San Martino"
+            ],
+            [
+              "Carducci",
+              "poeta"
+            ],
+            [
+              "mantello",
+              "diviso a metà"
+            ],
+            [
+              "vino nuovo",
+              "nei tini"
+            ],
+            [
+              "uccelli neri",
+              "nel cielo"
+            ],
+            [
+              "sole a novembre",
+              "estate di Martino"
+            ]
+          ]
+        }
+      ]
     }
   ],
   "compiti": [],
-  "ponte": "https://ginny-ponte.malefixz.workers.dev/compiti"
+  "ponte": "https://ginny-ponte.malefixz.workers.dev/compiti",
+  "orario": {
+    "lunedi": [
+      "Italiano",
+      "Storia",
+      "Musica",
+      "Lettura"
+    ],
+    "martedi": [
+      "Motoria",
+      "Matematica",
+      "Poesia",
+      "Inglese"
+    ],
+    "mercoledi": [
+      "Strumento",
+      "Motoria",
+      "Geografia",
+      "Matematica",
+      "Tecnologia"
+    ],
+    "giovedi": [
+      "Inglese",
+      "Scienze",
+      "Italiano",
+      "Ed. Civica",
+      "Arte e Immagine"
+    ],
+    "venerdi": [
+      "Religione",
+      "Matematica",
+      "Inglese",
+      "Lettura"
+    ]
+  }
 }

@@ -1,4 +1,4 @@
-# Quaderno dei giochi — documento di progetto
+# GinnyLearn (Quaderno dei giochi) — documento di progetto
 
 App di esercizi in stile Wordwall per un tablet Android (quinta elementare).
 Materie: matematica, storia, geografia. Temi presi dai suoi libri e quaderni.
@@ -64,6 +64,7 @@ Se cambia `index.html`, va aumentato anche `VERSIONE` in `sw.js`.
 | `ordina` | `istruzione`, `elementi: ["primo", "secondo", ...]` | nell'ordine corretto, da 4 a 8 elementi |
 | `anagramma` | `parole: [{ "p": "PAROLA", "indizio": "..." }]` | una sola parola, senza spazi |
 | `categorie` | `gruppi: { "Gruppo A": ["...", ...], "Gruppo B": [...] }` | da 2 a 4 gruppi, 12 carte per partita |
+| `cartina` | `mappa: "italia"`, `punti: [{ "n": "Roma", "lat": 41.9, "lon": 12.5, "tipo": "citta" }]` | cartina muta: si trascina il nome sul punto (o si tocca il punto). `tipo`: citta, monte, fiume, lago, regione. Massimo 8 punti per partita. Al posto di lat/lon si può dare `x`,`y` in % |
 
 Ogni gioco può avere un `titolo`. Per ogni tema conviene preparare 4-6 giochi di tipi diversi.
 
@@ -80,3 +81,30 @@ Ogni gioco può avere un `titolo`. Per ogni tema conviene preparare 4-6 giochi d
   - 15/11 (GINNYLEARN 5): **Mia**, la guida dell'app (sw `app-v5`). Immagini WebP trasparenti in `mia/head/` e `mia/fullbody/`, ritagliate dalla tavola in `AppEsercizi/personaggi` (sorgente e anteprima in `personaggi/Mia_web`). In `index.html` l'oggetto `MIA` collega reazioni → testa/posa/frasi; `miaDice(chiave)` durante i giochi (giusta, serie, sbagliata, tantiErrori, riprova, inizio, inattività dopo 25 s), posa a corpo intero nella schermata finale, saluto in home. Frasi sempre **neutre** (niente maschile/femminile, es. "Ottimo lavoro!" e non "Bravissima!"). Non ridisegnare Mia in SVG. In attesa di ok per commit.
   4. Classifica con le amiche: stesso Worker con KV/D1 al posto di Firebase.
   - 15/11 (GINNYLEARN 6): controllati i file (JS valido, contenuti v2). Chiavi VAPID generate in `CHIAVI_VAPID_NON_PUBBLICARE.txt` (escluso da git con `.gitignore`, insieme agli `.zip`). In attesa: ok di Daniele per commit/push e configurazione Cloudflare (KV `KV`, VAPID, cron).
+  - 15/11 (GINNYLEARN 6): v5 pubblicata (commit 0375548). Cloudflare completo: KV `KV`→ginny-kv, VAPID, cron. Notifiche provate: funzionano.
+  - Richieste nuove di Daniele (da fare in GINNYLEARN 7):
+    a. Nome app installata: deve essere "GinnyLearn" (ora "Quaderno"): manifest name/short_name + title; sul tablet reinstallare.
+    b. Geografia: nuovo tipo di gioco `cartina` (cartina muta SVG, trascinare città/monti/fiumi al punto giusto).
+    c. Aggiornamento automatico senza PC: valutare se il libro Sanoma è raggiungibile (probabilmente no: login + protezione); alternativa = attività programmata in cloud che prepara i temi dai compiti/foto, da approvare.
+    d. Foto di compiti/schede dal tablet: bottone "📷 Invia foto" → Worker → cartella `inbox/` in una repo GitHub **privata** (le foto possono contenere nomi) → Claude le legge e crea i temi.
+    e. Nuovi personaggi **Nico, Lilli e Tomo** in `C:\Users\malef\Desktop\---CLAUDE---\AppEsercizi\personaggi`: prepararli come Mia (WebP trasparenti head/fullbody, stesse reazioni, frasi neutre).
+    f. Al primo avvio: si sceglie il nome e uno dei 4 personaggi (Mia, Nico, Lilli, Tomo), che diventa la guida (oggetto `MIA` da generalizzare in `GUIDA`; scelta salvata nel profilo, cambiabile dopo).
+    g. All'inizio della chat allineare in automatico la cartella del PC con GitHub (`git fetch` + `git reset --hard origin/main`; serve il permesso di cancellare nella cartella; il push si fa dal cloud con la repo collegata).
+  - 15/11 (GINNYLEARN 7): v6 (sw `app-v6`, contenuti v3), **in attesa di ok per commit**.
+    - g. Il PC non raggiunge GitHub (proxy 403): l'allineamento si fa clonando la repo nel cloud e confrontando i file; il contenuto del PC era già uguale a origin/main (0375548), cambiava solo PROGETTO.md. Il git locale del PC resta indietro di storia: dopo il push, se serve, su Windows `git fetch` + `git reset --hard origin/main`.
+    - a. Nome "GinnyLearn" in manifest e title. Sul tablet: disinstallare e reinstallare da Chrome.
+    - e. Nico, Lilli, Tomo in `guide/<nome>/head/happy.webp` e `guide/<nome>/fullbody/master.webp`, scontornati dai master (sorgente `personaggi/*_Asset_Pack_Claude.zip`). Hanno **una sola espressione e una sola posa**: le reazioni usano la stessa immagine con le animazioni (salta, scuoti, dondola). Quando ci saranno le 12 espressioni e le pose come Mia, basta copiarle con gli stessi nomi di Mia e mettere `completa: true` in `GUIDE`.
+    - f. `MIA` → `GUIDA` (reazioni) + `GUIDE` (personaggi); scelta nel profilo (`PROF.guida`, default mia), cambiabile da Premi → "Cambia nome, avatar o guida". Benvenuto neutro.
+    - d. Bottone "📷 Invia foto" nella pagina Compiti → `POST /foto` del ponte → `inbox/` della repo privata. Da fare su GitHub/Cloudflare: creare repo privata `GinnyLearn-inbox`; token fine-grained solo su quella repo (Contents: Read and write); sul Worker Secret `GH_TOKEN`, `FOTO_CODICE` e variabile `GH_REPO`; incollare il nuovo `ponte/worker.js`. Il codice si scrive una volta sul tablet. Le foto sono rimpicciolite a 1600 px.
+    - b. Gioco `cartina` + `mappe/italia.svg` (confini regioni da openpolis/geojson-italy, CC BY 4.0). Esempio nel tema geo-regioni: città, monti, Po, Garda.
+    - c. Non fatto (solo da valutare).
+
+  - 15/11 (GINNYLEARN 7, seconda parte): v7 (sw `app-v7`, contenuti v4), **in attesa di ok per commit**.
+    - Home: tutti i compiti futuri; materie ordinate per tema più recente (ultimo in `temi`), aggiunte tutte le materie dell'orario (`MATERIE_BASE`, campo `colore`). `normMateria()` converte i nomi del registro (es. "lingua inglese" → inglese).
+    - Compiti: futuri, poi "Compiti passati" ingrigiti (si può ancora fare Esercitati); campo 🔍 Cerca su temi e compiti.
+    - "📷 Invia foto del quaderno" solo nei compiti con "quaderno" o "q."; la foto arriva in `inbox/` con nome `<data>_<materia>_<idcompito>.jpg`.
+    - Pagine del libro: "pag. 40", "pagg. 40-42", "p. 7" nel compito → bottoni 📄. Il ponte (`GET /pagina?m=&n=&codice=`) legge `pagine/<materia>/<n>.jpg` dalla repo privata (le pagine dei libri non vanno nella repo pubblica).
+    - 🎒 Orario per lo zaino: `img/orario.webp` (senza titolo con i nomi) + `orario` in contenuti.json → "Domani nello zaino".
+  - 15/11: Nico, Lilli, Tomo **completi** (sw `app-v8`): 10 espressioni + 5 pose ritagliate dalla tavola `Tavola_completa_espressioni.png` (nei pacchetti `*_ESPRESSIONI_CORRETTE.zip`), sfondo reso trasparente. Nomi come Mia (`crying` = copia di `sad`, `encouraging` corpo = `waving`); in più `neutral`, `curious`, `confused`, `waving`, `studying`. Il `master` ora viene dalla tavola, per avere lo stesso stile delle espressioni.
+
+  - 15/11 (GINNYLEARN 8): contenuti **v5**: temi `ing-someany` (Inglese, some/any, 7 giochi) e `ita-sanmartino` (Italiano, poesia di Carducci + leggenda del mantello + estate di San Martino, 7 giochi). Commit e push di v8 completo (personaggi inclusi) dal cloud.

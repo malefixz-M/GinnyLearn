@@ -1,5 +1,5 @@
 {
-  "versione": 5,
+  "versione": 6,
   "aggiornato": "2026-11-15",
   "materie": {
     "matematica": {
@@ -19,769 +19,6 @@
     }
   },
   "temi": [
-    {
-      "id": "mat-frazioni",
-      "materia": "matematica",
-      "titolo": "Le frazioni",
-      "fonte": "Esempio",
-      "giochi": [
-        {
-          "tipo": "quiz",
-          "titolo": "Quiz delle frazioni",
-          "domande": [
-            {
-              "d": "In 3/4, come si chiama il 4?",
-              "r": [
-                "Denominatore",
-                "Numeratore",
-                "Quoziente",
-                "Resto"
-              ]
-            },
-            {
-              "d": "In 3/4, come si chiama il 3?",
-              "r": [
-                "Numeratore",
-                "Denominatore",
-                "Divisore",
-                "Prodotto"
-              ]
-            },
-            {
-              "d": "Quale frazione è uguale a un intero?",
-              "r": [
-                "5/5",
-                "1/5",
-                "5/1",
-                "0/5"
-              ]
-            },
-            {
-              "d": "Quanto vale 1/2 di 20?",
-              "r": [
-                "10",
-                "2",
-                "5",
-                "40"
-              ]
-            },
-            {
-              "d": "Quanto vale 1/4 di 12?",
-              "r": [
-                "3",
-                "4",
-                "6",
-                "48"
-              ]
-            },
-            {
-              "d": "Quale frazione è maggiore?",
-              "r": [
-                "3/4",
-                "1/4",
-                "2/4",
-                "0/4"
-              ]
-            },
-            {
-              "d": "Quale frazione è equivalente a 1/2?",
-              "r": [
-                "2/4",
-                "1/4",
-                "2/3",
-                "3/2"
-              ]
-            },
-            {
-              "d": "Come si scrive 7/10 in numero decimale?",
-              "r": [
-                "0,7",
-                "7,10",
-                "0,07",
-                "7,0"
-              ]
-            },
-            {
-              "d": "Quanto vale 3/4 di 8?",
-              "r": [
-                "6",
-                "2",
-                "4",
-                "24"
-              ]
-            },
-            {
-              "d": "Una frazione con il numeratore più grande del denominatore è...",
-              "r": [
-                "Impropria",
-                "Propria",
-                "Apparente",
-                "Decimale"
-              ]
-            }
-          ]
-        },
-        {
-          "tipo": "abbina",
-          "titolo": "Frazione e decimale",
-          "coppie": [
-            [
-              "1/10",
-              "0,1"
-            ],
-            [
-              "1/2",
-              "0,5"
-            ],
-            [
-              "3/10",
-              "0,3"
-            ],
-            [
-              "25/100",
-              "0,25"
-            ],
-            [
-              "7/100",
-              "0,07"
-            ],
-            [
-              "9/10",
-              "0,9"
-            ]
-          ]
-        },
-        {
-          "tipo": "categorie",
-          "titolo": "Che frazione è?",
-          "gruppi": {
-            "Propria": [
-              "2/5",
-              "1/3",
-              "7/9",
-              "3/8"
-            ],
-            "Impropria": [
-              "7/4",
-              "9/5",
-              "5/3",
-              "11/6"
-            ],
-            "Apparente": [
-              "6/3",
-              "8/4",
-              "10/5",
-              "4/4"
-            ]
-          }
-        },
-        {
-          "tipo": "verofalso",
-          "titolo": "Vero o falso?",
-          "frasi": [
-            {
-              "f": "1/2 è più grande di 1/4",
-              "v": true
-            },
-            {
-              "f": "Il denominatore sta sopra la linea di frazione",
-              "v": false
-            },
-            {
-              "f": "4/4 è uguale a un intero",
-              "v": true
-            },
-            {
-              "f": "0,5 è uguale a 1/5",
-              "v": false
-            },
-            {
-              "f": "Le frazioni decimali hanno come denominatore 10, 100, 1000...",
-              "v": true
-            },
-            {
-              "f": "2/3 è una frazione impropria",
-              "v": false
-            },
-            {
-              "f": "1/3 di 9 è 3",
-              "v": true
-            },
-            {
-              "f": "Con lo stesso denominatore, vince chi ha il numeratore più piccolo",
-              "v": false
-            }
-          ]
-        },
-        {
-          "tipo": "ordina",
-          "titolo": "Dalla più piccola alla più grande",
-          "istruzione": "Tocca le frazioni dalla più piccola alla più grande",
-          "elementi": [
-            "1/8",
-            "1/4",
-            "3/8",
-            "1/2",
-            "3/4",
-            "7/8"
-          ]
-        },
-        {
-          "tipo": "memory",
-          "titolo": "Memory equivalenti",
-          "coppie": [
-            [
-              "1/2",
-              "2/4"
-            ],
-            [
-              "1/3",
-              "2/6"
-            ],
-            [
-              "3/4",
-              "6/8"
-            ],
-            [
-              "2/5",
-              "4/10"
-            ],
-            [
-              "1/5",
-              "2/10"
-            ],
-            [
-              "3/3",
-              "1 intero"
-            ]
-          ]
-        }
-      ],
-      "parole": [
-        "frazion"
-      ]
-    },
-    {
-      "id": "sto-etruschi",
-      "materia": "storia",
-      "titolo": "Gli Etruschi",
-      "fonte": "Esempio",
-      "giochi": [
-        {
-          "tipo": "quiz",
-          "titolo": "Quiz sugli Etruschi",
-          "domande": [
-            {
-              "d": "Come si chiamava la regione abitata dagli Etruschi?",
-              "r": [
-                "Etruria",
-                "Magna Grecia",
-                "Gallia",
-                "Mesopotamia"
-              ]
-            },
-            {
-              "d": "Come si chiamava il re di una città etrusca?",
-              "r": [
-                "Lucumone",
-                "Faraone",
-                "Console",
-                "Tiranno"
-              ]
-            },
-            {
-              "d": "Chi interpretava la volontà degli dei?",
-              "r": [
-                "Gli aruspici",
-                "I senatori",
-                "Gli scribi",
-                "I mercanti"
-              ]
-            },
-            {
-              "d": "Come si chiamavano i cimiteri etruschi?",
-              "r": [
-                "Necropoli",
-                "Acropoli",
-                "Piramidi",
-                "Ziggurat"
-              ]
-            },
-            {
-              "d": "Da quale isola gli Etruschi prendevano il ferro?",
-              "r": [
-                "Elba",
-                "Sicilia",
-                "Sardegna",
-                "Capri"
-              ]
-            },
-            {
-              "d": "Com'era la tipica ceramica etrusca, il bucchero?",
-              "r": [
-                "Nera e lucida",
-                "Bianca con disegni blu",
-                "Trasparente",
-                "Di legno"
-              ]
-            },
-            {
-              "d": "Quante città formavano la lega etrusca?",
-              "r": [
-                "Dodici",
-                "Tre",
-                "Cento",
-                "Sette"
-              ]
-            },
-            {
-              "d": "Quale popolo alla fine conquistò gli Etruschi?",
-              "r": [
-                "I Romani",
-                "I Greci",
-                "I Fenici",
-                "Gli Egizi"
-              ]
-            }
-          ]
-        },
-        {
-          "tipo": "completa",
-          "titolo": "Completa la frase",
-          "frasi": [
-            {
-              "f": "Gli Etruschi vivevano nell'attuale Toscana, nel Lazio settentrionale e in ___.",
-              "r": [
-                "Umbria",
-                "Puglia",
-                "Sicilia"
-              ]
-            },
-            {
-              "f": "Il famoso Sarcofago degli Sposi è stato trovato a ___.",
-              "r": [
-                "Cerveteri",
-                "Milano",
-                "Napoli"
-              ]
-            },
-            {
-              "f": "Gli Etruschi erano abili nel lavorare i ___.",
-              "r": [
-                "metalli",
-                "diamanti",
-                "vetri colorati"
-              ]
-            },
-            {
-              "f": "Gli aruspici leggevano il futuro osservando il ___ degli animali.",
-              "r": [
-                "fegato",
-                "pelo",
-                "verso"
-              ]
-            },
-            {
-              "f": "Nelle tombe venivano messi oggetti per la vita nell' ___.",
-              "r": [
-                "aldilà",
-                "acqua",
-                "orto"
-              ]
-            },
-            {
-              "f": "Gli Etruschi commerciavano via mare con Greci e ___.",
-              "r": [
-                "Fenici",
-                "Vichinghi",
-                "Aztechi"
-              ]
-            }
-          ]
-        },
-        {
-          "tipo": "anagramma",
-          "titolo": "Parole mescolate",
-          "parole": [
-            {
-              "p": "ETRURIA",
-              "indizio": "La terra degli Etruschi"
-            },
-            {
-              "p": "LUCUMONE",
-              "indizio": "Il re di una città"
-            },
-            {
-              "p": "NECROPOLI",
-              "indizio": "La città dei morti"
-            },
-            {
-              "p": "BUCCHERO",
-              "indizio": "Ceramica nera e lucida"
-            },
-            {
-              "p": "ELBA",
-              "indizio": "Isola del ferro"
-            },
-            {
-              "p": "TARQUINIA",
-              "indizio": "Città famosa per le tombe dipinte"
-            }
-          ]
-        },
-        {
-          "tipo": "verofalso",
-          "titolo": "Vero o falso?",
-          "frasi": [
-            {
-              "f": "Gli Etruschi avevano un unico re per tutto il popolo",
-              "v": false
-            },
-            {
-              "f": "Le donne etrusche partecipavano ai banchetti",
-              "v": true
-            },
-            {
-              "f": "Alcuni re di Roma erano etruschi",
-              "v": true
-            },
-            {
-              "f": "Gli Etruschi non sapevano scrivere",
-              "v": false
-            },
-            {
-              "f": "Le tombe etrusche erano spesso dipinte",
-              "v": true
-            },
-            {
-              "f": "Gli Etruschi vivevano in Egitto",
-              "v": false
-            }
-          ]
-        },
-        {
-          "tipo": "memory",
-          "titolo": "Memory etrusco",
-          "coppie": [
-            [
-              "Lucumone",
-              "Re della città"
-            ],
-            [
-              "Aruspice",
-              "Sacerdote indovino"
-            ],
-            [
-              "Necropoli",
-              "Città dei morti"
-            ],
-            [
-              "Bucchero",
-              "Ceramica nera"
-            ],
-            [
-              "Elba",
-              "Ferro"
-            ],
-            [
-              "Cerveteri",
-              "Sarcofago degli Sposi"
-            ]
-          ]
-        }
-      ],
-      "parole": [
-        "etrusch"
-      ]
-    },
-    {
-      "id": "geo-regioni",
-      "materia": "geografia",
-      "titolo": "Regioni e capoluoghi",
-      "fonte": "Esempio",
-      "giochi": [
-        {
-          "tipo": "abbina",
-          "titolo": "Regione e capoluogo",
-          "coppie": [
-            [
-              "Piemonte",
-              "Torino"
-            ],
-            [
-              "Lombardia",
-              "Milano"
-            ],
-            [
-              "Liguria",
-              "Genova"
-            ],
-            [
-              "Veneto",
-              "Venezia"
-            ],
-            [
-              "Toscana",
-              "Firenze"
-            ],
-            [
-              "Lazio",
-              "Roma"
-            ]
-          ]
-        },
-        {
-          "tipo": "memory",
-          "titolo": "Memory del Sud",
-          "coppie": [
-            [
-              "Campania",
-              "Napoli"
-            ],
-            [
-              "Puglia",
-              "Bari"
-            ],
-            [
-              "Calabria",
-              "Catanzaro"
-            ],
-            [
-              "Sicilia",
-              "Palermo"
-            ],
-            [
-              "Sardegna",
-              "Cagliari"
-            ],
-            [
-              "Basilicata",
-              "Potenza"
-            ]
-          ]
-        },
-        {
-          "tipo": "categorie",
-          "titolo": "Nord, Centro o Sud?",
-          "gruppi": {
-            "Nord": [
-              "Piemonte",
-              "Lombardia",
-              "Veneto",
-              "Friuli-Venezia Giulia",
-              "Emilia-Romagna"
-            ],
-            "Centro": [
-              "Toscana",
-              "Umbria",
-              "Marche",
-              "Lazio"
-            ],
-            "Sud e isole": [
-              "Campania",
-              "Puglia",
-              "Calabria",
-              "Sicilia",
-              "Sardegna"
-            ]
-          }
-        },
-        {
-          "tipo": "quiz",
-          "titolo": "Quiz delle regioni",
-          "domande": [
-            {
-              "d": "Quante sono le regioni italiane?",
-              "r": [
-                "20",
-                "15",
-                "25",
-                "12"
-              ]
-            },
-            {
-              "d": "Qual è il capoluogo dell'Umbria?",
-              "r": [
-                "Perugia",
-                "Terni",
-                "Assisi",
-                "Spoleto"
-              ]
-            },
-            {
-              "d": "Qual è la regione più piccola?",
-              "r": [
-                "Valle d'Aosta",
-                "Molise",
-                "Liguria",
-                "Umbria"
-              ]
-            },
-            {
-              "d": "Qual è il capoluogo delle Marche?",
-              "r": [
-                "Ancona",
-                "Pesaro",
-                "Macerata",
-                "Urbino"
-              ]
-            },
-            {
-              "d": "Quale regione non ha il mare?",
-              "r": [
-                "Umbria",
-                "Liguria",
-                "Puglia",
-                "Toscana"
-              ]
-            },
-            {
-              "d": "Qual è la regione più grande?",
-              "r": [
-                "Sicilia",
-                "Piemonte",
-                "Lombardia",
-                "Sardegna"
-              ]
-            },
-            {
-              "d": "Qual è il capoluogo del Molise?",
-              "r": [
-                "Campobasso",
-                "Isernia",
-                "Pescara",
-                "Termoli"
-              ]
-            },
-            {
-              "d": "In quale regione si trova Trento?",
-              "r": [
-                "Trentino-Alto Adige",
-                "Veneto",
-                "Lombardia",
-                "Friuli-Venezia Giulia"
-              ]
-            }
-          ]
-        },
-        {
-          "tipo": "anagramma",
-          "titolo": "Capoluoghi mescolati",
-          "parole": [
-            {
-              "p": "TORINO",
-              "indizio": "Capoluogo del Piemonte"
-            },
-            {
-              "p": "GENOVA",
-              "indizio": "Capoluogo della Liguria"
-            },
-            {
-              "p": "BOLOGNA",
-              "indizio": "Capoluogo dell'Emilia-Romagna"
-            },
-            {
-              "p": "AOSTA",
-              "indizio": "Capoluogo della Valle d'Aosta"
-            },
-            {
-              "p": "TRIESTE",
-              "indizio": "Capoluogo del Friuli-Venezia Giulia"
-            },
-            {
-              "p": "PALERMO",
-              "indizio": "Capoluogo della Sicilia"
-            }
-          ]
-        },
-        {
-          "tipo": "cartina",
-          "titolo": "Città, monti e fiumi",
-          "mappa": "italia",
-          "punti": [
-            {
-              "n": "Roma",
-              "lat": 41.9,
-              "lon": 12.5
-            },
-            {
-              "n": "Milano",
-              "lat": 45.46,
-              "lon": 9.19
-            },
-            {
-              "n": "Torino",
-              "lat": 45.07,
-              "lon": 7.69
-            },
-            {
-              "n": "Napoli",
-              "lat": 40.85,
-              "lon": 14.27
-            },
-            {
-              "n": "Palermo",
-              "lat": 38.12,
-              "lon": 13.36
-            },
-            {
-              "n": "Venezia",
-              "lat": 45.44,
-              "lon": 12.33
-            },
-            {
-              "n": "Firenze",
-              "lat": 43.77,
-              "lon": 11.26
-            },
-            {
-              "n": "Cagliari",
-              "lat": 39.22,
-              "lon": 9.12
-            },
-            {
-              "n": "Bari",
-              "lat": 41.12,
-              "lon": 16.87
-            },
-            {
-              "n": "Monte Bianco",
-              "lat": 45.83,
-              "lon": 6.86,
-              "tipo": "monte"
-            },
-            {
-              "n": "Etna",
-              "lat": 37.75,
-              "lon": 14.99,
-              "tipo": "monte"
-            },
-            {
-              "n": "Vesuvio",
-              "lat": 40.82,
-              "lon": 14.43,
-              "tipo": "monte"
-            },
-            {
-              "n": "Foce del Po",
-              "lat": 44.95,
-              "lon": 12.45,
-              "tipo": "fiume"
-            },
-            {
-              "n": "Lago di Garda",
-              "lat": 45.63,
-              "lon": 10.66,
-              "tipo": "lago"
-            }
-          ]
-        }
-      ],
-      "parole": [
-        "regioni",
-        "capoluogh"
-      ]
-    },
     {
       "id": "sto-greci",
       "materia": "storia",
@@ -1446,122 +683,63 @@
       ],
       "giochi": [
         {
-          "tipo": "quiz",
-          "titolo": "La poesia e la festa",
-          "domande": [
-            {
-              "d": "Chi ha scritto la poesia \"San Martino\"?",
-              "r": [
-                "Giosuè Carducci",
-                "Giovanni Pascoli",
-                "Gianni Rodari",
-                "Giacomo Leopardi"
-              ]
-            },
-            {
-              "d": "Che giorno si festeggia San Martino?",
-              "r": [
-                "11 novembre",
-                "2 novembre",
-                "25 novembre",
-                "11 ottobre"
-              ]
-            },
-            {
-              "d": "Quante strofe ha la poesia?",
-              "r": [
-                "4",
-                "3",
-                "5",
-                "6"
-              ]
-            },
-            {
-              "d": "Quanti versi ha ogni strofa?",
-              "r": [
-                "4",
-                "3",
-                "2",
-                "6"
-              ]
-            },
-            {
-              "d": "Che cosa sale sui colli all'inizio della poesia?",
-              "r": [
-                "La nebbia",
-                "Il fumo",
-                "La neve",
-                "Il sole"
-              ]
-            },
-            {
-              "d": "Come si chiama il vento che fa urlare il mare?",
-              "r": [
-                "Maestrale",
-                "Scirocco",
-                "Libeccio",
-                "Tramontana"
-              ]
-            },
-            {
-              "d": "Che cosa ribolle nei tini?",
-              "r": [
-                "Il vino nuovo",
-                "L'acqua del pozzo",
-                "Il latte",
-                "L'olio"
-              ]
-            },
-            {
-              "d": "Che cosa gira sui ceppi accesi?",
-              "r": [
-                "Lo spiedo",
-                "La ruota",
-                "Il mulino",
-                "La pentola"
-              ]
-            },
-            {
-              "d": "Chi sta sull'uscio a guardare il cielo?",
-              "r": [
-                "Il cacciatore",
-                "Il pescatore",
-                "Il contadino",
-                "Il bambino"
-              ]
-            },
-            {
-              "d": "A che cosa sono paragonati gli uccelli neri?",
-              "r": [
-                "A pensieri lontani da casa (esuli)",
-                "A nuvole di pioggia",
-                "A foglie secche",
-                "A navi nel mare"
-              ]
-            },
-            {
-              "d": "Secondo la leggenda, che cosa fece Martino per un povero?",
-              "r": [
-                "Tagliò a metà il suo mantello e gliene diede una parte",
-                "Gli regalò il suo cavallo",
-                "Gli costruì una casa",
-                "Gli diede la sua spada"
-              ]
-            },
-            {
-              "d": "Che cos'è l'\"estate di San Martino\"?",
-              "r": [
-                "Qualche giorno di sole tiepido a novembre",
-                "Una festa al mare d'estate",
-                "Il primo giorno di neve",
-                "Le vacanze di Natale"
-              ]
-            }
+          "tipo": "ordina",
+          "titolo": "Ordina i versi: strofa 1",
+          "istruzione": "Metti in ordine i versi della prima strofa",
+          "elementi": [
+            "La nebbia agl'irti colli",
+            "piovigginando sale,",
+            "e sotto il maestrale",
+            "urla e biancheggia il mar;"
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Ordina i versi: strofa 2",
+          "istruzione": "Metti in ordine i versi della seconda strofa",
+          "elementi": [
+            "ma per le vie del borgo",
+            "dal ribollir de' tini",
+            "va l'aspro odor dei vini",
+            "l'anime a rallegrar."
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Ordina i versi: strofa 3",
+          "istruzione": "Metti in ordine i versi della terza strofa",
+          "elementi": [
+            "Gira su' ceppi accesi",
+            "lo spiedo scoppiettando:",
+            "sta il cacciator fischiando",
+            "su l'uscio a rimirar"
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Ordina i versi: strofa 4",
+          "istruzione": "Metti in ordine i versi della quarta strofa",
+          "elementi": [
+            "tra le rossastre nubi",
+            "stormi d'uccelli neri,",
+            "com'esuli pensieri,",
+            "nel vespero migrar."
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Le strofe in ordine",
+          "istruzione": "Metti in ordine le strofe: tocca il loro primo verso",
+          "elementi": [
+            "La nebbia agl'irti colli",
+            "ma per le vie del borgo",
+            "Gira su' ceppi accesi",
+            "tra le rossastre nubi"
           ]
         },
         {
           "tipo": "completa",
-          "titolo": "Completa i versi",
+          "titolo": "Parole mancanti 1",
           "frasi": [
             {
               "f": "La ___ agl'irti colli piovigginando sale,",
@@ -1630,77 +808,1202 @@
           ]
         },
         {
-          "tipo": "ordina",
-          "titolo": "In ordine: la prima strofa",
-          "istruzione": "Metti in ordine i versi della prima strofa",
-          "elementi": [
-            "La nebbia agl'irti colli",
-            "piovigginando sale,",
-            "e sotto il maestrale",
-            "urla e biancheggia il mar;"
+          "tipo": "completa",
+          "titolo": "Parole mancanti 2",
+          "frasi": [
+            {
+              "f": "La nebbia agl'irti ___ piovigginando sale,",
+              "r": [
+                "colli",
+                "monti",
+                "campi"
+              ]
+            },
+            {
+              "f": "e sotto il maestrale urla e ___ il mar;",
+              "r": [
+                "biancheggia",
+                "ribolle",
+                "s'agita"
+              ]
+            },
+            {
+              "f": "ma per le vie del borgo dal ribollir de' ___",
+              "r": [
+                "tini",
+                "pini",
+                "camini"
+              ]
+            },
+            {
+              "f": "va l'aspro odor dei vini l'anime a ___.",
+              "r": [
+                "rallegrar",
+                "consolar",
+                "riscaldar"
+              ]
+            },
+            {
+              "f": "Gira su' ceppi ___ lo spiedo scoppiettando:",
+              "r": [
+                "accesi",
+                "spenti",
+                "di legno"
+              ]
+            },
+            {
+              "f": "sta il cacciator fischiando su l'uscio a ___",
+              "r": [
+                "rimirar",
+                "riposar",
+                "aspettar"
+              ]
+            },
+            {
+              "f": "tra le ___ nubi stormi d'uccelli neri,",
+              "r": [
+                "rossastre",
+                "grigiastre",
+                "bianche"
+              ]
+            },
+            {
+              "f": "com'esuli ___, nel vespero migrar.",
+              "r": [
+                "pensieri",
+                "sentieri",
+                "guerrieri"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "componi",
+          "titolo": "Componi i versi: strofe 1 e 2",
+          "istruzione": "Tocca le parole nell'ordine del verso",
+          "frasi": [
+            "La nebbia agl'irti colli piovigginando sale",
+            "e sotto il maestrale urla e biancheggia il mar",
+            "ma per le vie del borgo dal ribollir de' tini",
+            "va l'aspro odor dei vini l'anime a rallegrar"
+          ]
+        },
+        {
+          "tipo": "componi",
+          "titolo": "Componi i versi: strofe 3 e 4",
+          "istruzione": "Tocca le parole nell'ordine del verso",
+          "frasi": [
+            "Gira su' ceppi accesi lo spiedo scoppiettando",
+            "sta il cacciator fischiando su l'uscio a rimirar",
+            "tra le rossastre nubi stormi d'uccelli neri",
+            "com'esuli pensieri nel vespero migrar"
+          ]
+        }
+      ],
+      "testo": {
+        "tipo": "poesia",
+        "titolo": "San Martino",
+        "autore": "Giosuè Carducci",
+        "righe": [
+          "La nebbia agl'irti colli",
+          "piovigginando sale,",
+          "e sotto il maestrale",
+          "urla e biancheggia il mar;",
+          "",
+          "ma per le vie del borgo",
+          "dal ribollir de' tini",
+          "va l'aspro odor dei vini",
+          "l'anime a rallegrar.",
+          "",
+          "Gira su' ceppi accesi",
+          "lo spiedo scoppiettando:",
+          "sta il cacciator fischiando",
+          "su l'uscio a rimirar",
+          "",
+          "tra le rossastre nubi",
+          "stormi d'uccelli neri,",
+          "com'esuli pensieri,",
+          "nel vespero migrar."
+        ]
+      }
+    },
+    {
+      "id": "mat-statistica",
+      "materia": "matematica",
+      "titolo": "Mediana, moda e media",
+      "fonte": "Matematica 5, pag. 81, 83, 84 (esercizi pag. 224-225)",
+      "parole": [
+        "mediana",
+        "moda",
+        "media aritmetica",
+        "statistic"
+      ],
+      "pagine": [
+        81,
+        82,
+        83,
+        84,
+        224,
+        225
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Definizioni e calcoli",
+          "domande": [
+            {
+              "d": "Che cos'è la mediana?",
+              "r": [
+                "Il valore centrale di una serie ordinata",
+                "Il dato più frequente",
+                "La somma dei dati",
+                "Il dato più grande"
+              ]
+            },
+            {
+              "d": "Che cos'è la moda?",
+              "r": [
+                "Il dato che si presenta più spesso",
+                "Il valore centrale",
+                "La somma divisa per il numero dei dati",
+                "Il dato più piccolo"
+              ]
+            },
+            {
+              "d": "Come si calcola la media aritmetica?",
+              "r": [
+                "Somma dei dati diviso il numero dei dati",
+                "Si prende il dato centrale",
+                "Si prende il dato più frequente",
+                "Maggiore meno minore"
+              ]
+            },
+            {
+              "d": "Qual è la mediana di 3, 5, 7, 9, 11?",
+              "r": [
+                "7",
+                "5",
+                "9",
+                "35"
+              ]
+            },
+            {
+              "d": "Qual è la mediana di 8, 2, 10, 4, 6?",
+              "r": [
+                "6",
+                "10",
+                "4",
+                "2"
+              ]
+            },
+            {
+              "d": "Qual è la mediana di 2, 4, 6, 8?",
+              "r": [
+                "5",
+                "4",
+                "6",
+                "20"
+              ]
+            },
+            {
+              "d": "Qual è la moda di 3, 5, 5, 7, 9?",
+              "r": [
+                "5",
+                "7",
+                "3",
+                "9"
+              ]
+            },
+            {
+              "d": "Qual è la media di 4, 6, 8?",
+              "r": [
+                "6",
+                "18",
+                "8",
+                "4"
+              ]
+            },
+            {
+              "d": "Qual è la media di 10, 20, 30, 40?",
+              "r": [
+                "25",
+                "100",
+                "20",
+                "30"
+              ]
+            },
+            {
+              "d": "Qual è la media di 2, 4, 9?",
+              "r": [
+                "5",
+                "15",
+                "4",
+                "9"
+              ]
+            },
+            {
+              "d": "Prima di trovare la mediana bisogna...",
+              "r": [
+                "ordinare i dati",
+                "sommare i dati",
+                "dividere i dati",
+                "cancellare i dati uguali"
+              ]
+            },
+            {
+              "d": "Se i dati sono in numero pari, la mediana è...",
+              "r": [
+                "a metà tra i due valori centrali",
+                "il primo dato",
+                "l'ultimo dato",
+                "sempre zero"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La mediana è il valore intermedio in una serie ordinata di numeri.",
+              "v": true
+            },
+            {
+              "f": "La moda è il dato con la frequenza minore.",
+              "v": false
+            },
+            {
+              "f": "La media aritmetica riassume un insieme di dati con un solo numero.",
+              "v": true
+            },
+            {
+              "f": "Per trovare la mediana non serve mettere i dati in ordine.",
+              "v": false
+            },
+            {
+              "f": "La frequenza è il numero di volte che un dato si presenta.",
+              "v": true
+            },
+            {
+              "f": "Nel libro, la media delle altezze della classe è 138,8 cm.",
+              "v": true
+            },
+            {
+              "f": "Nel libro, la moda delle altezze è 150 cm.",
+              "v": false
+            },
+            {
+              "f": "La media di 5, 5, 5 è 5.",
+              "v": true
+            }
           ]
         },
         {
           "tipo": "abbina",
-          "titolo": "Le parole difficili",
+          "titolo": "Parola e significato",
           "coppie": [
             [
-              "irti",
-              "ripidi"
+              "Mediana",
+              "valore centrale dei dati ordinati"
             ],
             [
-              "maestrale",
-              "vento da nord-ovest"
+              "Moda",
+              "dato più frequente"
             ],
             [
-              "borgo",
-              "piccolo paese"
+              "Media aritmetica",
+              "somma diviso numero dei dati"
             ],
             [
-              "tini",
-              "grandi botti per il vino"
+              "Frequenza",
+              "quante volte compare un dato"
             ],
             [
-              "ceppi",
-              "grossi pezzi di legno"
+              "Rilevazione",
+              "raccolta dei dati"
             ],
             [
-              "uscio",
-              "porta di casa"
-            ],
-            [
-              "esuli",
-              "lontani da casa"
-            ],
-            [
-              "vespero",
-              "sera"
+              "Grafico a barre",
+              "rappresenta i dati con barre"
             ]
           ]
         },
         {
+          "tipo": "ordina",
+          "titolo": "Come si calcola la media",
+          "istruzione": "Metti in ordine i passaggi per calcolare la media aritmetica",
+          "elementi": [
+            "Raccolgo i dati",
+            "Sommo tutti i dati",
+            "Conto quanti sono i dati",
+            "Divido la somma per il numero dei dati",
+            "Scrivo il risultato: è la media"
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa con i numeri del libro",
+          "frasi": [
+            {
+              "f": "Nella classe del libro la mediana delle altezze è ___ cm.",
+              "r": [
+                "138",
+                "137",
+                "150"
+              ]
+            },
+            {
+              "f": "Nella classe del libro la moda delle altezze è ___ cm.",
+              "r": [
+                "137",
+                "138",
+                "128"
+              ]
+            },
+            {
+              "f": "La somma delle altezze è 2082 e gli alunni sono 15: la media è ___ cm.",
+              "r": [
+                "138,8",
+                "2082",
+                "15"
+              ]
+            },
+            {
+              "f": "Le altezze sono comprese tra 128 e ___ cm.",
+              "r": [
+                "150",
+                "145",
+                "138"
+              ]
+            },
+            {
+              "f": "Nel grafico delle frequenze la barra più ___ indica la moda.",
+              "r": [
+                "alta",
+                "bassa",
+                "stretta"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Calcola a mente",
+          "coppie": [
+            [
+              "Mediana di 1, 2, 3",
+              "2"
+            ],
+            [
+              "Moda di 4, 4, 9",
+              "4"
+            ],
+            [
+              "Media di 2, 8",
+              "5"
+            ],
+            [
+              "Media di 3, 3, 6",
+              "4"
+            ],
+            [
+              "Mediana di 10, 20, 30",
+              "20"
+            ],
+            [
+              "Moda di 7, 1, 7",
+              "7"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-decimali",
+      "materia": "matematica",
+      "titolo": "Numeri decimali e arrotondamenti",
+      "fonte": "Matematica 5, pag. 170-173",
+      "parole": [
+        "decimal",
+        "arrotond"
+      ],
+      "pagine": [
+        170,
+        171,
+        172,
+        173
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Decimi, centesimi e millesimi",
+          "domande": [
+            {
+              "d": "1 unità è formata da...",
+              "r": [
+                "10 decimi",
+                "1 decimo",
+                "100 decimi",
+                "10 centesimi"
+              ]
+            },
+            {
+              "d": "4 unità sono formate da...",
+              "r": [
+                "40 decimi",
+                "4 decimi",
+                "4 centesimi",
+                "400 decimi"
+              ]
+            },
+            {
+              "d": "100 centesimi formano...",
+              "r": [
+                "1 unità",
+                "1 decimo",
+                "1 centinaio",
+                "10 unità"
+              ]
+            },
+            {
+              "d": "1,3 corrisponde a...",
+              "r": [
+                "1,30",
+                "1,03",
+                "10,3",
+                "13"
+              ]
+            },
+            {
+              "d": "Come si scrive \"quindici decimi\"?",
+              "r": [
+                "1,5",
+                "15,10",
+                "0,15",
+                "150"
+              ]
+            },
+            {
+              "d": "Come si scrive \"ventotto centesimi\"?",
+              "r": [
+                "0,28",
+                "28,100",
+                "2,8",
+                "0,028"
+              ]
+            },
+            {
+              "d": "Come si scrive \"tre centesimi\"?",
+              "r": [
+                "0,03",
+                "0,3",
+                "3,100",
+                "0,003"
+              ]
+            },
+            {
+              "d": "Come si scrive \"centotrentacinque centesimi\"?",
+              "r": [
+                "1,35",
+                "135,100",
+                "13,5",
+                "0,135"
+              ]
+            },
+            {
+              "d": "Nel numero 28,44 quante sono le cifre decimali?",
+              "r": [
+                "2",
+                "1",
+                "3",
+                "4"
+              ]
+            },
+            {
+              "d": "Qual è il numero maggiore?",
+              "r": [
+                "51,8",
+                "51,08",
+                "51,008",
+                "5,18"
+              ]
+            },
+            {
+              "d": "Arrotonda 62,47 ai decimi.",
+              "r": [
+                "62,5",
+                "62,4",
+                "62",
+                "63"
+              ]
+            },
+            {
+              "d": "Arrotonda 92,053 ai centesimi.",
+              "r": [
+                "92,05",
+                "92,06",
+                "92,1",
+                "92"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "7,3 è uguale a 7,300.",
+              "v": true
+            },
+            {
+              "f": "0,57 è maggiore di 0,571.",
+              "v": false
+            },
+            {
+              "f": "3,62 è uguale a 3,620.",
+              "v": true
+            },
+            {
+              "f": "15,02 è maggiore di 16,001.",
+              "v": false
+            },
+            {
+              "f": "16,3 arrotondato alle unità diventa 16.",
+              "v": true
+            },
+            {
+              "f": "16,5 arrotondato alle unità diventa 16.",
+              "v": false
+            },
+            {
+              "f": "Se la cifra a destra è 5 o più, si arrotonda per eccesso.",
+              "v": true
+            },
+            {
+              "f": "€ 100,80 arrotondato alle unità diventa € 100.",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "In ordine crescente",
+          "istruzione": "Tocca i numeri dal più piccolo al più grande",
+          "elementi": [
+            "0,427",
+            "0,703",
+            "1,129",
+            "1,3",
+            "1,7",
+            "2,5",
+            "2,88",
+            "3,175"
+          ]
+        },
+        {
           "tipo": "categorie",
-          "titolo": "In quale strofa?",
+          "titolo": "Per difetto o per eccesso?",
           "gruppi": {
-            "1ª strofa: colli e mare": [
-              "nebbia",
-              "maestrale",
-              "mare che urla"
+            "Per difetto": [
+              "35,3 → 35",
+              "327,12 → 327,1",
+              "159,341 → 159,34",
+              "15,3 → 15",
+              "164 → 160",
+              "83 442 → 83 440"
             ],
-            "2ª strofa: il borgo": [
-              "tini",
-              "odore dei vini",
-              "vie del borgo"
+            "Per eccesso": [
+              "123,79 → 123,80",
+              "68,8 → 69",
+              "5,99 → 6",
+              "89,7 → 90",
+              "87,009 → 87,01",
+              "19,99 → 20"
+            ]
+          }
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Arrotonda i prezzi",
+          "coppie": [
+            [
+              "€ 15,40 alle unità",
+              "€ 15"
             ],
-            "3ª strofa: la casa": [
-              "ceppi accesi",
-              "spiedo",
-              "cacciatore sull'uscio"
+            [
+              "€ 123,80 alle unità",
+              "€ 124"
             ],
-            "4ª strofa: il cielo": [
-              "nubi rossastre",
-              "uccelli neri",
-              "vespero"
+            [
+              "€ 103,24 ai decimi",
+              "€ 103,2"
+            ],
+            [
+              "€ 10,72 ai decimi",
+              "€ 10,7"
+            ],
+            [
+              "€ 54,127 ai centesimi",
+              "€ 54,13"
+            ],
+            [
+              "€ 100,80 alle unità",
+              "€ 101"
+            ]
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Scrivi in cifre",
+          "frasi": [
+            {
+              "f": "Otto unità e tre decimi = ___",
+              "r": [
+                "8,3",
+                "8,03",
+                "83"
+              ]
+            },
+            {
+              "f": "Un centinaio, due decine e tre millesimi = ___",
+              "r": [
+                "120,003",
+                "123",
+                "120,03"
+              ]
+            },
+            {
+              "f": "2,51 + 0,1 = ___",
+              "r": [
+                "2,61",
+                "2,52",
+                "3,51"
+              ]
+            },
+            {
+              "f": "23,47 − 0,1 = ___",
+              "r": [
+                "23,37",
+                "23,46",
+                "22,47"
+              ]
+            },
+            {
+              "f": "0,9 + 0,1 = ___",
+              "r": [
+                "1",
+                "0,10",
+                "0,91"
+              ]
+            },
+            {
+              "f": "In 108,071 la cifra 7 è ai ___.",
+              "r": [
+                "centesimi",
+                "decimi",
+                "millesimi"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sci-sistema-solare",
+      "materia": "scienze",
+      "titolo": "A spasso nel Sistema Solare",
+      "fonte": "Scienze 5, pag. 88-89",
+      "parole": [
+        "pianet",
+        "sistema solare"
+      ],
+      "pagine": [
+        88,
+        89
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sui pianeti",
+          "domande": [
+            {
+              "d": "Qual è il pianeta più piccolo e più vicino al Sole?",
+              "r": [
+                "Mercurio",
+                "Venere",
+                "Marte",
+                "Terra"
+              ]
+            },
+            {
+              "d": "Qual è il pianeta più caldo?",
+              "r": [
+                "Venere",
+                "Mercurio",
+                "Marte",
+                "Giove"
+              ]
+            },
+            {
+              "d": "Perché Venere è così caldo?",
+              "r": [
+                "La sua atmosfera densa trattiene il calore",
+                "È il più vicino al Sole",
+                "Ha tanti vulcani attivi",
+                "È fatto di ferro"
+              ]
+            },
+            {
+              "d": "Qual è il pianeta più grande?",
+              "r": [
+                "Giove",
+                "Saturno",
+                "Urano",
+                "Terra"
+              ]
+            },
+            {
+              "d": "Quale pianeta ha spettacolari anelli di ghiaccio e roccia?",
+              "r": [
+                "Saturno",
+                "Marte",
+                "Mercurio",
+                "Venere"
+              ]
+            },
+            {
+              "d": "Su quale pianeta sono state trovate tracce di acqua?",
+              "r": [
+                "Marte",
+                "Mercurio",
+                "Giove",
+                "Venere"
+              ]
+            },
+            {
+              "d": "Quale pianeta è un gigante di ghiaccio con la superficie bluastra?",
+              "r": [
+                "Urano",
+                "Marte",
+                "Venere",
+                "Mercurio"
+              ]
+            },
+            {
+              "d": "Quale pianeta è spazzato da venti fortissimi ed è il più lontano?",
+              "r": [
+                "Nettuno",
+                "Saturno",
+                "Giove",
+                "Marte"
+              ]
+            },
+            {
+              "d": "Qual è l'unico pianeta con acqua liquida e vita?",
+              "r": [
+                "La Terra",
+                "Marte",
+                "Venere",
+                "Nettuno"
+              ]
+            },
+            {
+              "d": "Se la Terra avesse un diametro di 1 cm, il Sole sarebbe di...",
+              "r": [
+                "109 cm",
+                "10 cm",
+                "2 cm",
+                "1000 cm"
+              ]
+            },
+            {
+              "d": "Mercurio non ha...",
+              "r": [
+                "atmosfera",
+                "crateri",
+                "una superficie rocciosa",
+                "temperature estreme"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Dal Sole verso l'esterno",
+          "istruzione": "Metti i pianeti in ordine, dal più vicino al Sole al più lontano",
+          "elementi": [
+            "Mercurio",
+            "Venere",
+            "Terra",
+            "Marte",
+            "Giove",
+            "Saturno",
+            "Urano",
+            "Nettuno"
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Rocciosi o giganti?",
+          "gruppi": {
+            "Pianeti rocciosi": [
+              "Mercurio",
+              "Venere",
+              "Terra",
+              "Marte"
+            ],
+            "Pianeti giganti": [
+              "Giove",
+              "Saturno",
+              "Urano",
+              "Nettuno"
+            ]
+          }
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Chi sono?",
+          "coppie": [
+            [
+              "Mercurio",
+              "pieno di crateri, senza atmosfera"
+            ],
+            [
+              "Venere",
+              "il più caldo"
+            ],
+            [
+              "Marte",
+              "freddo e desertico"
+            ],
+            [
+              "Giove",
+              "il più grande"
+            ],
+            [
+              "Saturno",
+              "ha gli anelli"
+            ],
+            [
+              "Urano",
+              "gigante di ghiaccio"
+            ]
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "Il disegno del libro è un modello: le misure reali sono enormi.",
+              "v": true
+            },
+            {
+              "f": "Giove pesa più del doppio di tutti gli altri pianeti insieme.",
+              "v": true
+            },
+            {
+              "f": "Saturno è un pianeta roccioso.",
+              "v": false
+            },
+            {
+              "f": "Su Mercurio di giorno ci sono 430 °C e di notte -180 °C.",
+              "v": true
+            },
+            {
+              "f": "Marte ha un'atmosfera molto densa.",
+              "v": false
+            },
+            {
+              "f": "Sotto le nuvole di Nettuno potrebbe esserci un oceano.",
+              "v": true
+            },
+            {
+              "f": "Tra Marte e Giove c'è la fascia di asteroidi.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "I nomi dei pianeti",
+          "parole": [
+            {
+              "p": "MERCURIO",
+              "indizio": "Il più piccolo"
+            },
+            {
+              "p": "VENERE",
+              "indizio": "Il più caldo"
+            },
+            {
+              "p": "GIOVE",
+              "indizio": "Il più grande"
+            },
+            {
+              "p": "SATURNO",
+              "indizio": "Quello con gli anelli"
+            },
+            {
+              "p": "NETTUNO",
+              "indizio": "Il più lontano"
+            },
+            {
+              "p": "MARTE",
+              "indizio": "Il pianeta rosso e desertico"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ita-modi-indefiniti",
+      "materia": "italiano",
+      "titolo": "Infinito, participio e gerundio",
+      "fonte": "Grammatica 5, pag. 71-73 (ripasso pag. 142-151, mi alleno pag. 159-167)",
+      "parole": [
+        "infinit",
+        "particip",
+        "gerundi",
+        "modi indefiniti"
+      ],
+      "pagine": [
+        71,
+        72,
+        73
+      ],
+      "libro": "grammatica",
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "I modi indefiniti",
+          "domande": [
+            {
+              "d": "Quali sono i modi indefiniti?",
+              "r": [
+                "Infinito, participio e gerundio",
+                "Indicativo, congiuntivo e condizionale",
+                "Imperativo e infinito",
+                "Presente, passato e futuro"
+              ]
+            },
+            {
+              "d": "Perché si chiamano modi indefiniti?",
+              "r": [
+                "Non dicono chi compie l'azione",
+                "Non hanno tempi",
+                "Si usano solo al passato",
+                "Non hanno significato"
+              ]
+            },
+            {
+              "d": "Quanti tempi ha ciascun modo indefinito?",
+              "r": [
+                "Due: presente e passato",
+                "Uno solo",
+                "Tre",
+                "Otto"
+              ]
+            },
+            {
+              "d": "\"Avere mangiato\" è...",
+              "r": [
+                "infinito passato",
+                "infinito presente",
+                "gerundio passato",
+                "participio passato"
+              ]
+            },
+            {
+              "d": "\"Parlante\" è...",
+              "r": [
+                "participio presente",
+                "participio passato",
+                "gerundio presente",
+                "infinito presente"
+              ]
+            },
+            {
+              "d": "\"Avendo letto\" è...",
+              "r": [
+                "gerundio passato",
+                "gerundio presente",
+                "infinito passato",
+                "participio passato"
+              ]
+            },
+            {
+              "d": "Il participio passato con essere o avere serve a formare...",
+              "r": [
+                "i tempi composti",
+                "il futuro semplice",
+                "l'imperativo",
+                "il gerundio"
+              ]
+            },
+            {
+              "d": "In \"Sto leggendo\" il gerundio esprime...",
+              "r": [
+                "un'azione in corso",
+                "un'azione finita",
+                "un ordine",
+                "un desiderio"
+              ]
+            },
+            {
+              "d": "Il participio può fare anche da...",
+              "r": [
+                "aggettivo e nome",
+                "articolo e preposizione",
+                "avverbio e congiunzione",
+                "pronome"
+              ]
+            },
+            {
+              "d": "Qual è il gerundio presente di \"leggere\"?",
+              "r": [
+                "leggendo",
+                "letto",
+                "leggente",
+                "avendo letto"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Infinito, participio o gerundio?",
+          "gruppi": {
+            "Infinito": [
+              "cercare",
+              "avere visto",
+              "dare",
+              "essere andato",
+              "ridere",
+              "avere studiato"
+            ],
+            "Participio": [
+              "conosciuto",
+              "residente",
+              "invitato",
+              "sbagliato",
+              "invitante",
+              "ripetente"
+            ],
+            "Gerundio": [
+              "dormendo",
+              "essendo arrivati",
+              "avendo raggiunto",
+              "colorando",
+              "cucinando",
+              "saltellando"
+            ]
+          }
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Participio presente e passato",
+          "coppie": [
+            [
+              "credere",
+              "credente · creduto"
+            ],
+            [
+              "vincere",
+              "vincente · vinto"
+            ],
+            [
+              "udire",
+              "udente · udito"
+            ],
+            [
+              "ripetere",
+              "ripetente · ripetuto"
+            ],
+            [
+              "parlare",
+              "parlante · parlato"
+            ],
+            [
+              "perdere",
+              "perdente · perduto"
+            ]
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Usa il gerundio",
+          "frasi": [
+            {
+              "f": "(Dopo avere camminato) → ___ per tutta la città, ero molto stanco.",
+              "r": [
+                "Avendo camminato",
+                "Camminato",
+                "Camminare"
+              ]
+            },
+            {
+              "f": "(Poiché aveva dormito) → ___ poco, a Elena si chiudevano gli occhi.",
+              "r": [
+                "Avendo dormito",
+                "Dormendo",
+                "Dormito"
+              ]
+            },
+            {
+              "f": "(Poiché non amo) → Non ___ la folla, non vado alle manifestazioni.",
+              "r": [
+                "amando",
+                "amato",
+                "amare"
+              ]
+            },
+            {
+              "f": "(Mentre passeggiavo) → ___ sul mare, ho trovato una conchiglia.",
+              "r": [
+                "Passeggiando",
+                "Passeggiato",
+                "Avendo passeggiato"
+              ]
+            },
+            {
+              "f": "(Mentre guardava) → ___ la televisione, Matteo si è addormentato.",
+              "r": [
+                "Guardando",
+                "Guardato",
+                "Guardante"
+              ]
+            },
+            {
+              "f": "(Mentre nuotava) → ___, Giovanna non si è accorta delle boe.",
+              "r": [
+                "Nuotando",
+                "Nuotato",
+                "Nuotante"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Verbo, aggettivo o nome?",
+          "gruppi": {
+            "Verbo": [
+              "Perso l'aereo, abbiamo preso il treno",
+              "Il piatto che hai cucinato",
+              "Ho studiato tanto"
+            ],
+            "Aggettivo": [
+              "un piatto invitante",
+              "atleti vincenti",
+              "barare è deludente"
+            ],
+            "Nome": [
+              "la nostra insegnante",
+              "quel cantante",
+              "un ripetente"
             ]
           }
         },
@@ -1709,67 +2012,2406 @@
           "titolo": "Vero o falso?",
           "frasi": [
             {
-              "f": "La poesia descrive una giornata d'autunno.",
-              "v": true
-            },
-            {
-              "f": "Nella prima strofa il mare è calmo e silenzioso.",
+              "f": "L'infinito dà informazioni sul numero e sulla persona.",
               "v": false
             },
             {
-              "f": "Nel borgo c'è odore di vino nuovo.",
+              "f": "\"Mangiare\" è un infinito presente.",
               "v": true
             },
             {
-              "f": "Il cacciatore sta dentro casa a dormire.",
+              "f": "\"Perduto\" è un participio presente.",
               "v": false
             },
             {
-              "f": "\"Com'esuli pensieri\" è una similitudine.",
+              "f": "Il gerundio esprime un'azione legata a un'altra azione.",
               "v": true
             },
             {
-              "f": "Martino era un soldato romano a cavallo.",
-              "v": true
-            },
-            {
-              "f": "Nella leggenda Martino dà al povero tutto il mantello.",
+              "f": "\"Andando\" è un infinito.",
               "v": false
             },
             {
-              "f": "A San Martino, in molti posti, si assaggia il vino nuovo e si mangiano le castagne.",
+              "f": "\"Essere andato\" è un infinito passato.",
+              "v": true
+            },
+            {
+              "f": "\"Detto\" è un participio passato.",
+              "v": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geo-puglia",
+      "materia": "geografia",
+      "titolo": "La Puglia",
+      "fonte": "Geografia 5, pag. 79-82 (eserciziario pag. 132-133)",
+      "parole": [
+        "pugli"
+      ],
+      "pagine": [
+        79,
+        80,
+        81,
+        82,
+        132,
+        133
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sulla Puglia",
+          "domande": [
+            {
+              "d": "Qual è il capoluogo della Puglia?",
+              "r": [
+                "Bari",
+                "Foggia",
+                "Lecce",
+                "Taranto"
+              ]
+            },
+            {
+              "d": "La Puglia è la Regione più ... d'Italia.",
+              "r": [
+                "orientale",
+                "settentrionale",
+                "occidentale",
+                "montuosa"
+              ]
+            },
+            {
+              "d": "Che cos'è il Tavoliere?",
+              "r": [
+                "La pianura più ampia dopo la Pianura Padana",
+                "Un altopiano calcareo",
+                "Un promontorio roccioso",
+                "Un lago costiero"
+              ]
+            },
+            {
+              "d": "Le Murge sono...",
+              "r": [
+                "un altopiano calcareo ondulato",
+                "una catena di vulcani",
+                "una grande pianura",
+                "un arcipelago"
+              ]
+            },
+            {
+              "d": "Quale zona è detta \"il tacco d'Italia\"?",
+              "r": [
+                "Il Salento",
+                "Il Gargano",
+                "Il Tavoliere",
+                "Le Murge"
+              ]
+            },
+            {
+              "d": "Qual è il fiume più importante della Puglia?",
+              "r": [
+                "L'Ofanto",
+                "Il Sele",
+                "Il Volturno",
+                "Il Crati"
+              ]
+            },
+            {
+              "d": "Come è stato affrontato il problema della siccità?",
+              "r": [
+                "Con un lungo acquedotto",
+                "Con grandi laghi glaciali",
+                "Con molti pozzi di petrolio",
+                "Con le dighe sul Po"
+              ]
+            },
+            {
+              "d": "Dove si trovano le saline più grandi d'Europa?",
+              "r": [
+                "A Margherita di Savoia",
+                "A Bari",
+                "A Taranto",
+                "A Lecce"
+              ]
+            },
+            {
+              "d": "Che forma ha Castel del Monte ad Andria?",
+              "r": [
+                "Un ottagono",
+                "Un quadrato",
+                "Un cerchio",
+                "Un triangolo"
+              ]
+            },
+            {
+              "d": "In quale città ci sono i famosi trulli?",
+              "r": [
+                "Alberobello",
+                "Foggia",
+                "Brindisi",
+                "Manfredonia"
+              ]
+            },
+            {
+              "d": "Com'è il clima della Puglia?",
+              "r": [
+                "Mediterraneo",
+                "Alpino",
+                "Continentale",
+                "Appenninico"
+              ]
+            },
+            {
+              "d": "Quale arcipelago fa parte della Puglia?",
+              "r": [
+                "Le Isole Tremiti",
+                "Le Isole Eolie",
+                "Le Isole Egadi",
+                "L'Arcipelago Campano"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La Puglia si trova nell'Italia meridionale.",
+              "v": true
+            },
+            {
+              "f": "Il territorio della Puglia è per lo più montuoso.",
+              "v": false
+            },
+            {
+              "f": "Il Gargano è un promontorio roccioso ricoperto da una foresta.",
+              "v": true
+            },
+            {
+              "f": "La Puglia è attraversata da lunghi fiumi.",
+              "v": false
+            },
+            {
+              "f": "Il Tavoliere è un antico fondo marino emerso.",
+              "v": true
+            },
+            {
+              "f": "Le coste sono quasi tutte alte e rocciose.",
+              "v": false
+            },
+            {
+              "f": "I laghi di Varano e di Lesina sono laghi costieri.",
+              "v": true
+            },
+            {
+              "f": "La Puglia è fra le prime Regioni per la produzione di olio e vino.",
+              "v": true
+            },
+            {
+              "f": "Il turismo in Puglia ha poca importanza.",
+              "v": false
+            },
+            {
+              "f": "Il grano duro si usa per produrre la pasta.",
               "v": true
             }
           ]
         },
         {
-          "tipo": "memory",
-          "titolo": "Memory di San Martino",
+          "tipo": "completa",
+          "titolo": "Completa le frasi",
+          "frasi": [
+            {
+              "f": "A nord-ovest ci sono i Monti della ___.",
+              "r": [
+                "Daunia",
+                "Sila",
+                "Madonie"
+              ]
+            },
+            {
+              "f": "Il ___ è un promontorio proteso nell'Adriatico.",
+              "r": [
+                "Gargano",
+                "Salento",
+                "Vulture"
+              ]
+            },
+            {
+              "f": "Il Salento si allunga tra il Mar Adriatico e il Mar ___.",
+              "r": [
+                "Ionio",
+                "Tirreno",
+                "Ligure"
+              ]
+            },
+            {
+              "f": "L'acquedotto pugliese preleva l'acqua dal fiume ___, in Campania.",
+              "r": [
+                "Sele",
+                "Ofanto",
+                "Tevere"
+              ]
+            },
+            {
+              "f": "La ___ è un tratto di costa con pareti rocciose molto ripide.",
+              "r": [
+                "falesia",
+                "duna",
+                "laguna"
+              ]
+            },
+            {
+              "f": "I principali golfi sono quelli di Manfredonia e di ___.",
+              "r": [
+                "Taranto",
+                "Napoli",
+                "Policastro"
+              ]
+            },
+            {
+              "f": "Le ___ sono antiche aziende agricole che oggi fanno agriturismo.",
+              "r": [
+                "masserie",
+                "saline",
+                "solfatare"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Le città della Puglia",
+          "mappa": "puglia",
+          "punti": [
+            {
+              "n": "Bari",
+              "lat": 41.12,
+              "lon": 16.87
+            },
+            {
+              "n": "Foggia",
+              "lat": 41.46,
+              "lon": 15.55
+            },
+            {
+              "n": "Lecce",
+              "lat": 40.35,
+              "lon": 18.17
+            },
+            {
+              "n": "Taranto",
+              "lat": 40.47,
+              "lon": 17.24
+            },
+            {
+              "n": "Brindisi",
+              "lat": 40.63,
+              "lon": 17.94
+            },
+            {
+              "n": "Barletta",
+              "lat": 41.32,
+              "lon": 16.28
+            },
+            {
+              "n": "Alberobello",
+              "lat": 40.78,
+              "lon": 17.24
+            },
+            {
+              "n": "Otranto",
+              "lat": 40.15,
+              "lon": 18.49
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Monti, pianure e laghi",
+          "mappa": "puglia",
+          "punti": [
+            {
+              "n": "Gargano",
+              "lat": 41.75,
+              "lon": 15.95,
+              "tipo": "monte"
+            },
+            {
+              "n": "Monti della Daunia",
+              "lat": 41.35,
+              "lon": 15.15,
+              "tipo": "monte"
+            },
+            {
+              "n": "Murge",
+              "lat": 40.85,
+              "lon": 16.6,
+              "tipo": "monte"
+            },
+            {
+              "n": "Tavoliere",
+              "lat": 41.5,
+              "lon": 15.75,
+              "tipo": "regione"
+            },
+            {
+              "n": "Salento",
+              "lat": 40.15,
+              "lon": 18.1,
+              "tipo": "regione"
+            },
+            {
+              "n": "Lago di Lesina",
+              "lat": 41.87,
+              "lon": 15.38,
+              "tipo": "lago"
+            },
+            {
+              "n": "Lago di Varano",
+              "lat": 41.88,
+              "lon": 15.85,
+              "tipo": "lago"
+            },
+            {
+              "n": "Fiume Ofanto",
+              "lat": 41.25,
+              "lon": 16.0,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Isole Tremiti",
+              "lat": 42.12,
+              "lon": 15.5,
+              "tipo": "regione"
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Che cosa produce la Puglia?",
           "coppie": [
             [
-              "11 novembre",
-              "San Martino"
+              "Agricoltura",
+              "olio, vino, pomodori"
             ],
             [
-              "Carducci",
-              "poeta"
+              "Grano duro",
+              "pasta"
             ],
             [
-              "mantello",
-              "diviso a metà"
+              "Pesca",
+              "pesce azzurro e molluschi"
             ],
             [
-              "vino nuovo",
-              "nei tini"
+              "Saline",
+              "sale marino"
             ],
             [
-              "uccelli neri",
-              "nel cielo"
+              "Industria",
+              "alimentare, meccanica, chimica"
             ],
             [
-              "sole a novembre",
-              "estate di Martino"
+              "Turismo",
+              "Gargano, Tremiti, Salento"
             ]
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole della Puglia",
+          "parole": [
+            {
+              "p": "TAVOLIERE",
+              "indizio": "La pianura più ampia dopo la Pianura Padana"
+            },
+            {
+              "p": "MURGE",
+              "indizio": "Altopiano calcareo e collinare"
+            },
+            {
+              "p": "TRULLI",
+              "indizio": "Case con il tetto a cono di Alberobello"
+            },
+            {
+              "p": "GARGANO",
+              "indizio": "Promontorio sull'Adriatico"
+            },
+            {
+              "p": "SALENTO",
+              "indizio": "Il \"tacco d'Italia\""
+            },
+            {
+              "p": "OFANTO",
+              "indizio": "Il fiume più importante"
+            },
+            {
+              "p": "BARI",
+              "indizio": "Il capoluogo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geo-basilicata",
+      "materia": "geografia",
+      "titolo": "La Basilicata",
+      "fonte": "Geografia 5, pag. 83-86 (eserciziario pag. 134-135)",
+      "parole": [
+        "basilicat",
+        "lucani"
+      ],
+      "pagine": [
+        83,
+        84,
+        85,
+        86,
+        134,
+        135
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sulla Basilicata",
+          "domande": [
+            {
+              "d": "Con quale altro nome è chiamata la Basilicata?",
+              "r": [
+                "Lucania",
+                "Daunia",
+                "Ciociaria",
+                "Gallura"
+              ]
+            },
+            {
+              "d": "Qual è il capoluogo della Basilicata?",
+              "r": [
+                "Potenza",
+                "Matera",
+                "Metaponto",
+                "Maratea"
+              ]
+            },
+            {
+              "d": "Su quali mari si affaccia la Basilicata?",
+              "r": [
+                "Mar Ionio e Mar Tirreno",
+                "Solo sul Mar Ionio",
+                "Mar Adriatico e Mar Ionio",
+                "Non ha mare"
+              ]
+            },
+            {
+              "d": "Qual è la cima più alta della Basilicata?",
+              "r": [
+                "Il Monte Pollino",
+                "Il Monte Vulture",
+                "Il Gennargentu",
+                "Il Vesuvio"
+              ]
+            },
+            {
+              "d": "Che cos'è il Monte Vulture?",
+              "r": [
+                "Un vulcano spento",
+                "Un vulcano attivo",
+                "Un altopiano calcareo",
+                "Un ghiacciaio"
+              ]
+            },
+            {
+              "d": "Qual è l'unica zona pianeggiante?",
+              "r": [
+                "La Piana di Metaponto",
+                "Il Tavoliere",
+                "Il Campidano",
+                "La Piana del Sele"
+              ]
+            },
+            {
+              "d": "Come si chiamano i corsi d'acqua asciutti per buona parte dell'anno?",
+              "r": [
+                "Fiumare",
+                "Canali",
+                "Lagune",
+                "Falesie"
+              ]
+            },
+            {
+              "d": "Perché sono stati costruiti i laghi artificiali?",
+              "r": [
+                "Per avere acqua per irrigare e fare energia",
+                "Per allevare i pesci spada",
+                "Per fare le saline",
+                "Per il turismo invernale"
+              ]
+            },
+            {
+              "d": "Che cosa sono i Sassi di Matera?",
+              "r": [
+                "Antiche abitazioni scavate nel tufo",
+                "Grandi massi di un vulcano",
+                "Templi greci",
+                "Un tipo di formaggio"
+              ]
+            },
+            {
+              "d": "Qual è il simbolo del Parco Nazionale del Pollino?",
+              "r": [
+                "Il pino loricato",
+                "Il peperoncino",
+                "Il fenicottero rosa",
+                "La quercia da sughero"
+              ]
+            },
+            {
+              "d": "Quali giacimenti sono stati scoperti in Basilicata?",
+              "r": [
+                "Metano e petrolio",
+                "Oro e argento",
+                "Carbone e ferro",
+                "Marmo e granito"
+              ]
+            },
+            {
+              "d": "In quale anno Matera è stata Capitale europea della cultura?",
+              "r": [
+                "2019",
+                "2009",
+                "1985",
+                "2022"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La Basilicata confina con uno Stato straniero.",
+              "v": false
+            },
+            {
+              "f": "È una delle Regioni meno estese d'Italia.",
+              "v": true
+            },
+            {
+              "f": "Il territorio è soprattutto pianeggiante.",
+              "v": false
+            },
+            {
+              "f": "La costa ionica è bassa e sabbiosa.",
+              "v": true
+            },
+            {
+              "f": "La costa tirrenica è alta e rocciosa.",
+              "v": true
+            },
+            {
+              "f": "È ricca di grandi laghi glaciali.",
+              "v": false
+            },
+            {
+              "f": "Sulle colline argillose ci sono molti calanchi.",
+              "v": true
+            },
+            {
+              "f": "La Basilicata ha una densità di popolazione molto alta.",
+              "v": false
+            },
+            {
+              "f": "A Metaponto c'è un tempio greco dedicato alla dea Era.",
+              "v": true
+            },
+            {
+              "f": "Maratea si trova sul breve tratto di costa tirrenica.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa le frasi",
+          "frasi": [
+            {
+              "f": "Gran parte del territorio è occupata dall'Appennino ___.",
+              "r": [
+                "Lucano",
+                "Calabro",
+                "Campano"
+              ]
+            },
+            {
+              "f": "Il Monte Pollino supera i ___ metri.",
+              "r": [
+                "2000",
+                "3000",
+                "1000"
+              ]
+            },
+            {
+              "f": "Nella Piana di Metaponto si coltivano ortaggi e frutta, come fragole e ___.",
+              "r": [
+                "kiwi",
+                "banane",
+                "datteri"
+              ]
+            },
+            {
+              "f": "Sui rilievi interni il clima è ___, con inverni freddi.",
+              "r": [
+                "appenninico",
+                "tropicale",
+                "desertico"
+              ]
+            },
+            {
+              "f": "A causa del territorio montuoso i collegamenti sono ___.",
+              "r": [
+                "difficili",
+                "velocissimi",
+                "inutili"
+              ]
+            },
+            {
+              "f": "Il pino loricato ha la corteccia simile alla ___ dei soldati romani.",
+              "r": [
+                "corazza",
+                "spada",
+                "tunica"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "La cartina della Basilicata",
+          "mappa": "basilicata",
+          "punti": [
+            {
+              "n": "Potenza",
+              "lat": 40.64,
+              "lon": 15.8
+            },
+            {
+              "n": "Matera",
+              "lat": 40.67,
+              "lon": 16.6
+            },
+            {
+              "n": "Metaponto",
+              "lat": 40.37,
+              "lon": 16.82
+            },
+            {
+              "n": "Policoro",
+              "lat": 40.21,
+              "lon": 16.68
+            },
+            {
+              "n": "Maratea",
+              "lat": 39.99,
+              "lon": 15.72
+            },
+            {
+              "n": "Lauria",
+              "lat": 40.05,
+              "lon": 15.84
+            },
+            {
+              "n": "Monte Pollino",
+              "lat": 39.91,
+              "lon": 16.19,
+              "tipo": "monte"
+            },
+            {
+              "n": "Monte Vulture",
+              "lat": 40.95,
+              "lon": 15.63,
+              "tipo": "monte"
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Causa e conseguenza",
+          "coppie": [
+            [
+              "Territorio montuoso",
+              "sviluppo economico limitato"
+            ],
+            [
+              "Giacimenti di metano e petrolio",
+              "industrie petrolchimiche"
+            ],
+            [
+              "Monumenti antichi e natura",
+              "turismo in crescita"
+            ],
+            [
+              "Fiumare asciutte",
+              "laghi artificiali"
+            ],
+            [
+              "Piana di Metaponto",
+              "ortaggi e frutta"
+            ],
+            [
+              "Colline",
+              "viti e ulivi"
+            ]
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Territorio o economia?",
+          "gruppi": {
+            "Territorio": [
+              "Monte Pollino",
+              "Monte Vulture",
+              "calanchi",
+              "Piana di Metaponto",
+              "fiumare",
+              "Appennino Lucano"
+            ],
+            "Economia": [
+              "allevamento di bovini",
+              "petrolio e metano",
+              "orticoltura",
+              "artigianato del rame",
+              "pesca",
+              "turismo"
+            ]
+          }
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole della Basilicata",
+          "parole": [
+            {
+              "p": "LUCANIA",
+              "indizio": "L'altro nome della Basilicata"
+            },
+            {
+              "p": "POTENZA",
+              "indizio": "Il capoluogo"
+            },
+            {
+              "p": "MATERA",
+              "indizio": "La città dei Sassi"
+            },
+            {
+              "p": "POLLINO",
+              "indizio": "Il monte più alto"
+            },
+            {
+              "p": "CALANCHI",
+              "indizio": "Solchi nelle colline argillose"
+            },
+            {
+              "p": "FIUMARE",
+              "indizio": "Corsi d'acqua spesso asciutti"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geo-campania",
+      "materia": "geografia",
+      "titolo": "La Campania",
+      "fonte": "Geografia 5, pag. 87-90 (eserciziario pag. 136-137)",
+      "parole": [
+        "campani"
+      ],
+      "pagine": [
+        87,
+        88,
+        89,
+        90,
+        136,
+        137
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sulla Campania",
+          "domande": [
+            {
+              "d": "Qual è il capoluogo della Campania?",
+              "r": [
+                "Napoli",
+                "Salerno",
+                "Caserta",
+                "Avellino"
+              ]
+            },
+            {
+              "d": "Com'è soprattutto il territorio della Campania?",
+              "r": [
+                "Collinare",
+                "Pianeggiante",
+                "Tutto montuoso",
+                "Tutto vulcanico"
+              ]
+            },
+            {
+              "d": "Che cos'è il Vesuvio?",
+              "r": [
+                "Il secondo vulcano italiano per altezza",
+                "Il vulcano più alto d'Europa",
+                "Un vulcano spento da millenni",
+                "Un monte dell'Appennino Calabro"
+              ]
+            },
+            {
+              "d": "Quali città distrusse l'eruzione del 79 d.C.?",
+              "r": [
+                "Pompei ed Ercolano",
+                "Napoli e Salerno",
+                "Capri e Ischia",
+                "Caserta e Benevento"
+              ]
+            },
+            {
+              "d": "Che cosa sono le solfatare?",
+              "r": [
+                "Spaccature vulcaniche da cui escono vapore e gas",
+                "Grandi saline sul mare",
+                "Laghi formati dai ghiacciai",
+                "Antiche case nel tufo"
+              ]
+            },
+            {
+              "d": "Dove si trovano molte solfatare?",
+              "r": [
+                "Nei Campi Flegrei",
+                "Nel Cilento",
+                "Sulla Penisola Sorrentina",
+                "Nella Piana del Sele"
+              ]
+            },
+            {
+              "d": "Quale fiume forma la Pianura Campana?",
+              "r": [
+                "Il Volturno",
+                "Il Sele",
+                "L'Ofanto",
+                "Il Tevere"
+              ]
+            },
+            {
+              "d": "Quali isole formano l'Arcipelago Campano?",
+              "r": [
+                "Ischia, Capri e Procida",
+                "Lipari, Salina e Vulcano",
+                "Favignana e Levanzo",
+                "Tavolara e Molara"
+              ]
+            },
+            {
+              "d": "Che cosa ha di speciale la densità della Campania?",
+              "r": [
+                "È la più alta d'Italia",
+                "È la più bassa d'Italia",
+                "È uguale ovunque",
+                "È come quella della Basilicata"
+              ]
+            },
+            {
+              "d": "Da quale animale si ricava la mozzarella di bufala?",
+              "r": [
+                "Dalla bufala",
+                "Dalla pecora",
+                "Dalla capra",
+                "Dal maiale"
+              ]
+            },
+            {
+              "d": "Chi costruì la Reggia di Caserta?",
+              "r": [
+                "I re di Napoli",
+                "I Romani",
+                "I Greci",
+                "I Normanni"
+              ]
+            },
+            {
+              "d": "Per quali prodotti di artigianato è famosa la Campania?",
+              "r": [
+                "Presepi e porcellane di Capodimonte",
+                "Sughero e corallo",
+                "Ceramiche di Caltagirone",
+                "Oggetti in vimini"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La Campania confina a nord con il Lazio e il Molise.",
+              "v": true
+            },
+            {
+              "f": "La Campania si affaccia sul Mar Adriatico.",
+              "v": false
+            },
+            {
+              "f": "L'Appennino occupa la parte nord-orientale della Regione.",
+              "v": true
+            },
+            {
+              "f": "Il Vesuvio è spento per sempre.",
+              "v": false
+            },
+            {
+              "f": "Napoli si estende su colline, come il Vomero e Posillipo.",
+              "v": true
+            },
+            {
+              "f": "Sulla costa ci sono tre golfi: Napoli, Salerno e Policastro.",
+              "v": true
+            },
+            {
+              "f": "In Campania la disoccupazione è bassa.",
+              "v": false
+            },
+            {
+              "f": "Nelle zone costiere si coltivano i pomodori di San Marzano.",
+              "v": true
+            },
+            {
+              "f": "Il turismo è poco importante.",
+              "v": false
+            },
+            {
+              "f": "Il Parco Nazionale del Vesuvio è nato nel 1995.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa le frasi",
+          "frasi": [
+            {
+              "f": "Tra Avellino e Salerno l'Appennino arriva al mare e forma la Penisola ___.",
+              "r": [
+                "Sorrentina",
+                "Salentina",
+                "Calabra"
+              ]
+            },
+            {
+              "f": "La Piana del ___ è attraversata dall'omonimo fiume.",
+              "r": [
+                "Sele",
+                "Volturno",
+                "Crati"
+              ]
+            },
+            {
+              "f": "Le colline del ___ si trovano a sud.",
+              "r": [
+                "Cilento",
+                "Gargano",
+                "Salento"
+              ]
+            },
+            {
+              "f": "Oggi la vetta del Vesuvio è a ___ metri.",
+              "r": [
+                "1281",
+                "3323",
+                "2050"
+              ]
+            },
+            {
+              "f": "Si allevano soprattutto suini e ___.",
+              "r": [
+                "bufale",
+                "renne",
+                "struzzi"
+              ]
+            },
+            {
+              "f": "Intorno ai porti di Napoli e Salerno ci sono industrie ___.",
+              "r": [
+                "navali",
+                "minerarie",
+                "del sughero"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Le città della Campania",
+          "mappa": "campania",
+          "punti": [
+            {
+              "n": "Napoli",
+              "lat": 40.85,
+              "lon": 14.27
+            },
+            {
+              "n": "Salerno",
+              "lat": 40.68,
+              "lon": 14.77
+            },
+            {
+              "n": "Caserta",
+              "lat": 41.07,
+              "lon": 14.33
+            },
+            {
+              "n": "Avellino",
+              "lat": 40.91,
+              "lon": 14.79
+            },
+            {
+              "n": "Benevento",
+              "lat": 41.13,
+              "lon": 14.78
+            },
+            {
+              "n": "Pompei",
+              "lat": 40.75,
+              "lon": 14.49
+            },
+            {
+              "n": "Sorrento",
+              "lat": 40.63,
+              "lon": 14.38
+            },
+            {
+              "n": "Paestum",
+              "lat": 40.42,
+              "lon": 15.0
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Vulcani, isole e fiumi",
+          "mappa": "campania",
+          "punti": [
+            {
+              "n": "Vesuvio",
+              "lat": 40.82,
+              "lon": 14.43,
+              "tipo": "monte"
+            },
+            {
+              "n": "Campi Flegrei",
+              "lat": 40.84,
+              "lon": 14.12,
+              "tipo": "regione"
+            },
+            {
+              "n": "Ischia",
+              "lat": 40.73,
+              "lon": 13.9,
+              "tipo": "regione"
+            },
+            {
+              "n": "Capri",
+              "lat": 40.55,
+              "lon": 14.23,
+              "tipo": "regione"
+            },
+            {
+              "n": "Procida",
+              "lat": 40.76,
+              "lon": 14.02,
+              "tipo": "regione"
+            },
+            {
+              "n": "Fiume Volturno",
+              "lat": 41.1,
+              "lon": 14.1,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Fiume Sele",
+              "lat": 40.55,
+              "lon": 15.05,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Cilento",
+              "lat": 40.25,
+              "lon": 15.2,
+              "tipo": "monte"
+            },
+            {
+              "n": "Penisola Sorrentina",
+              "lat": 40.6,
+              "lon": 14.45,
+              "tipo": "regione"
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Dove lo metto?",
+          "gruppi": {
+            "Agricoltura e allevamento": [
+              "pomodori San Marzano",
+              "tabacco",
+              "agrumi",
+              "bufale",
+              "patate",
+              "suini"
+            ],
+            "Industria e artigianato": [
+              "pastifici",
+              "caseifici",
+              "salsa di pomodoro",
+              "industrie navali",
+              "presepi napoletani",
+              "porcellane"
+            ],
+            "Turismo": [
+              "Pompei",
+              "Ercolano",
+              "Paestum",
+              "Reggia di Caserta",
+              "Capri",
+              "Costa sorrentina"
+            ]
+          }
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole della Campania",
+          "parole": [
+            {
+              "p": "VESUVIO",
+              "indizio": "Il vulcano vicino a Napoli"
+            },
+            {
+              "p": "POMPEI",
+              "indizio": "Città romana sepolta nel 79 d.C."
+            },
+            {
+              "p": "SOLFATARA",
+              "indizio": "Spaccatura da cui escono gas di zolfo"
+            },
+            {
+              "p": "VOLTURNO",
+              "indizio": "Fiume della Pianura Campana"
+            },
+            {
+              "p": "CILENTO",
+              "indizio": "Colline a sud"
+            },
+            {
+              "p": "MOZZARELLA",
+              "indizio": "Si fa con il latte di bufala"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geo-calabria",
+      "materia": "geografia",
+      "titolo": "La Calabria",
+      "fonte": "Geografia 5, pag. 91-94 (eserciziario pag. 138-139)",
+      "parole": [
+        "calabr"
+      ],
+      "pagine": [
+        91,
+        92,
+        93,
+        94,
+        138,
+        139
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sulla Calabria",
+          "domande": [
+            {
+              "d": "Qual è il capoluogo della Calabria?",
+              "r": [
+                "Catanzaro",
+                "Reggio di Calabria",
+                "Cosenza",
+                "Crotone"
+              ]
+            },
+            {
+              "d": "La Calabria è chiamata...",
+              "r": [
+                "la punta dello stivale",
+                "il tacco d'Italia",
+                "il cuore verde d'Italia",
+                "l'isola del sole"
+              ]
+            },
+            {
+              "d": "Che cosa ha di speciale la costa calabrese?",
+              "r": [
+                "È la più lunga d'Italia: 715 km",
+                "È tutta sabbiosa",
+                "È tutta alta e rocciosa",
+                "Si affaccia sull'Adriatico"
+              ]
+            },
+            {
+              "d": "Quali gruppi formano l'Appennino Calabro, da nord a sud?",
+              "r": [
+                "Pollino, Sila, Aspromonte",
+                "Sila, Pollino, Etna",
+                "Madonie, Sila, Vulture",
+                "Gargano, Sila, Aspromonte"
+              ]
+            },
+            {
+              "d": "Qual è il fiume più lungo della Calabria?",
+              "r": [
+                "Il Crati",
+                "L'Ofanto",
+                "Il Sele",
+                "Il Tirso"
+              ]
+            },
+            {
+              "d": "Quale pianura si trova sulla costa ionica?",
+              "r": [
+                "La Piana di Sibari",
+                "La Piana di Gioia Tauro",
+                "La Piana di Sant'Eufemia",
+                "Il Campidano"
+              ]
+            },
+            {
+              "d": "Qual è il simbolo della Calabria?",
+              "r": [
+                "Il peperoncino",
+                "Il trullo",
+                "Il pino loricato",
+                "Il fico d'India"
+              ]
+            },
+            {
+              "d": "Quale agrume è caratteristico della Calabria?",
+              "r": [
+                "Il bergamotto",
+                "Il pompelmo",
+                "Il mandarino cinese",
+                "Il lime"
+              ]
+            },
+            {
+              "d": "A che cosa serve il gelsomino?",
+              "r": [
+                "A produrre profumi",
+                "A fare il formaggio",
+                "A tingere i tessuti",
+                "A costruire le barche"
+              ]
+            },
+            {
+              "d": "Quale pesce si pesca soprattutto?",
+              "r": [
+                "Il pesce spada",
+                "Il salmone",
+                "La trota",
+                "Il merluzzo"
+              ]
+            },
+            {
+              "d": "Dove sono conservati i Bronzi di Riace?",
+              "r": [
+                "Nel Museo di Reggio Calabria",
+                "A Pompei",
+                "A Tropea",
+                "A Catanzaro"
+              ]
+            },
+            {
+              "d": "Da dove partono i traghetti per la Sicilia?",
+              "r": [
+                "Da Villa San Giovanni",
+                "Da Gioia Tauro",
+                "Da Crotone",
+                "Da Tropea"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La Calabria è situata nel Centro Italia.",
+              "v": false
+            },
+            {
+              "f": "È in prevalenza pianeggiante.",
+              "v": false
+            },
+            {
+              "f": "È separata dalla Sicilia dallo Stretto di Messina.",
+              "v": true
+            },
+            {
+              "f": "Sul Mar Tirreno le coste sono alte e rocciose.",
+              "v": true
+            },
+            {
+              "f": "I fiumi sono lunghi e sempre pieni d'acqua.",
+              "v": false
+            },
+            {
+              "f": "Ci sono piccole comunità di origine greca e albanese.",
+              "v": true
+            },
+            {
+              "f": "L'industria è molto sviluppata.",
+              "v": false
+            },
+            {
+              "f": "Il porto di Gioia Tauro è molto importante.",
+              "v": true
+            },
+            {
+              "f": "Il turismo è una risorsa fondamentale.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa le frasi",
+          "frasi": [
+            {
+              "f": "L'economia della Regione si fonda soprattutto sull'___.",
+              "r": [
+                "agricoltura",
+                "industria",
+                "estrazione"
+              ]
+            },
+            {
+              "f": "L'Aspromonte si trova a ___ della Regione.",
+              "r": [
+                "sud",
+                "nord",
+                "ovest"
+              ]
+            },
+            {
+              "f": "I fiumi asciutti per gran parte dell'anno si chiamano ___.",
+              "r": [
+                "fiumare",
+                "lagune",
+                "canali"
+              ]
+            },
+            {
+              "f": "Tropea è un borgo costruito a strapiombo sul Mar ___.",
+              "r": [
+                "Tirreno",
+                "Ionio",
+                "Adriatico"
+              ]
+            },
+            {
+              "f": "L'aeroporto più frequentato è quello di Lamezia ___.",
+              "r": [
+                "Terme",
+                "Lido",
+                "Marina"
+              ]
+            },
+            {
+              "f": "Si allevano soprattutto ovini e ___.",
+              "r": [
+                "caprini",
+                "bufale",
+                "cavalli"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Le città della Calabria",
+          "mappa": "calabria",
+          "punti": [
+            {
+              "n": "Catanzaro",
+              "lat": 38.91,
+              "lon": 16.59
+            },
+            {
+              "n": "Reggio di Calabria",
+              "lat": 38.11,
+              "lon": 15.65
+            },
+            {
+              "n": "Cosenza",
+              "lat": 39.3,
+              "lon": 16.25
+            },
+            {
+              "n": "Crotone",
+              "lat": 39.08,
+              "lon": 17.13
+            },
+            {
+              "n": "Vibo Valentia",
+              "lat": 38.68,
+              "lon": 16.1
+            },
+            {
+              "n": "Tropea",
+              "lat": 38.68,
+              "lon": 15.9
+            },
+            {
+              "n": "Gioia Tauro",
+              "lat": 38.42,
+              "lon": 15.9
+            },
+            {
+              "n": "Lamezia Terme",
+              "lat": 38.97,
+              "lon": 16.31
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Monti, pianure e fiumi",
+          "mappa": "calabria",
+          "punti": [
+            {
+              "n": "Pollino",
+              "lat": 39.91,
+              "lon": 16.19,
+              "tipo": "monte"
+            },
+            {
+              "n": "Sila",
+              "lat": 39.3,
+              "lon": 16.6,
+              "tipo": "monte"
+            },
+            {
+              "n": "Aspromonte",
+              "lat": 38.16,
+              "lon": 15.92,
+              "tipo": "monte"
+            },
+            {
+              "n": "Fiume Crati",
+              "lat": 39.55,
+              "lon": 16.3,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Piana di Sibari",
+              "lat": 39.72,
+              "lon": 16.5,
+              "tipo": "regione"
+            },
+            {
+              "n": "Piana di Gioia Tauro",
+              "lat": 38.45,
+              "lon": 15.98,
+              "tipo": "regione"
+            },
+            {
+              "n": "Piana di Sant'Eufemia",
+              "lat": 38.9,
+              "lon": 16.2,
+              "tipo": "regione"
+            },
+            {
+              "n": "Stretto di Messina",
+              "lat": 38.22,
+              "lon": 15.6,
+              "tipo": "regione"
+            }
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory calabrese",
+          "coppie": [
+            [
+              "Pollino",
+              "nord"
+            ],
+            [
+              "Sila",
+              "centro"
+            ],
+            [
+              "Aspromonte",
+              "sud"
+            ],
+            [
+              "Bergamotto",
+              "agrume"
+            ],
+            [
+              "Gelsomino",
+              "profumi"
+            ],
+            [
+              "Bronzi di Riace",
+              "Reggio Calabria"
+            ]
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole della Calabria",
+          "parole": [
+            {
+              "p": "CATANZARO",
+              "indizio": "Il capoluogo"
+            },
+            {
+              "p": "SILA",
+              "indizio": "Monti al centro della Regione"
+            },
+            {
+              "p": "ASPROMONTE",
+              "indizio": "Monti a sud, con un grande Parco"
+            },
+            {
+              "p": "CRATI",
+              "indizio": "Il fiume più lungo"
+            },
+            {
+              "p": "PEPERONCINO",
+              "indizio": "Il simbolo della Calabria"
+            },
+            {
+              "p": "BERGAMOTTO",
+              "indizio": "Agrume caratteristico"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geo-sicilia",
+      "materia": "geografia",
+      "titolo": "La Sicilia",
+      "fonte": "Geografia 5, pag. 95-98 (eserciziario pag. 140-141)",
+      "parole": [
+        "sicili"
+      ],
+      "pagine": [
+        95,
+        96,
+        97,
+        98,
+        140,
+        141
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sulla Sicilia",
+          "domande": [
+            {
+              "d": "Qual è il capoluogo della Sicilia?",
+              "r": [
+                "Palermo",
+                "Catania",
+                "Messina",
+                "Siracusa"
+              ]
+            },
+            {
+              "d": "Che cosa separa la Sicilia dalla penisola?",
+              "r": [
+                "Lo Stretto di Messina",
+                "Le Bocche di Bonifacio",
+                "Il Canale d'Otranto",
+                "Il Golfo di Taranto"
+              ]
+            },
+            {
+              "d": "Qual è la principale cima della Sicilia?",
+              "r": [
+                "L'Etna",
+                "Il Pollino",
+                "Le Madonie",
+                "Il Vesuvio"
+              ]
+            },
+            {
+              "d": "Quanto è alto l'Etna?",
+              "r": [
+                "3323 metri",
+                "1281 metri",
+                "1834 metri",
+                "2050 metri"
+              ]
+            },
+            {
+              "d": "Qual è la pianura più vasta della Sicilia?",
+              "r": [
+                "La Piana di Catania",
+                "Il Campidano",
+                "Il Tavoliere",
+                "La Piana di Sibari"
+              ]
+            },
+            {
+              "d": "Quali monti si trovano lungo il versante tirrenico?",
+              "r": [
+                "Peloritani, Nebrodi e Madonie",
+                "Sila e Aspromonte",
+                "Gennargentu e Gallura",
+                "Monti della Daunia"
+              ]
+            },
+            {
+              "d": "Quali isole si trovano di fronte a Trapani?",
+              "r": [
+                "Le Egadi",
+                "Le Eolie",
+                "Le Pelagie",
+                "Le Tremiti"
+              ]
+            },
+            {
+              "d": "Che cos'è lo Scirocco?",
+              "r": [
+                "Un vento caldo che arriva dall'Africa",
+                "Un vulcano sottomarino",
+                "Un fiume siciliano",
+                "Una festa tradizionale"
+              ]
+            },
+            {
+              "d": "Di che cosa la Sicilia è la prima produttrice italiana?",
+              "r": [
+                "Di agrumi",
+                "Di riso",
+                "Di sughero",
+                "Di mais"
+              ]
+            },
+            {
+              "d": "Che cosa sono i Pupi?",
+              "r": [
+                "Marionette di legno con armature",
+                "Dolci tipici",
+                "Antiche barche",
+                "Case di pietra"
+              ]
+            },
+            {
+              "d": "Dove si trova la Valle dei Templi?",
+              "r": [
+                "Ad Agrigento",
+                "A Palermo",
+                "A Noto",
+                "A Messina"
+              ]
+            },
+            {
+              "d": "Per che cosa è famosa Caltagirone?",
+              "r": [
+                "Per le ceramiche",
+                "Per le saline",
+                "Per il sughero",
+                "Per i trulli"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La Sicilia è la Regione più grande d'Italia.",
+              "v": true
+            },
+            {
+              "f": "Il territorio è soprattutto pianeggiante.",
+              "v": false
+            },
+            {
+              "f": "La Sicilia è una Regione a statuto speciale.",
+              "v": true
+            },
+            {
+              "f": "È ricca di grandi laghi.",
+              "v": false
+            },
+            {
+              "f": "L'Etna è il maggior vulcano attivo d'Europa.",
+              "v": true
+            },
+            {
+              "f": "Il settore economico più sviluppato è quello primario.",
+              "v": true
+            },
+            {
+              "f": "Fra Trapani e Marsala ci sono ancora molte saline.",
+              "v": true
+            },
+            {
+              "f": "Il turismo è poco importante.",
+              "v": false
+            },
+            {
+              "f": "L'entroterra è la zona più abitata.",
+              "v": false
+            },
+            {
+              "f": "Le Isole Eolie sono la parte emersa di vulcani sottomarini.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa le frasi",
+          "frasi": [
+            {
+              "f": "La Sicilia è bagnata a nord dal Mar ___.",
+              "r": [
+                "Tirreno",
+                "Adriatico",
+                "Ligure"
+              ]
+            },
+            {
+              "f": "A est la Sicilia è bagnata dal Mar ___.",
+              "r": [
+                "Ionio",
+                "Tirreno",
+                "di Sardegna"
+              ]
+            },
+            {
+              "f": "Il Mar di Sicilia separa la Regione dall'___.",
+              "r": [
+                "Africa",
+                "Albania",
+                "Corsica"
+              ]
+            },
+            {
+              "f": "La popolazione si concentra a Palermo, Catania e ___.",
+              "r": [
+                "Messina",
+                "Enna",
+                "Ragusa"
+              ]
+            },
+            {
+              "f": "Si pescano soprattutto il tonno e il pesce ___.",
+              "r": [
+                "spada",
+                "gatto",
+                "persico"
+              ]
+            },
+            {
+              "f": "Il Barocco siciliano più famoso è quello di ___.",
+              "r": [
+                "Noto",
+                "Trapani",
+                "Gela"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Le città della Sicilia",
+          "mappa": "sicilia",
+          "punti": [
+            {
+              "n": "Palermo",
+              "lat": 38.12,
+              "lon": 13.36
+            },
+            {
+              "n": "Catania",
+              "lat": 37.5,
+              "lon": 15.09
+            },
+            {
+              "n": "Messina",
+              "lat": 38.19,
+              "lon": 15.55
+            },
+            {
+              "n": "Siracusa",
+              "lat": 37.08,
+              "lon": 15.29
+            },
+            {
+              "n": "Agrigento",
+              "lat": 37.31,
+              "lon": 13.58
+            },
+            {
+              "n": "Trapani",
+              "lat": 38.02,
+              "lon": 12.51
+            },
+            {
+              "n": "Ragusa",
+              "lat": 36.93,
+              "lon": 14.73
+            },
+            {
+              "n": "Caltanissetta",
+              "lat": 37.49,
+              "lon": 14.06
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Monti, vulcani e isole",
+          "mappa": "sicilia",
+          "punti": [
+            {
+              "n": "Etna",
+              "lat": 37.75,
+              "lon": 14.99,
+              "tipo": "monte"
+            },
+            {
+              "n": "Madonie",
+              "lat": 37.87,
+              "lon": 14.0,
+              "tipo": "monte"
+            },
+            {
+              "n": "Nebrodi",
+              "lat": 37.92,
+              "lon": 14.6,
+              "tipo": "monte"
+            },
+            {
+              "n": "Monti Peloritani",
+              "lat": 38.1,
+              "lon": 15.4,
+              "tipo": "monte"
+            },
+            {
+              "n": "Piana di Catania",
+              "lat": 37.4,
+              "lon": 14.85,
+              "tipo": "regione"
+            },
+            {
+              "n": "Isole Eolie",
+              "lat": 38.5,
+              "lon": 14.9,
+              "tipo": "regione"
+            },
+            {
+              "n": "Isole Egadi",
+              "lat": 37.97,
+              "lon": 12.25,
+              "tipo": "regione"
+            },
+            {
+              "n": "Ustica",
+              "lat": 38.7,
+              "lon": 13.18,
+              "tipo": "regione"
+            },
+            {
+              "n": "Pantelleria",
+              "lat": 36.79,
+              "lon": 11.99,
+              "tipo": "regione"
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Dove lo metto?",
+          "gruppi": {
+            "Agricoltura": [
+              "arance",
+              "limoni",
+              "mandorli",
+              "pistacchi",
+              "ulivi",
+              "viti"
+            ],
+            "Mare": [
+              "tonno",
+              "pesce spada",
+              "saline"
+            ],
+            "Artigianato e arte": [
+              "Pupi",
+              "ceramiche di Caltagirone",
+              "Valle dei Templi",
+              "Barocco di Noto"
+            ]
+          }
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole della Sicilia",
+          "parole": [
+            {
+              "p": "ETNA",
+              "indizio": "Il vulcano attivo più alto d'Europa"
+            },
+            {
+              "p": "PALERMO",
+              "indizio": "Il capoluogo"
+            },
+            {
+              "p": "SCIROCCO",
+              "indizio": "Vento caldo dall'Africa"
+            },
+            {
+              "p": "EOLIE",
+              "indizio": "Isole vulcaniche nel Tirreno"
+            },
+            {
+              "p": "MADONIE",
+              "indizio": "Monti sul versante tirrenico"
+            },
+            {
+              "p": "AGRUMI",
+              "indizio": "Arance, mandarini e limoni"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geo-sardegna",
+      "materia": "geografia",
+      "titolo": "La Sardegna",
+      "fonte": "Geografia 5, pag. 99-102 (eserciziario pag. 142-143)",
+      "parole": [
+        "sardegn"
+      ],
+      "pagine": [
+        99,
+        100,
+        101,
+        102,
+        142,
+        143
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sulla Sardegna",
+          "domande": [
+            {
+              "d": "Qual è il capoluogo della Sardegna?",
+              "r": [
+                "Cagliari",
+                "Sassari",
+                "Nuoro",
+                "Oristano"
+              ]
+            },
+            {
+              "d": "Che posto ha la Sardegna tra le isole del Mediterraneo?",
+              "r": [
+                "È la seconda per estensione",
+                "È la più grande",
+                "È la più piccola",
+                "È la terza"
+              ]
+            },
+            {
+              "d": "Qual è il monte più alto della Sardegna?",
+              "r": [
+                "Il Gennargentu",
+                "L'Etna",
+                "Il Limbara",
+                "Il Pollino"
+              ]
+            },
+            {
+              "d": "Qual è la pianura più vasta?",
+              "r": [
+                "Il Campidano",
+                "La Piana di Catania",
+                "Il Tavoliere",
+                "La Piana di Sibari"
+              ]
+            },
+            {
+              "d": "Fra quali golfi si estende il Campidano?",
+              "r": [
+                "Oristano e Cagliari",
+                "Olbia e Orosei",
+                "Asinara e Alghero",
+                "Napoli e Salerno"
+              ]
+            },
+            {
+              "d": "Quali sono i principali fiumi?",
+              "r": [
+                "Flumendosa, Tirso e Coghinas",
+                "Crati, Ofanto e Sele",
+                "Volturno e Tevere",
+                "Po e Adige"
+              ]
+            },
+            {
+              "d": "Che cosa separa la Sardegna dalla Corsica?",
+              "r": [
+                "Le Bocche di Bonifacio",
+                "Lo Stretto di Messina",
+                "Il Canale d'Otranto",
+                "Il Mar Ionio"
+              ]
+            },
+            {
+              "d": "Quale mare bagna la Sardegna a ovest?",
+              "r": [
+                "Il Mar di Sardegna",
+                "Il Mar Tirreno",
+                "Il Mar Ionio",
+                "Il Mar Adriatico"
+              ]
+            },
+            {
+              "d": "Da quale albero si ricava il sughero?",
+              "r": [
+                "Dalla quercia da sughero",
+                "Dal pino loricato",
+                "Dall'ulivo",
+                "Dal mandorlo"
+              ]
+            },
+            {
+              "d": "Qual è la maggiore risorsa economica della Sardegna?",
+              "r": [
+                "Il turismo",
+                "L'industria",
+                "Le miniere",
+                "La pesca del tonno"
+              ]
+            },
+            {
+              "d": "Che cos'è il nuraghe di Santu Antine?",
+              "r": [
+                "Un'antica costruzione dell'Età del Bronzo",
+                "Un vulcano spento",
+                "Un lago artificiale",
+                "Un'isola minore"
+              ]
+            },
+            {
+              "d": "Quale lingua si parla ad Alghero, oltre all'italiano?",
+              "r": [
+                "Il catalano",
+                "Il ligure",
+                "Il greco",
+                "L'albanese"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "La Sardegna è una Regione a statuto speciale.",
+              "v": true
+            },
+            {
+              "f": "Il territorio è fatto soprattutto di colline attorno a massicci montuosi.",
+              "v": true
+            },
+            {
+              "f": "I fiumi sono lunghi e navigabili.",
+              "v": false
+            },
+            {
+              "f": "Lungo i fiumi sono stati creati laghi artificiali.",
+              "v": true
+            },
+            {
+              "f": "In Sardegna le piogge sono abbondanti.",
+              "v": false
+            },
+            {
+              "f": "L'allevamento di ovini e caprini è tra le principali risorse.",
+              "v": true
+            },
+            {
+              "f": "Si coltivano soprattutto riso e mais.",
+              "v": false
+            },
+            {
+              "f": "L'industria è molto sviluppata.",
+              "v": false
+            },
+            {
+              "f": "Il sardo è una vera e propria lingua.",
+              "v": true
+            },
+            {
+              "f": "Vicino a Olbia vivono i fenicotteri rosa.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa le frasi",
+          "frasi": [
+            {
+              "f": "A est la Sardegna è bagnata dal Mar ___.",
+              "r": [
+                "Tirreno",
+                "Ionio",
+                "Adriatico"
+              ]
+            },
+            {
+              "f": "A sud la Sardegna è bagnata dal Mar ___.",
+              "r": [
+                "Mediterraneo",
+                "Ligure",
+                "Tirreno"
+              ]
+            },
+            {
+              "f": "A nord c'è l'arcipelago della ___.",
+              "r": [
+                "Maddalena",
+                "Egadi",
+                "Tremiti"
+              ]
+            },
+            {
+              "f": "Dal latte delle greggi si producono formaggi e dalle pecore la ___.",
+              "r": [
+                "lana",
+                "seta",
+                "pelle"
+              ]
+            },
+            {
+              "f": "Grazie alla bonifica e all'irrigazione l'___ è abbastanza sviluppata.",
+              "r": [
+                "agricoltura",
+                "industria",
+                "pesca"
+              ]
+            },
+            {
+              "f": "Il turismo è concentrato soprattutto sulle ___.",
+              "r": [
+                "coste",
+                "montagne",
+                "miniere"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Le città della Sardegna",
+          "mappa": "sardegna",
+          "punti": [
+            {
+              "n": "Cagliari",
+              "lat": 39.22,
+              "lon": 9.12
+            },
+            {
+              "n": "Sassari",
+              "lat": 40.73,
+              "lon": 8.56
+            },
+            {
+              "n": "Nuoro",
+              "lat": 40.32,
+              "lon": 9.33
+            },
+            {
+              "n": "Oristano",
+              "lat": 39.9,
+              "lon": 8.59
+            },
+            {
+              "n": "Olbia",
+              "lat": 40.92,
+              "lon": 9.5
+            },
+            {
+              "n": "Alghero",
+              "lat": 40.56,
+              "lon": 8.32
+            },
+            {
+              "n": "Iglesias",
+              "lat": 39.31,
+              "lon": 8.54
+            },
+            {
+              "n": "Orosei",
+              "lat": 40.38,
+              "lon": 9.69
+            }
+          ]
+        },
+        {
+          "tipo": "cartina",
+          "titolo": "Monti, fiumi e isole",
+          "mappa": "sardegna",
+          "punti": [
+            {
+              "n": "Gennargentu",
+              "lat": 40.0,
+              "lon": 9.32,
+              "tipo": "monte"
+            },
+            {
+              "n": "Gallura",
+              "lat": 40.9,
+              "lon": 9.2,
+              "tipo": "monte"
+            },
+            {
+              "n": "Campidano",
+              "lat": 39.45,
+              "lon": 8.85,
+              "tipo": "regione"
+            },
+            {
+              "n": "Fiume Tirso",
+              "lat": 39.95,
+              "lon": 8.75,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Fiume Flumendosa",
+              "lat": 39.5,
+              "lon": 9.45,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Fiume Coghinas",
+              "lat": 40.85,
+              "lon": 8.85,
+              "tipo": "fiume"
+            },
+            {
+              "n": "Asinara",
+              "lat": 41.06,
+              "lon": 8.27,
+              "tipo": "regione"
+            },
+            {
+              "n": "La Maddalena",
+              "lat": 41.22,
+              "lon": 9.4,
+              "tipo": "regione"
+            },
+            {
+              "n": "Sant'Antioco",
+              "lat": 39.03,
+              "lon": 8.4,
+              "tipo": "regione"
+            },
+            {
+              "n": "Tavolara",
+              "lat": 40.9,
+              "lon": 9.7,
+              "tipo": "regione"
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Perciò...",
+          "coppie": [
+            [
+              "Grandi opere di bonifica",
+              "agricoltura sviluppata"
+            ],
+            [
+              "Terreno arido",
+              "querce da sughero"
+            ],
+            [
+              "Allevamento di ovini",
+              "formaggi tipici"
+            ],
+            [
+              "Mare splendido",
+              "turismo sulle coste"
+            ],
+            [
+              "Catalani di Alghero",
+              "minoranza linguistica"
+            ],
+            [
+              "Golfo di Cagliari",
+              "saline"
+            ]
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole della Sardegna",
+          "parole": [
+            {
+              "p": "CAGLIARI",
+              "indizio": "Il capoluogo"
+            },
+            {
+              "p": "GENNARGENTU",
+              "indizio": "Il massiccio più alto"
+            },
+            {
+              "p": "CAMPIDANO",
+              "indizio": "La pianura più vasta"
+            },
+            {
+              "p": "SUGHERO",
+              "indizio": "Si ricava dalla corteccia di una quercia"
+            },
+            {
+              "p": "NURAGHE",
+              "indizio": "Antica torre dell'Età del Bronzo"
+            },
+            {
+              "p": "TIRSO",
+              "indizio": "Uno dei fiumi principali"
+            }
           ]
         }
       ]

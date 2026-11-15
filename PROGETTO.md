@@ -51,6 +51,9 @@ Se cambia `index.html`, va aumentato anche `VERSIONE` in `sw.js`.
 - `mondo`: `spazio` (matematica), `papiro` (storia), `mare` (geografia). È la grafica dei giochi.
 - `id` del tema: prefisso materia (`mat-`, `sto-`, `geo-`) più una parola chiave. Non si cambia mai, perché i record sono legati all'id.
 - `parole` nel tema: radici di parole che collegano in automatico i compiti del registro, per esempio `["grec"]`.
+- `testo` nel tema: testo intero da studiare (poesie), `{ "tipo": "poesia", "titolo", "autore", "righe": [...] }` con `""` tra le strofe → bottone "📜 Leggi la poesia".
+- `libro` nel tema: quale libro aprono i bottoni 📄 quando la materia ne ha più di uno (vedi `LIBRI` in index.html).
+- `pagine` nel tema: numeri di pagina del libro (quelli stampati). Nella pagina del tema compaiono i bottoni 📄, e un compito della stessa materia che cita una di quelle pagine si collega al tema anche senza `parole`.
 - Il campo `tema` nei compiti è facoltativo. Se c'è, compare il bottone "Esercitati".
 
 ### Tipi di gioco
@@ -64,9 +67,12 @@ Se cambia `index.html`, va aumentato anche `VERSIONE` in `sw.js`.
 | `ordina` | `istruzione`, `elementi: ["primo", "secondo", ...]` | nell'ordine corretto, da 4 a 8 elementi |
 | `anagramma` | `parole: [{ "p": "PAROLA", "indizio": "..." }]` | una sola parola, senza spazi |
 | `categorie` | `gruppi: { "Gruppo A": ["...", ...], "Gruppo B": [...] }` | da 2 a 4 gruppi, 12 carte per partita |
-| `cartina` | `mappa: "italia"`, `punti: [{ "n": "Roma", "lat": 41.9, "lon": 12.5, "tipo": "citta" }]` | cartina muta: si trascina il nome sul punto (o si tocca il punto). `tipo`: citta, monte, fiume, lago, regione. Massimo 8 punti per partita. Al posto di lat/lon si può dare `x`,`y` in % |
+| `componi` | `istruzione`, `frasi: ["frase o verso intero", ...]` | componi la frase: le parole arrivano mescolate e si toccano nell'ordine giusto, una frase per giro (max 8); meglio frasi di 5-8 parole |
+| `cartina` | `mappa: "italia"` (oppure una regione: `puglia`, `basilicata`, `campania`, `calabria`, `sicilia`, `sardegna`), `punti: [{ "n": "Roma", "lat": 41.9, "lon": 12.5, "tipo": "citta" }]` | cartina muta: si trascina il nome sul punto (o si tocca il punto). `tipo`: citta, monte, fiume, lago, regione. Massimo 8 punti per partita. Al posto di lat/lon si può dare `x`,`y` in % |
 
 Ogni gioco può avere un `titolo`. Per ogni tema conviene preparare 4-6 giochi di tipi diversi.
+
+**Poesie e testi da imparare a memoria** (regola di Daniele): solo `ordina` (versi o frasi in ordine, anche le strofe), `completa` (parole mancanti) e `componi` (componi la frase). Niente quiz, vero/falso, memory, abbina o categorie.
 
 ## Stato
 - v1 (14/11/2026): app base con 8 tipi di gioco, grafica a tema per materia, calendario compiti, medaglie, profilo. 3 temi di esempio.
@@ -108,3 +114,14 @@ Ogni gioco può avere un `titolo`. Per ogni tema conviene preparare 4-6 giochi d
   - 15/11: Nico, Lilli, Tomo **completi** (sw `app-v8`): 10 espressioni + 5 pose ritagliate dalla tavola `Tavola_completa_espressioni.png` (nei pacchetti `*_ESPRESSIONI_CORRETTE.zip`), sfondo reso trasparente. Nomi come Mia (`crying` = copia di `sad`, `encouraging` corpo = `waving`); in più `neutral`, `curious`, `confused`, `waving`, `studying`. Il `master` ora viene dalla tavola, per avere lo stesso stile delle espressioni.
 
   - 15/11 (GINNYLEARN 8): contenuti **v5**: temi `ing-someany` (Inglese, some/any, 7 giochi) e `ita-sanmartino` (Italiano, poesia di Carducci + leggenda del mantello + estate di San Martino, 7 giochi). Commit e push di v8 completo (personaggi inclusi) dal cloud.
+
+  - 15/11 (GINNYLEARN 9): v9 (sw `app-v9`, contenuti **v6**), **in attesa di ok per commit**.
+    - Tolti i temi di prova `mat-frazioni`, `sto-etruschi`, `geo-regioni`.
+    - Temi nuovi dai PDF dei libri: `geo-puglia`, `geo-basilicata`, `geo-campania` (verifica 20/11), `geo-calabria`, `geo-sicilia`, `geo-sardegna` (ripasso), 7 giochi ciascuno con 1-2 cartine; `mat-statistica` (mediana, moda, media, pag. 81-84), `mat-decimali` (pag. 170-173), `sci-sistema-solare` (pag. 88-89). Le regioni sono in fondo a `temi` così Geografia è la prima materia in home.
+    - Cartine delle regioni: `mappe/<regione>.svg`, ritagli di `italia.svg` (stessa proiezione, `vx`/`vy` in `MAPPE`), regione evidenziata e nomi dei mari. Rigenerabili con lo script in chat.
+    - Campo `pagine` nei temi (bottoni 📄 nella pagina del tema + collegamento compito → tema per numero di pagina).
+    - Libri: cartella PC `AppEsercizi\LIBRI` (PDF fatti di immagini, senza testo). Scarto +2 su tutti (pag. PDF = pag. libro + 2), vedi `indice_pagine.json` nella repo privata. Pagine singole JPG in `GinnyLearn-inbox/pagine/<materia>/<n>.jpg` (geografia, matematica, scienze, storia, tecnologia; ~100 MB): i bottoni 📄 le leggono dal ponte. Il PDF intero non serve nella repo (troppo pesante da scaricare sul tablet). "Mappe italiano 4-5" è un'antologia, non caricata come italiano.
+    - `ita-sanmartino` rifatto con la regola delle poesie: 4 × ordina i versi, ordina le strofe, 2 × parole mancanti, 2 × componi i versi (nuovo tipo `componi`).
+    - Libri aggiunti dopo: Grammatica 5 (scarto +2 fino a pag. 136, poi +3), Letture 5, Scrittura 5, Inglese 5 Student's book e Grammar (+2). Cartelle pagine: `grammatica`, `letture`, `scrittura`, `inglese`, `inglesegrammar` (circa 180 MB in tutto). In `index.html` l'oggetto `LIBRI` elenca i libri per materia; `libroDi()` sceglie il libro dal testo del compito ("letture", "scrittura", "grammar"), altrimenti il primo; nella finestra della pagina si può cambiare libro.
+    - Tema `ita-modi-indefiniti` (Grammatica pag. 71-73: infinito, participio, gerundio, 6 giochi). San Martino ha il campo `testo` con la poesia intera.
+    - Ancora da fare: ed. civica Unione Europea (foto del quaderno), scheda di matematica (rimandata), punti 1-7 della ripartenza (cavallo al contrario, POLEIS, guida in verticale, suoni, piano compiti, notifica foto, home divisa).

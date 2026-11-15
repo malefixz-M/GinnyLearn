@@ -180,6 +180,9 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 #cerca{width:100%;margin:6px 0 14px}
 .finestra{position:fixed;inset:0;z-index:50;background:rgba(10,15,40,.9);overflow:auto;padding:56px 12px 20px;text-align:center}
 .finestra .chiudi-f{position:fixed;top:10px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:22px;font-weight:800}
+.testo-studio{background:#fffdf5;color:var(--inchiostro);border-radius:16px;padding:22px 26px;max-width:620px;margin:0 auto;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.testo-studio h2{margin:0 0 2px;font-size:28px}.testo-studio .autore{font-style:italic;opacity:.75;margin-bottom:16px}
+.testo-studio .verso{font-size:23px;line-height:1.5;font-weight:600}.testo-studio .stacco{height:18px}
 .finestra img.pagina{max-width:100%;border-radius:10px;background:#fff}
 .zaino{background:#fff;border-radius:14px;padding:12px 16px;margin:0 auto 12px;max-width:900px;font-size:19px;text-align:left}
 .guide{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
@@ -276,16 +279,25 @@ const TIPI = {
   memory:    { nome: 'Memory', ico: '🃏' },
   ordina:    { nome: 'Metti in ordine', ico: '🪜' },
   anagramma: { nome: 'Parole mescolate', ico: '🔤' },
+  componi:   { nome: 'Componi la frase', ico: '🧩' },
   categorie: { nome: 'Dividi in gruppi', ico: '🗂️' },
   cartina:   { nome: 'Cartina muta', ico: '🗺️' }
 };
 // Cartine mute: lat/lon -> posizione in % sull'immagine (proiezione dello script che ha fatto l'SVG)
 const MAPPE = {
-  italia: { file: 'mappe/italia.svg', lon0: 6.5, lat1: 47.2, k: Math.cos(42 * Math.PI / 180), sx: 111.209, w: 1000, h: 1190 }
+  italia: { file: 'mappe/italia.svg', lon0: 6.5, lat1: 47.2, k: Math.cos(42 * Math.PI / 180), sx: 111.209, w: 1000, h: 1190 },
+  // regioni: stessa proiezione di italia.svg, ritagliata (vx, vy = angolo del ritaglio)
+  puglia:     { file: 'mappe/puglia.svg',     vx: 656, vy: 543, w: 378, h: 323 },
+  basilicata: { file: 'mappe/basilicata.svg', vx: 712, vy: 656, w: 163, h: 175 },
+  campania:   { file: 'mappe/campania.svg',   vx: 576, vy: 609, w: 216, h: 215 },
+  calabria:   { file: 'mappe/calabria.svg',   vx: 721, vy: 752, w: 197, h: 315 },
+  sicilia:    { file: 'mappe/sicilia.svg',    vx: 406, vy: 922, w: 393, h: 295 },
+  sardegna:   { file: 'mappe/sardegna.svg',   vx: 98,  vy: 625, w: 214, h: 339 }
 };
 function posMappa(m, pt) {
   if (pt.x != null) return [pt.x, pt.y];
-  return [(pt.lon - m.lon0) * m.k * m.sx / m.w * 100, (m.lat1 - pt.lat) * m.sx / m.h * 100];
+  const P = MAPPE.italia;
+  return [((pt.lon - P.lon0) * P.k * P.sx - (m.vx || 0)) / m.w * 100, ((P.lat1 - pt.lat) * P.sx - (m.vy || 0)) / m.h * 100];
 }
 const ALTRE_MATERIE = {
   italiano: { nome: 'Italiano', icona: '📖' }, inglese: { nome: 'Inglese', icona: '💂' }, scienze: { nome: 'Scienze', icona: '🔬' },
@@ -369,7 +381,9 @@ function tuttiCompiti() {
 function temaDelCompito(c) {
   if (c.tema) return tema(c.tema);
   const t = (c.testo || '').toLowerCase();
-  return DATI.temi.find(x => x.materia === c.materia && (x.parole || []).some(p => t.includes(p.toLowerCase())));
+  const pag = pagineDi(c.testo);
+  return DATI.temi.find(x => x.materia === c.materia && (x.parole || []).some(p => t.includes(p.toLowerCase())))
+    || DATI.temi.find(x => x.materia === c.materia && (x.pagine || []).some(n => pag.includes(n)));
 }
 const materie = () => ({ ...MATERIE_BASE, ...(DATI?.materie || {}) });
 const tema = id => DATI?.temi.find(t => t.id === id);
@@ -455,6 +469,8 @@ function paginaTema(app, id) {
   app.innerHTML = `
     <button class="indietro" data-go="#/materia/${t.materia}">‹ ${esc(m.nome)}</button>
     <h1 class="c-${t.materia}">${esc(t.titolo)}</h1>
+    ${t.testo ? `<button class="btn" id="leggiTesto" style="margin:4px 0 6px">📜 Leggi ${t.testo.tipo === 'poesia' ? 'la poesia' : 'il testo'}</button>` : ''}
+    ${(t.pagine || []).length ? `<div class="azioni" style="justify-content:flex-start;flex-wrap:wrap">${t.pagine.map(n => `<button class="btn piccolo bianco" data-pag="${n}" data-mat="${esc(t.materia)}" data-libro="${esc(t.libro || libroDi(t.materia, ''))}">📄 pag. ${n}</button>`).join('')}</div>` : ''}
     <h2>Scegli un gioco</h2>
     ${t.giochi.map((g, i) => {
       const p = PROG.giochi[chiaveG(t.id, i)], tp = TIPI[g.tipo] || { nome: g.tipo, ico: '🎲' };
@@ -463,6 +479,13 @@ function paginaTema(app, id) {
         <span><span class="grande">${esc(g.titolo || tp.nome)}</span><br><span class="muted">${tp.nome}${p ? ` · record ${p.record} punti` : ''}</span></span>
         <span class="stelline">${str(p?.stelle || 0)}</span></button>`;
     }).join('')}`;
+  app.querySelectorAll('[data-pag]').forEach(b => b.onclick = () => mostraPagina(b.dataset.mat, +b.dataset.pag, b.dataset.libro));
+  if (t.testo) $('#leggiTesto').onclick = () => mostraTesto(t.testo);
+}
+// Testo intero da studiare (poesie, filastrocche): righe vuote = stacco tra le strofe
+function mostraTesto(x) {
+  finestra(`<div class="testo-studio"><h2>${esc(x.titolo || '')}</h2>${x.autore ? `<div class="autore">${esc(x.autore)}</div>` : ''}
+    ${(x.righe || []).map(r => r ? `<div class="verso">${esc(r)}</div>` : '<div class="stacco"></div>').join('')}</div>`);
 }
 
 function compitoHTML(c) {
@@ -472,7 +495,7 @@ function compitoHTML(c) {
     <div><div class="testo">${esc(c.testo)}${c.verifica ? '<span class="verifica">Verifica</span>' : ''}</div>
     <div class="meta muted">${m.icona} ${esc(m.nome)} · ${nomeGiorno(c.data)}</div>
     <div class="azioni-compito">${t ? `<button class="btn piccolo" data-go="#/tema/${encodeURIComponent(t.id)}">🎮 Esercitati</button>` : ''}
-    ${pagineDi(c.testo).map(n => `<button class="btn piccolo bianco" data-pag="${n}" data-mat="${esc(c.materia)}">📄 pag. ${n}</button>`).join('')}
+    ${pagineDi(c.testo).map(n => `<button class="btn piccolo bianco" data-pag="${n}" data-mat="${esc(c.materia)}" data-libro="${libroDi(c.materia, c.testo)}">📄 pag. ${n}</button>`).join('')}
     ${DATI?.ponte && /\bquaderno\b|\bq\.(?=\s|$|,)/i.test(c.testo || '') ? `<label class="btn piccolo bianco">📷 Invia foto del quaderno<input type="file" accept="image/*" capture="environment" data-foto="${esc(c.materia + '_' + c.id)}" hidden></label>` : ''}</div></div></div>`;
 }
 // "pag. 40", "pagg. 40-42", "pagina 12 e 13", "p. 7" -> [40, 41, 42]
@@ -486,7 +509,7 @@ function pagineDi(t) {
 }
 function legaCompiti(app) {
   app.querySelectorAll('[data-foto]').forEach(i => i.onchange = () => inviaFoto(i, i.dataset.foto));
-  app.querySelectorAll('[data-pag]').forEach(b => b.onclick = () => mostraPagina(b.dataset.mat, +b.dataset.pag));
+  app.querySelectorAll('[data-pag]').forEach(b => b.onclick = () => mostraPagina(b.dataset.mat, +b.dataset.pag, b.dataset.libro));
   app.querySelectorAll('[data-spunta]').forEach(b => b.onclick = () => {
     const id = b.dataset.spunta;
     if (PROG.compitiFatti[id]) delete PROG.compitiFatti[id]; else { PROG.compitiFatti[id] = Date.now(); suono('ok'); }
@@ -554,13 +577,36 @@ function finestra(html) {
   el.onclick = e => { if (e.target === el || e.target.classList.contains('chiudi-f')) el.remove(); };
   document.body.append(el); return el;
 }
-// Le pagine dei libri stanno nella repo privata (pagine/<materia>/<n>.jpg), lette dal ponte con il codice
-function mostraPagina(mat, n) {
+// Le pagine dei libri stanno nella repo privata (pagine/<libro>/<n>.jpg), lette dal ponte con il codice.
+// Una materia può avere più libri: il primo è quello predefinito.
+const LIBRI = {
+  italiano: [['grammatica', 'Grammatica'], ['letture', 'Letture'], ['scrittura', 'Scrittura']],
+  inglese: [['inglese', "Student's book"], ['inglesegrammar', 'Grammar']]
+};
+function libroDi(mat, testo) {
+  const t = (testo || '').toLowerCase(), L = LIBRI[mat];
+  if (!L) return mat;
+  if (mat === 'italiano') { if (/lettur|antolog/.test(t)) return 'letture'; if (/scrittur/.test(t)) return 'scrittura'; }
+  if (mat === 'inglese' && /grammar/.test(t)) return 'inglesegrammar';
+  return L[0][0];
+}
+function mostraPagina(mat, n, libro) {
   const codice = chiediCodice(); if (!codice) return;
-  const el = finestra(`<h2 style="color:#fff">${esc(infoMateria(mat).nome)} · pag. ${n}</h2><img class="pagina" alt="Pagina ${n}">`);
-  const img = $('img', el);
-  img.onerror = () => { img.replaceWith(Object.assign(document.createElement('div'), { className: 'vuoto', textContent: 'Questa pagina non è ancora stata caricata. Chiedi a papà di fotografarla!' })); };
-  img.src = urlPonte('/pagina') + `?m=${encodeURIComponent(mat)}&n=${n}&codice=${encodeURIComponent(codice)}`;
+  libro = libro || libroDi(mat, '');
+  const altri = LIBRI[mat] || [];
+  const el = finestra(`<h2 style="color:#fff">${esc(infoMateria(mat).nome)} · pag. ${n}</h2>
+    ${altri.length > 1 ? `<div class="azioni" style="margin:0 0 12px;flex-wrap:wrap">${altri.map(([k, nome]) => `<button class="btn piccolo ${k === libro ? '' : 'bianco'}" data-libro="${k}">${esc(nome)}</button>`).join('')}</div>` : ''}
+    <img class="pagina" alt="Pagina ${n}">`);
+  const apri = k => {
+    let img = $('img.pagina', el) || $('.vuoto', el);
+    const nuova = Object.assign(document.createElement('img'), { className: 'pagina', alt: `Pagina ${n}` });
+    img.replaceWith(nuova); img = nuova;
+    el.querySelectorAll('[data-libro]').forEach(b => b.classList.toggle('bianco', b.dataset.libro !== k));
+    img.onerror = () => { img.replaceWith(Object.assign(document.createElement('div'), { className: 'vuoto', textContent: 'Questa pagina non è ancora stata caricata. Chiedi a papà di fotografarla!' })); };
+    img.src = urlPonte('/pagina') + `?m=${encodeURIComponent(k)}&n=${n}&codice=${encodeURIComponent(codice)}`;
+  };
+  el.querySelectorAll('[data-libro]').forEach(b => b.onclick = () => apri(b.dataset.libro));
+  apri(libro);
 }
 const GG = ['domenica', 'lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato'];
 function mostraOrario() {
@@ -898,6 +944,27 @@ const MOTORI = {
         bene(n); avanza(); if (prossimo === el.length) setTimeout(fine, 700);
       } else male(b);
     });
+  },
+
+  // componi: le parole di ogni frase (o verso) mescolate, si toccano nell'ordine giusto; una frase per giro
+  componi(p, g) {
+    const frasi = (g.frasi || []).slice(0, 8); G.totale = frasi.length; hud(); let i = 0;
+    const giro = () => {
+      if (i >= frasi.length) return fine();
+      const parole = frasi[i].split(/\s+/).filter(Boolean); let prossimo = 0, errori = 0;
+      p.innerHTML = `<div class="domanda" style="font-size:22px">${esc(g.istruzione || 'Tocca le parole nell\'ordine giusto')}</div>
+        <div class="sequenza"></div><div class="mucchio">${mescola(parole.map((v, n) => ({ v, n }))).map(o => `<button class="tassello" data-n="${o.n}">${esc(o.v)}</button>`).join('')}</div>`;
+      const seq = $('.sequenza', p);
+      p.querySelectorAll('.mucchio .tassello').forEach(b => b.onclick = () => {
+        // vale anche una parola uguale a quella attesa (es. due "e" nella stessa frase)
+        if (b.textContent === parole[prossimo]) {
+          prossimo++; b.remove(); const t = document.createElement('div'); t.className = 'tassello'; t.textContent = parole[prossimo - 1];
+          t.style.animation = 'pop .35s'; seq.append(t);
+          if (prossimo === parole.length) { bene(seq, errori ? 0 : 20); avanza(); i++; setTimeout(giro, 900); }
+        } else { errori++; male(b); }
+      });
+    };
+    giro();
   },
 
   anagramma(p, g) {

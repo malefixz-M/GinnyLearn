@@ -1,12 +1,13 @@
 // Cambia VERSIONE quando aggiorni index.html, così il tablet scarica la nuova app.
-const VERSIONE = 'app-v8';
+const VERSIONE = 'app-v9';
 const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png',
   ...['ecstatic','starry','sad','crying','encouraging','happy','sleepy','thinking'].map(n => `mia/head/${n}.webp`),
   ...['master','celebrating','jumping','encouraging','thinking'].map(n => `mia/fullbody/${n}.webp`),
   ...['nico','lilli','tomo'].flatMap(n => [
     ...['ecstatic','starry','sad','crying','encouraging','happy','sleepy','thinking'].map(x => `guide/${n}/head/${x}.webp`),
     ...['master','celebrating','jumping','encouraging','thinking'].map(x => `guide/${n}/fullbody/${x}.webp`)]),
-  'mappe/italia.svg', 'img/orario.webp'];
+  'mappe/italia.svg', 'mappe/puglia.svg', 'mappe/basilicata.svg', 'mappe/campania.svg',
+  'mappe/calabria.svg', 'mappe/sicilia.svg', 'mappe/sardegna.svg', 'img/orario.webp'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSIONE).then(c => c.addAll(BASE))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSIONE).map(k => caches.delete(k)))));

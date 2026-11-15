@@ -3,17 +3,39 @@
 //   SOL_USER, SOL_PASS  -> segreti (tipo "Secret"), nome utente e password di Scuola Online
 //   SOL_SCUOLA         -> codice scuola (es. SOL_0000), come Secret
 //   ORIGINE             -> indirizzo dell'app, es. https://TUONOME.github.io (facoltativo, default "*")
+//   VAPID_PUBLIC, VAPID_PRIVATE -> chiavi per le notifiche push (VAPID_PRIVATE come Secret)
+//   KV                  -> binding a un namespace KV (Bindings > KV namespace, nome variabile "KV")
+// Cron Triggers: "0 14,15,21,22 * * *" (UTC). Il codice lavora solo quando a Roma sono le 16 o le 23,
+// così l'orario resta giusto sia con l'ora solare sia con quella legale.
 const DURATA_CACHE = 15 * 60; // secondi
+const ORE_CONTROLLO = [16, 23];
 
 export default {
   async fetch(req, env, ctx) {
     const cors = {
       'Access-Control-Allow-Origin': env.ORIGINE || '*',
-      'Access-Control-Allow-Methods': 'GET',
+      'Access-Control-Allow-Methods': 'GET, POST',
+      'Access-Control-Allow-Headers': 'Content-Type',
       'Content-Type': 'application/json; charset=utf-8'
     };
     if (req.method === 'OPTIONS') return new Response(null, { headers: cors });
     const url = new URL(req.url);
+    const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: cors });
+    if (url.pathname === '/vapid') return json({ chiave: env.VAPID_PUBLIC || null });
+    if (url.pathname === '/novita') return json(env.KV ? (await env.KV.get('novita', 'json')) || {} : {});
+    if (url.pathname === '/iscrivi' && req.method === 'POST') {
+      if (!env.KV) return json({ errore: 'KV mancante' }, 500);
+      const sub = await req.json().catch(() => null);
+      if (!sub?.endpoint?.startsWith('https://')) return json({ errore: 'iscrizione non valida' }, 400);
+      const lista = ((await env.KV.get('iscrizioni', 'json')) || []).filter(x => x.endpoint !== sub.endpoint);
+      if (!url.searchParams.has('via')) lista.push({ endpoint: sub.endpoint });
+      await env.KV.put('iscrizioni', JSON.stringify(lista.slice(-10)));
+      return json({ ok: true, iscritti: lista.length });
+    }
+    if (url.pathname === '/prova-push' && env.KV) {
+      await env.KV.put('novita', JSON.stringify({ quando: new Date().toISOString(), titolo: '🔔 Prova', testo: 'Le notifiche funzionano!', quanti: 0 }));
+      return json({ inviate: await inviaATutti(env) });
+    }
     if (url.pathname !== '/compiti') return new Response('{"errore":"usa /compiti"}', { status: 404, headers: cors });
 
     const cache = caches.default, chiave = new Request(url.origin + '/compiti-cache');
@@ -32,12 +54,69 @@ export default {
       }
       const corpo = JSON.stringify({ aggiornato: new Date().toISOString(), compiti });
       ctx.waitUntil(cache.put(chiave, new Response(corpo, { headers: { 'Cache-Control': `max-age=${DURATA_CACHE}` } })));
+      if (env.KV) ctx.waitUntil(env.KV.put('ultimo', corpo));
       return new Response(corpo, { headers: cors });
     } catch (e) {
+      // se Scuola Online non risponde restituisce l'ultimo risultato salvato dal cron
+      const ultimo = env.KV && await env.KV.get('ultimo');
+      if (ultimo && !url.searchParams.has('diagnosi')) return new Response(ultimo, { headers: cors });
       return new Response(JSON.stringify({ errore: String(e.message || e) }), { status: 502, headers: cors });
     }
+  },
+
+  async scheduled(evento, env, ctx) {
+    const ora = +new Date(evento.scheduledTime).toLocaleString('en-GB', { timeZone: 'Europe/Rome', hour: '2-digit', hour12: false });
+    if (!ORE_CONTROLLO.includes(ora)) return;
+    ctx.waitUntil(controlla(env));
   }
 };
+
+/* ---- controllo programmato e notifiche ---- */
+async function controlla(env) {
+  if (!env.KV) return;
+  const compiti = leggiCompiti(await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS));
+  const prima = JSON.parse((await env.KV.get('ultimo')) || '{"compiti":null}').compiti;
+  await env.KV.put('ultimo', JSON.stringify({ aggiornato: new Date().toISOString(), compiti }));
+  if (!prima) return; // primo giro: niente notifica
+  const vecchi = new Map(prima.map(c => [c.id, c]));
+  const nuovi = compiti.filter(c => !vecchi.has(c.id));
+  const cambiati = compiti.filter(c => vecchi.has(c.id) && (vecchi.get(c.id).testo !== c.testo || vecchi.get(c.id).data !== c.data));
+  if (!nuovi.length && !cambiati.length) return;
+  const parti = [];
+  if (nuovi.length) parti.push(nuovi.length === 1 ? '1 compito nuovo' : `${nuovi.length} compiti nuovi`);
+  if (cambiati.length) parti.push(cambiati.length === 1 ? '1 compito cambiato' : `${cambiati.length} compiti cambiati`);
+  const elenco = [...nuovi, ...cambiati].slice(0, 4).map(c => `${c.materia}: ${c.testo}`.slice(0, 80)).join('\n');
+  const novita = { quando: new Date().toISOString(), titolo: '📒 ' + parti.join(' e '), testo: elenco, quanti: nuovi.length + cambiati.length };
+  await env.KV.put('novita', JSON.stringify(novita));
+  await inviaATutti(env);
+}
+
+// Push senza contenuto (niente cifratura): il service worker poi legge /novita.
+async function inviaATutti(env) {
+  if (!env.KV || !env.VAPID_PUBLIC || !env.VAPID_PRIVATE) return 0;
+  const lista = (await env.KV.get('iscrizioni', 'json')) || [];
+  const tenere = []; let ok = 0;
+  for (const s of lista) {
+    const ep = new URL(s.endpoint);
+    const jwt = await firmaVapid(env, ep.origin);
+    const r = await fetch(s.endpoint, { method: 'POST', headers: { TTL: '86400', Urgency: 'normal', Authorization: `vapid t=${jwt}, k=${env.VAPID_PUBLIC}`, 'Content-Length': '0' } });
+    if (r.status === 404 || r.status === 410) continue; // iscrizione scaduta
+    tenere.push(s); if (r.ok) ok++;
+  }
+  if (tenere.length !== lista.length) await env.KV.put('iscrizioni', JSON.stringify(tenere));
+  return ok;
+}
+const b64u = b => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const daB64u = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+async function firmaVapid(env, aud) {
+  const pub = daB64u(env.VAPID_PUBLIC);
+  const chiave = await crypto.subtle.importKey('jwk', { kty: 'EC', crv: 'P-256', d: env.VAPID_PRIVATE, x: b64u(pub.slice(1, 33)), y: b64u(pub.slice(33, 65)), ext: true },
+    { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
+  const enc = o => b64u(new TextEncoder().encode(JSON.stringify(o)));
+  const dati = enc({ typ: 'JWT', alg: 'ES256' }) + '.' + enc({ aud, exp: Math.floor(Date.now() / 1000) + 12 * 3600, sub: 'mailto:noreply@ginnylearn.app' });
+  const firma = await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, chiave, new TextEncoder().encode(dati));
+  return dati + '.' + b64u(firma);
+}
 
 /* ---- sessione con cookie ---- */
 function barattolo() {

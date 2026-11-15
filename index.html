@@ -153,6 +153,24 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 .scuoti{animation:scuoti .4s}
 .punti-volanti{position:fixed;font-size:34px;font-weight:800;color:var(--giallo);text-shadow:2px 2px 0 #000;pointer-events:none;animation:vola .9s forwards;z-index:30}
 @keyframes pop{50%{transform:scale(1.07)}}
+/* Mia, la guida */
+.mia{position:absolute;left:10px;bottom:10px;z-index:5;display:flex;align-items:flex-end;gap:6px;pointer-events:none}
+.mia img{width:92px;height:auto;filter:drop-shadow(0 3px 4px rgba(0,0,0,.2))}
+.mia .fumetto{background:#fff;color:#2a1d3a;border:3px solid #2a1d3a;border-radius:18px 18px 18px 4px;padding:8px 14px;font-weight:800;font-size:18px;max-width:220px;margin-bottom:56px;animation:miaPop .35s cubic-bezier(.3,1.6,.6,1)}
+.mia .fumetto:empty{display:none}
+.mia-anim-pop img{animation:miaPop .45s cubic-bezier(.3,1.6,.6,1)}
+.mia-anim-salta img{animation:miaSalta .45s ease-out 2}
+.mia-anim-scuoti img{animation:miaScuoti .45s ease-in-out 2}
+.mia-anim-dondola img{animation:miaDondola 3s ease-in-out infinite}
+@keyframes miaPop{from{transform:scale(.4);opacity:0}}
+@keyframes miaSalta{50%{transform:translateY(-16px)}}
+@keyframes miaScuoti{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
+@keyframes miaDondola{50%{transform:translateY(-5px) rotate(-3deg)}}
+.mia-corpo{display:block;height:190px;width:auto;margin:0 auto 6px;animation:miaPop .5s cubic-bezier(.3,1.6,.6,1)}
+.mia-casa{display:flex;align-items:flex-end;gap:10px;margin:4px 0 10px}
+.mia-casa img{height:150px;width:auto}
+.mia-casa .fumetto{position:static;background:#fff;border:3px solid var(--inchiostro);border-radius:18px 18px 18px 4px;padding:10px 16px;font-weight:800;font-size:20px;margin-bottom:60px}
+@media (max-height:620px){.mia img{width:70px}.mia-corpo{height:140px}}
 @keyframes scuoti{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 @keyframes vola{to{transform:translateY(-80px);opacity:0}}
 @keyframes cala{from{transform:translateY(-30px) rotate(-4deg);opacity:0}}
@@ -273,6 +291,29 @@ async function aggiornaCompiti() {
     salva('ae_ponte_ok', true);
     if (!location.hash.startsWith('#/gioco')) render();
   } catch {} // senza internet restano gli ultimi compiti scaricati
+  aggiornaPallino();
+}
+// pallino sull'icona: compiti da oggi in poi non ancora fatti
+function aggiornaPallino() {
+  if (!navigator.setAppBadge || !DATI) return;
+  const n = tuttiCompiti().filter(c => c.data >= oggiISO() && !PROG.compitiFatti[c.id]).length;
+  (n ? navigator.setAppBadge(n) : navigator.clearAppBadge()).catch(() => {});
+}
+/* ---------- notifiche push ---------- */
+const urlPonte = p => DATI?.ponte ? DATI.ponte.replace(/\/compiti$/, p) : null;
+const notificheOk = () => 'PushManager' in window && 'Notification' in window && !!DATI?.ponte;
+async function attivaNotifiche(btn) {
+  try {
+    if (await Notification.requestPermission() !== 'granted') { toast('Notifiche bloccate: attivale dalle impostazioni di Chrome'); return; }
+    const { chiave } = await (await fetch(urlPonte('/vapid'))).json();
+    if (!chiave) throw 0;
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({ userVisibleOnly: true,
+      applicationServerKey: Uint8Array.from(atob(chiave.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0)) });
+    const r = await fetch(urlPonte('/iscrivi'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) });
+    if (!r.ok) throw 0;
+    toast('Notifiche attivate! 🔔'); if (btn) btn.outerHTML = '<p class="muted">🔔 Notifiche dei compiti attive</p>';
+  } catch { toast('Non sono riuscito ad attivare le notifiche'); }
 }
 function tuttiCompiti() {
   const visti = new Set(), out = [];
@@ -315,13 +356,14 @@ function render() {
 /* ---------- pagine ---------- */
 function paginaCasa(app) {
   const M = materie();
-  const prossimi = tuttiCompiti().filter(c => c.data >= oggiISO() && !PROG.compitiFatti[c.id]).sort((x, y) => x.data.localeCompare(y.data)).slice(0, 3);
+  const prossimi = tuttiCompiti().filter(c => c.data >= oggiISO()).sort((x, y) => x.data.localeCompare(y.data)).slice(0, 3);
   app.innerHTML = `
     <div class="top">
       <div class="avatar">${PROF.avatar}</div>
       <div><h1>Ciao ${esc(PROF.nome)}!</h1><div class="muted">Cosa ripassiamo oggi?</div></div>
       <div class="stelle-tot">⭐ ${stelleTotali()}</div>
     </div>
+    <div class="mia-casa"><img src="${miaSrc('fullbody', 'master')}" alt="Mia"><div class="fumetto">${aCaso(['Ciao! Sono Mia, giochiamo insieme?', 'Eccoti! Che bello rivederti!', 'Oggi impariamo qualcosa di nuovo!'])}</div></div>
     <h2>Le tue materie</h2>
     <div class="quaderni">
       ${Object.entries(M).map(([k, m]) => {
@@ -384,7 +426,7 @@ function legaCompiti(app) {
   app.querySelectorAll('[data-spunta]').forEach(b => b.onclick = () => {
     const id = b.dataset.spunta;
     if (PROG.compitiFatti[id]) delete PROG.compitiFatti[id]; else { PROG.compitiFatti[id] = Date.now(); suono('ok'); }
-    salvaProg(); render();
+    salvaProg(); aggiornaPallino(); render();
   });
 }
 
@@ -417,10 +459,13 @@ function paginaPremi(app) {
     <div class="medaglie">${med.map(([i, n, ok]) => `<div class="medaglia ${ok ? '' : 'bloccata'}"><div class="ico">${i}</div><b>${n}</b></div>`).join('')}</div>
     <h2>Classifica con le amiche</h2>
     <div class="vuoto">Presto potrai sfidare le tue compagne di classe!</div>
+    <h2>Notifiche</h2>
+    <div id="boxNotif">${notificheOk() ? (Notification.permission === 'granted' ? '<p class="muted">🔔 Notifiche dei compiti attive</p>' : '<button class="btn bianco" id="attNotif">🔔 Attiva notifiche</button>') : '<p class="muted">Notifiche non disponibili su questo dispositivo</p>'}</div>
     <h2>Il tuo profilo</h2>
     <button class="btn bianco" id="modProf">✏️ Cambia nome o avatar</button>
     <p class="muted" style="font-size:14px;margin-top:30px">Esercizi aggiornati al ${esc(DATI.aggiornato || '')}</p>`;
   $('#modProf').onclick = () => paginaProfilo(app, false);
+  if ($('#attNotif')) $('#attNotif').onclick = e => attivaNotifiche(e.currentTarget);
 }
 
 function paginaProfilo(app, primo) {
@@ -459,7 +504,37 @@ function suono(tipo) {
 
 /* ---------- motore di gioco ---------- */
 let G = null;
-function chiudiGioco() { if (G) { clearInterval(G.tick); G.el.remove(); G = null; } }
+/* ---------- Mia, la guida (immagini in mia/) ---------- */
+const MIA = {
+  reazioni: {
+    giusta: { testa: 'ecstatic', anim: 'salta', frasi: ['Giusto!', 'Esatto!', 'Ottimo!', 'Grande!', 'Sì, è così!'] },
+    serie: { testa: 'starry', anim: 'salta', frasi: ['Che serie!', 'Inarrestabile!', 'Fortissimo!'] },
+    sbagliata: { testa: 'sad', anim: 'scuoti', frasi: ['Ops!', 'Quasi...', 'Peccato!'] },
+    tantiErrori: { testa: 'crying', anim: 'scuoti', frasi: ['Nooo! Dai che ci riproviamo!'] },
+    riprova: { testa: 'encouraging', anim: 'pop', frasi: ['Forza, ce la fai!', 'Pensaci con calma!', 'Prossima giusta!'] },
+    inizio: { testa: 'happy', anim: 'pop', frasi: ['Si parte!', 'Andiamo!', 'Pronti? Via!'] },
+    inattivita: { testa: 'sleepy', anim: 'dondola', frasi: ['Zzz... ci sei ancora?'] },
+    pensa: { testa: 'thinking', anim: 'pop', frasi: [''] }
+  },
+  // pose a corpo intero per la schermata finale
+  fine: { perfetto: 'celebrating', alto: 'jumping', medio: 'encouraging', basso: 'thinking', perso: 'thinking' }
+};
+const miaSrc = (tipo, nome) => `mia/${tipo}/${nome}.webp`;
+const aCaso = a => a[Math.floor(Math.random() * a.length)];
+function miaDice(chiave, frase) {
+  if (!G) return;
+  const r = MIA.reazioni[chiave], box = $('.mia', G.el); if (!r || !box) return;
+  box.className = 'mia mia-anim-' + r.anim;
+  box.innerHTML = `<img src="${miaSrc('head', r.testa)}" alt="Mia"><div class="fumetto">${esc(frase ?? aCaso(r.frasi))}</div>`;
+  clearTimeout(G.miaT); G.miaT = setTimeout(() => { const f = $('.mia .fumetto', G?.el); if (f) f.textContent = ''; }, 2200);
+  miaSveglia();
+}
+function miaSveglia() {
+  if (!G) return; clearTimeout(G.sonnoT);
+  G.sonnoT = setTimeout(() => { if (G && !G.finito) miaDice('inattivita'); }, 25000);
+}
+
+function chiudiGioco() { if (G) { clearInterval(G.tick); clearTimeout(G.miaT); clearTimeout(G.sonnoT); G.el.remove(); G = null; } }
 
 function avviaGioco(tid, idx) {
   const t = tema(tid), g = t?.giochi[idx];
@@ -473,13 +548,16 @@ function avviaGioco(tid, idx) {
       <button class="chiudi audio" aria-label="Suono">${audioOn ? '🔊' : '🔈'}</button></div>
     <div class="pista"><div class="linea"></div><div class="meta">${W.meta}</div><div class="viaggiatore">${W.viaggiatore}</div></div>
     <div class="timer" hidden><i></i></div>
-    <div class="palco"></div>`;
+    <div class="palco"></div>
+    <div class="mia"></div>`;
   document.body.append(el);
   G = { el, t, g, idx, W, punti: 0, serie: 0, giuste: 0, errori: 0, vite: 3, usaVite: false, fatti: 0, totale: 1, pesoErr: 1, tick: null, finito: false };
   $('.chiudi', el).onclick = () => { location.hash = '#/tema/' + encodeURIComponent(tid); };
   $('.audio', el).onclick = e => { audioOn = !audioOn; salva('ae_audio', audioOn); e.currentTarget.textContent = audioOn ? '🔊' : '🔈'; };
+  el.addEventListener('pointerdown', miaSveglia);
   hud();
   MOTORI[g.tipo]($('.palco', el), g);
+  miaDice('inizio');
 }
 const palco = () => $('.palco', G.el);
 function hud() {
@@ -500,9 +578,12 @@ function bene(ref, bonus = 0) {
   G.giuste++; G.serie++;
   const p = 10 * Math.min(G.serie, 5) + bonus; G.punti += p;
   suono('ok'); puntiVolanti(p, ref); hud();
+  miaDice(G.serie >= 3 && G.serie % 3 === 0 ? 'serie' : 'giusta');
 }
 function male(ref) {
   G.errori++; G.serie = 0; suono('ko');
+  miaDice(G.errori >= 3 && G.errori % 3 === 0 ? 'tantiErrori' : 'sbagliata');
+  setTimeout(() => { if (G && !G.finito) miaDice('riprova'); }, 1300);
   ref?.classList?.add('scuoti'); setTimeout(() => ref?.classList?.remove('scuoti'), 400);
   if (G.usaVite) { G.vite--; hud(); if (G.vite <= 0) { setTimeout(() => fine(true), 900); return false; } }
   hud(); return true;
@@ -532,8 +613,11 @@ function fine(perso = false) {
   PROG.punti += G.punti; PROG.partite++; salvaProg();
   Sync.inviaPartita({ profilo: PROF.id, tema: G.t.id, gioco: G.idx, punti: G.punti, stelle });
   const tid = G.t.id, idx = G.idx, prossimo = G.t.giochi[idx + 1] ? idx + 1 : null;
-  const frase = perso ? 'Hai finito i cuori!' : stelle === 3 && !G.errori ? 'Perfetto!' : ['Riprova, ce la fai!', 'Ci sei quasi!', 'Bravissima!', 'Fantastico!'][stelle];
+  const frase = perso ? 'Hai finito i cuori!' : stelle === 3 && !G.errori ? 'Perfetto!' : ['Riprova, ce la fai!', 'Ci sei quasi!', 'Ottimo lavoro!', 'Fantastico!'][stelle];
+  const posa = perso ? MIA.fine.perso : stelle === 3 && !G.errori ? MIA.fine.perfetto : stelle >= 2 ? MIA.fine.alto : stelle === 1 ? MIA.fine.medio : MIA.fine.basso;
+  clearTimeout(G.sonnoT); const mb = $('.mia', G.el); if (mb) mb.remove();
   palco().innerHTML = `<div class="fine">
+    <img class="mia-corpo" src="${miaSrc('fullbody', posa)}" alt="Mia">
     <h1>${frase}</h1>
     <div class="stelle-grandi">${[0, 1, 2].map(i => `<span class="${i < stelle ? '' : 'spenta'}">⭐</span>`).join('')}</div>
     <div style="font-size:28px;font-weight:800">${G.punti} punti</div>

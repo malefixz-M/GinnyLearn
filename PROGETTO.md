@@ -20,6 +20,10 @@ Chat del progetto: GINNYLEARN (le successive si chiamano GINNYLEARN 2, 3, ...).
 - Nell'app l'indirizzo del ponte sta nel campo `"ponte"` di `contenuti.json`. Ogni volta che si apre, l'app scarica i compiti e li unisce a quelli manuali. Senza internet usa l'ultima copia.
 - La lista predefinita della pagina copre da oggi a +7 giorni: il ponte rifà la ricerca "Cerca" (postback `LinkButtonCerca`) da oggi a +21 giorni.
 - **Attenzione**: nell'HTML del server le celle non hanno `data-content` (lo aggiunge il JavaScript della pagina; le pagine salvate dal browser invece ce l'hanno). Il ponte riconosce le colonne dalle intestazioni `<th>`.
+- **Cron e notifiche (v3)**: Cron Trigger `0 14,15,21,22 * * *` (UTC); il codice lavora solo quando a Roma sono le 16 o le 23 (vale con ora solare e legale). Salva l'ultimo risultato in KV (`ultimo`); se trova compiti nuovi o cambiati salva `novita` e manda un push vuoto a tutte le iscrizioni (`iscrizioni`, max 10). Il service worker legge `/novita` e mostra la notifica; toccandola apre `#/compiti`.
+- Altri indirizzi: `/vapid` (chiave pubblica), `POST /iscrivi` (salva l'iscrizione), `/novita`, `/prova-push` (manda una notifica di prova). Se Scuola Online non risponde, `/compiti` restituisce l'ultimo risultato in KV.
+- Variabili in più: `VAPID_PUBLIC` (testo), `VAPID_PRIVATE` (Secret), binding KV con nome `KV`.
+- Nell'app: bottone "🔔 Attiva notifiche" nella pagina Premi; pallino sull'icona con il numero di compiti da fare (`setAppBadge`); scorciatoia "Compiti" tenendo premuta l'icona (`shortcuts` nel manifest).
 - Diagnosi: `/compiti?diagnosi&fresco` restituisce solo numeri e nomi delle colonne.
 - Collegamento compito → tema: campo `"parole"` del tema, per esempio `["etrusch"]`. Se il testo del compito di quella materia contiene una delle parole, compare il bottone "Esercitati".
 - Le pagine HTML di riferimento salvate da Daniele sono in Scuola_online.zip; non vanno pubblicate perché contengono nomi.
@@ -72,4 +76,7 @@ Ogni gioco può avere un `titolo`. Per ogni tema conviene preparare 4-6 giochi d
   3. Temi veri dalle foto. Urgente: verifica sui Greci lunedì 16/11 (storia, pag. 22-23 e 29).
   - 15/11: risolto il problema "0 righe" (vedi Attenzione sopra), provato sul sito vero: 5 compiti letti. Da incollare su Cloudflare.
   - 15/11: ponte pubblicato (ginny-ponte.malefixz.workers.dev) e scritto in contenuti.json; tema sto-greci creato (v2), in attesa di commit.
+  - 15/11 (GINNYLEARN 4): v3 con cron 16/23, KV, notifiche push, pallino e scorciatoia (sw `app-v3`); poi compiti spuntati restano barrati in home fino al giorno della consegna (sw `app-v4`). In attesa di: KV + cron + chiavi su Cloudflare, ok per commit.
+  - 15/11 (GINNYLEARN 5): **Mia**, la guida dell'app (sw `app-v5`). Immagini WebP trasparenti in `mia/head/` e `mia/fullbody/`, ritagliate dalla tavola in `AppEsercizi/personaggi` (sorgente e anteprima in `personaggi/Mia_web`). In `index.html` l'oggetto `MIA` collega reazioni → testa/posa/frasi; `miaDice(chiave)` durante i giochi (giusta, serie, sbagliata, tantiErrori, riprova, inizio, inattività dopo 25 s), posa a corpo intero nella schermata finale, saluto in home. Frasi sempre **neutre** (niente maschile/femminile, es. "Ottimo lavoro!" e non "Bravissima!"). Non ridisegnare Mia in SVG. In attesa di ok per commit.
   4. Classifica con le amiche: stesso Worker con KV/D1 al posto di Firebase.
+  - 15/11 (GINNYLEARN 6): controllati i file (JS valido, contenuti v2). Chiavi VAPID generate in `CHIAVI_VAPID_NON_PUBBLICARE.txt` (escluso da git con `.gitignore`, insieme agli `.zip`). In attesa: ok di Daniele per commit/push e configurazione Cloudflare (KV `KV`, VAPID, cron).

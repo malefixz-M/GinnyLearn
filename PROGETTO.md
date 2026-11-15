@@ -18,7 +18,9 @@ Chat del progetto: GINNYLEARN (le successive si chiamano GINNYLEARN 2, 3, ...).
 - Restituisce `GET /compiti` → `{ aggiornato, compiti: [{ id: "sol-351", data, materia, testo, verifica }] }`. Tiene una copia per 15 minuti; con `?fresco` forza un nuovo download. Non restituisce mai nomi di docenti né la classe.
 - Variabili su Cloudflare: `SOL_SCUOLA`, `SOL_USER` e `SOL_PASS` come Secret, `ORIGINE` = `https://malefixz-m.github.io`.
 - Nell'app l'indirizzo del ponte sta nel campo `"ponte"` di `contenuti.json`. Ogni volta che si apre, l'app scarica i compiti e li unisce a quelli manuali. Senza internet usa l'ultima copia.
-- La lista predefinita della pagina copre da oggi a +7 giorni.
+- La lista predefinita della pagina copre da oggi a +7 giorni: il ponte rifà la ricerca "Cerca" (postback `LinkButtonCerca`) da oggi a +21 giorni.
+- **Attenzione**: nell'HTML del server le celle non hanno `data-content` (lo aggiunge il JavaScript della pagina; le pagine salvate dal browser invece ce l'hanno). Il ponte riconosce le colonne dalle intestazioni `<th>`.
+- Diagnosi: `/compiti?diagnosi&fresco` restituisce solo numeri e nomi delle colonne.
 - Collegamento compito → tema: campo `"parole"` del tema, per esempio `["etrusch"]`. Se il testo del compito di quella materia contiene una delle parole, compare il bottone "Esercitati".
 - Le pagine HTML di riferimento salvate da Daniele sono in Scuola_online.zip; non vanno pubblicate perché contengono nomi.
 
@@ -68,4 +70,6 @@ Ogni gioco può avere un `titolo`. Per ogni tema conviene preparare 4-6 giochi d
   1. FATTO: repo GinnyLearn creata e primo push (15/11). Daniele deve attivare Pages (Settings → Pages → Deploy from a branch → main / root).
   2. Daniele crea il Worker `ginny-ponte` su Cloudflare, incolla `ponte/worker.js` e inserisce i Secret. Claude poi scrive l'URL in `contenuti.json` → `ponte`.
   3. Temi veri dalle foto. Urgente: verifica sui Greci lunedì 16/11 (storia, pag. 22-23 e 29).
+  - 15/11: risolto il problema "0 righe" (vedi Attenzione sopra), provato sul sito vero: 5 compiti letti. Da incollare su Cloudflare.
+  - 15/11: ponte pubblicato (ginny-ponte.malefixz.workers.dev) e scritto in contenuti.json; tema sto-greci creato (v2), in attesa di commit.
   4. Classifica con le amiche: stesso Worker con KV/D1 al posto di Firebase.

@@ -1,6 +1,6 @@
 {
-  "versione": 1,
-  "aggiornato": "2026-11-14",
+  "versione": 2,
+  "aggiornato": "2026-11-15",
   "materie": {
     "matematica": {
       "nome": "Matematica",
@@ -699,8 +699,319 @@
         "regioni",
         "capoluogh"
       ]
+    },
+    {
+      "id": "sto-greci",
+      "materia": "storia",
+      "titolo": "I Greci: religione e civiltà",
+      "fonte": "Tante scoperte Storia 5, pag. 22-23 e 28-29",
+      "parole": [
+        "grec"
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sui Greci",
+          "domande": [
+            {
+              "d": "Dove vissero i Greci?",
+              "r": [
+                "In Grecia, Asia Minore e Sud Italia",
+                "Solo ad Atene",
+                "In Egitto e Mesopotamia",
+                "Nell'Italia del Nord"
+              ]
+            },
+            {
+              "d": "In quale periodo vissero i Greci?",
+              "r": [
+                "Dall'800 a.C. al 338 a.C.",
+                "Dal 3000 a.C. al 2000 a.C.",
+                "Dal 100 d.C. al 500 d.C.",
+                "Dal 1200 a.C. al 1000 a.C."
+              ]
+            },
+            {
+              "d": "Da chi impararono la scrittura alfabetica?",
+              "r": [
+                "Dai Fenici",
+                "Dagli Egizi",
+                "Dai Romani",
+                "Dagli Etruschi"
+              ]
+            },
+            {
+              "d": "Che cos'era la polis?",
+              "r": [
+                "Una città-stato autonoma",
+                "Un tempio",
+                "Un tipo di nave",
+                "Una festa religiosa"
+              ]
+            },
+            {
+              "d": "Che forma di governo aveva Sparta?",
+              "r": [
+                "Oligarchia",
+                "Democrazia",
+                "Monarchia assoluta",
+                "Repubblica"
+              ]
+            },
+            {
+              "d": "Come si chiamava l'assemblea di tutti i cittadini di Atene?",
+              "r": [
+                "Ecclesia",
+                "Agorà",
+                "Acropoli",
+                "Cella"
+              ]
+            },
+            {
+              "d": "Quali erano i santuari principali?",
+              "r": [
+                "Zeus a Olimpia e Apollo a Delfi",
+                "Atena a Sparta e Ares a Roma",
+                "Zeus a Delfi e Apollo ad Atene",
+                "Poseidone a Olimpia e Ade a Delfi"
+              ]
+            },
+            {
+              "d": "Chi interpretava le risposte degli dèi negli oracoli?",
+              "r": [
+                "Sacerdoti e sacerdotesse",
+                "Gli spartiati",
+                "I re",
+                "Gli atleti"
+              ]
+            },
+            {
+              "d": "Ogni quanti anni si svolgevano le Olimpiadi?",
+              "r": [
+                "Ogni quattro anni",
+                "Ogni anno",
+                "Ogni dieci anni",
+                "Ogni due anni"
+              ]
+            },
+            {
+              "d": "Dove si trovava la statua del dio nel tempio?",
+              "r": [
+                "Nella cella",
+                "Sull'altare",
+                "Nel frontone",
+                "Nello stadio"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "I santuari erano un elemento di unione del popolo greco.",
+              "v": true
+            },
+            {
+              "f": "Ogni santuario apparteneva a una sola polis.",
+              "v": false
+            },
+            {
+              "f": "I santuari erano aree piccole, con un solo tempio.",
+              "v": false
+            },
+            {
+              "f": "I santuari non potevano essere violati dalla guerra.",
+              "v": true
+            },
+            {
+              "f": "Gli oracoli potevano cambiare le decisioni di una polis.",
+              "v": true
+            },
+            {
+              "f": "Tutti potevano entrare nella cella del tempio.",
+              "v": false
+            },
+            {
+              "f": "L'altare si trovava all'esterno del tempio.",
+              "v": true
+            },
+            {
+              "f": "Nell'antichità i templi erano tutti bianchi.",
+              "v": false
+            },
+            {
+              "f": "I Greci erano politeisti: credevano in molti dèi.",
+              "v": true
+            },
+            {
+              "f": "Nei santuari nessuno saccheggiava i tesori per paura degli dèi.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Le parti del tempio",
+          "frasi": [
+            {
+              "f": "La ___, la parte chiusa del tempio, era la casa del dio.",
+              "r": [
+                "cella",
+                "agorà",
+                "cavea"
+              ]
+            },
+            {
+              "f": "Intorno alla cella c'era spesso un ___.",
+              "r": [
+                "colonnato",
+                "fossato",
+                "giardino"
+              ]
+            },
+            {
+              "f": "Sui lati corti del tempio c'era un ___ triangolare decorato.",
+              "r": [
+                "frontone",
+                "altare",
+                "stadio"
+              ]
+            },
+            {
+              "f": "Le ___ sorreggevano l'architrave.",
+              "r": [
+                "colonne",
+                "statue",
+                "gradinate"
+              ]
+            },
+            {
+              "f": "I templi poggiavano su una piattaforma a ___.",
+              "r": [
+                "gradoni",
+                "ruote",
+                "palafitte"
+              ]
+            },
+            {
+              "f": "All'esterno del tempio c'era l'___ per i sacrifici.",
+              "r": [
+                "altare",
+                "acropoli",
+                "oracolo"
+              ]
+            },
+            {
+              "f": "Solo i ___ potevano entrare nella cella.",
+              "r": [
+                "sacerdoti",
+                "atleti",
+                "mercanti"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Parole e significati",
+          "coppie": [
+            [
+              "Polis",
+              "città-stato"
+            ],
+            [
+              "Acropoli",
+              "centro religioso"
+            ],
+            [
+              "Agorà",
+              "piazza dei cittadini"
+            ],
+            [
+              "Ecclesia",
+              "assemblea di Atene"
+            ],
+            [
+              "Oracolo",
+              "risposta degli dèi"
+            ],
+            [
+              "Cella",
+              "casa della divinità"
+            ],
+            [
+              "Colonie",
+              "città fondate lontano"
+            ],
+            [
+              "Santuario",
+              "area sacra"
+            ]
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Atene, Sparta o santuari?",
+          "gruppi": {
+            "Atene": [
+              "democrazia",
+              "ecclesia",
+              "nascita del teatro",
+              "tutti i cittadini governano"
+            ],
+            "Sparta": [
+              "oligarchia",
+              "spartiati",
+              "pochi cittadini governano"
+            ],
+            "Santuari": [
+              "Olimpia",
+              "Delfi",
+              "oracoli",
+              "tesori",
+              "stadio"
+            ]
+          }
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole greche",
+          "parole": [
+            {
+              "p": "OLIMPIADI",
+              "indizio": "Giochi ogni quattro anni a Olimpia"
+            },
+            {
+              "p": "DELFI",
+              "indizio": "Santuario di Apollo"
+            },
+            {
+              "p": "POLIS",
+              "indizio": "Città-stato greca"
+            },
+            {
+              "p": "TEMPIO",
+              "indizio": "Edificio in pietra per un dio"
+            },
+            {
+              "p": "TRAGEDIA",
+              "indizio": "Genere teatrale con dèi ed eroi"
+            },
+            {
+              "p": "COMMEDIA",
+              "indizio": "Genere teatrale sull'attualità"
+            },
+            {
+              "p": "ORACOLO",
+              "indizio": "Risposta degli dèi"
+            }
+          ]
+        }
+      ]
     }
   ],
   "compiti": [],
-  "ponte": ""
+  "ponte": "https://ginny-ponte.malefixz.workers.dev/compiti"
 }

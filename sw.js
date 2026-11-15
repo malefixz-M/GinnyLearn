@@ -1,5 +1,5 @@
 // Cambia VERSIONE quando aggiorni index.html, così il tablet scarica la nuova app.
-const VERSIONE = 'app-v9';
+const VERSIONE = 'app-v10';
 const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png',
   ...['ecstatic','starry','sad','crying','encouraging','happy','sleepy','thinking'].map(n => `mia/head/${n}.webp`),
   ...['master','celebrating','jumping','encouraging','thinking'].map(n => `mia/fullbody/${n}.webp`),
@@ -10,7 +10,7 @@ const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 
   'mappe/calabria.svg', 'mappe/sicilia.svg', 'mappe/sardegna.svg', 'img/orario.webp'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSIONE).then(c => c.addAll(BASE))); self.skipWaiting(); });
 self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSIONE).map(k => caches.delete(k)))));
+  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSIONE && k !== 'ginny-impostazioni').map(k => caches.delete(k)))));
   self.clients.claim();
 });
 self.addEventListener('fetch', e => {
@@ -29,16 +29,22 @@ self.addEventListener('fetch', e => {
   }));
 });
 
-// notifiche: il ponte manda un push vuoto, qui si leggono le novità
+// notifiche: il ponte manda un push vuoto, qui si leggono le novità.
+// Il ruolo (figlio = compiti, genitore = foto arrivate) lo salva la pagina nella cache 'ginny-impostazioni'.
 self.addEventListener('push', e => {
   e.waitUntil((async () => {
-    let n = { titolo: '📒 Compiti aggiornati', testo: 'Apri il diario dei compiti', quanti: 1 };
+    let ruolo = 'figlio';
+    try { const x = await (await caches.open('ginny-impostazioni')).match('ruolo'); if (x) ruolo = await x.text(); } catch {}
+    const gen = ruolo === 'genitore';
+    let n = gen ? { titolo: '📷 Foto nuova dal tablet', testo: 'Apri una chat GINNYLEARN per creare gli esercizi' }
+                : { titolo: '📒 Compiti aggiornati', testo: 'Apri il diario dei compiti', quanti: 1 };
     try {
       const c = await caches.match('data/contenuti.json'); const ponte = c && (await c.json()).ponte;
-      if (ponte) n = { ...n, ...(await (await fetch(ponte.replace(/\/compiti$/, '/novita'), { cache: 'no-store' })).json()) };
+      if (ponte) n = { ...n, ...(await (await fetch(ponte.replace(/\/compiti$/, '/novita') + (gen ? '?ruolo=genitore' : ''), { cache: 'no-store' })).json()) };
     } catch {}
-    if (n.quanti && self.navigator.setAppBadge) self.navigator.setAppBadge(n.quanti).catch(() => {});
-    await self.registration.showNotification(n.titolo, { body: n.testo, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: 'compiti', data: { url: './index.html#/compiti' } });
+    if (!gen && n.quanti && self.navigator.setAppBadge) self.navigator.setAppBadge(n.quanti).catch(() => {});
+    await self.registration.showNotification(n.titolo, { body: n.testo, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png',
+      tag: gen ? 'foto' : 'compiti', data: { url: gen ? './index.html#/genitore' : './index.html#/compiti' } });
   })());
 });
 self.addEventListener('notificationclick', e => {

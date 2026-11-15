@@ -71,7 +71,7 @@ h2{font-size:26px;font-weight:800;margin:28px 0 12px}
 .compito.fatto .testo{text-decoration:line-through;text-decoration-color:var(--rosso);text-decoration-thickness:3px;opacity:.6}
 .compito .testo{font-size:20px;font-weight:600}
 .compito .meta{font-size:15px}
-.verifica{background:var(--rosso);color:#fff;border-radius:6px;padding:0 8px;font-size:14px;font-weight:700;margin-left:6px}
+.verifica{white-space:nowrap;background:var(--rosso);color:#fff;border-radius:6px;padding:0 8px;font-size:14px;font-weight:700;margin-left:6px}
 .btn{color:var(--inchiostro);display:inline-flex;align-items:center;gap:8px;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:8px 20px;font-weight:800;font-size:20px;box-shadow:3px 3px 0 var(--inchiostro)}
 .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--inchiostro)}
 .btn.piccolo{font-size:16px;padding:4px 14px;margin-top:8px}
@@ -112,6 +112,7 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 .pista .linea{position:absolute;left:0;right:34px;top:50%;border-top:4px dashed currentColor;opacity:.35}
 .pista .meta{position:absolute;right:0;top:2px;font-size:32px}
 .pista .viaggiatore{position:absolute;top:0;font-size:34px;transition:left .5s cubic-bezier(.3,1.4,.5,1);transform:translateX(-50%)}
+.mondo-papiro .pista .viaggiatore{transform:translateX(-50%) scaleX(-1)} /* il cavallo guarda a sinistra: lo giriamo verso il traguardo */
 .timer{height:10px;margin:6px 24px 0;border-radius:6px;background:rgba(255,255,255,.25);overflow:hidden}
 .mondo-papiro .timer{background:rgba(74,44,10,.15)}
 .timer i{display:block;height:100%;width:100%;background:var(--giallo);transform-origin:left}
@@ -193,6 +194,14 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 .mia-casa img{height:150px;width:auto}
 .mia-casa .fumetto{position:static;background:#fff;border:3px solid var(--inchiostro);border-radius:18px 18px 18px 4px;padding:10px 16px;font-weight:800;font-size:20px;margin-bottom:60px}
 @media (max-height:620px){.mia img{width:70px}.mia-corpo{height:140px}}
+/* tablet in verticale: la guida sta in alto, sotto la pista, con il fumetto accanto alla domanda */
+@media (orientation:portrait){
+  .gioco .mia{position:relative;left:auto;bottom:auto;align-self:center;align-items:center;min-height:78px;margin:6px 16px 0;max-width:820px;width:calc(100% - 32px)}
+  .gioco .mia img{width:72px}
+  .gioco .mia .fumetto{margin-bottom:0;max-width:none;font-size:20px}
+  .gioco .palco{padding-top:4px}
+  .gioco .domanda{margin-top:4px}
+}
 @keyframes scuoti{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 @keyframes vola{to{transform:translateY(-80px);opacity:0}}
 @keyframes cala{from{transform:translateY(-30px) rotate(-4deg);opacity:0}}
@@ -211,6 +220,41 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 
 .toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:var(--inchiostro);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:cala .3s}
 @media (max-width:600px){#app{padding-left:58px} h1{font-size:32px} .domanda{font-size:24px} .griglia-memory{grid-template-columns:repeat(3,1fr);max-width:none} .opzioni{grid-template-columns:1fr} .colonne{gap:12px}}
+/* home divisa in due: sopra i compiti, sotto le materie, ognuno scorre per conto suo */
+body.in-casa #app{height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.casa{flex:1;min-height:0;display:flex;flex-direction:column}
+.casa .top{flex:none}
+.casa .top .mia-casa{margin:0 0 0 auto}
+.casa .top .mia-casa img{height:84px}
+.casa .top .mia-casa .fumetto{margin-bottom:34px;font-size:16px;padding:6px 12px;max-width:240px}
+.zona-testa{flex:none;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
+.zona-testa h2{margin:0 auto 0 0}
+.zona-testa .btn.piccolo{margin-top:0}
+.zona{flex:1 1 0;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:2px 8px 10px 2px;border-top:2px dashed var(--quadretto);border-bottom:2px dashed var(--quadretto)}
+.zona .quaderni{padding:4px 6px 6px 0}
+@media (max-width:700px){.casa .top .mia-casa{display:none}}
+.chip-piano{display:inline-block;background:#EFE7FF;color:#4b2a8a;border-radius:8px;padding:0 8px;font-size:14px;font-weight:700;margin-left:6px}
+/* Il mio piano */
+.piano-aiuto{background:#fff;border:2.5px dashed var(--inchiostro-2);border-radius:var(--r-m);padding:10px 14px;margin:8px 0 12px;font-size:17px}
+.da-org{background:#FFF7DA;border:3px solid var(--inchiostro);border-radius:var(--r-m);padding:10px;min-height:70px;margin-bottom:16px}
+.da-org.bersaglio,.giorno-box.bersaglio{outline:4px dashed var(--giallo);outline-offset:2px}
+.piano-giorni{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.giorno-box{background:#fff;border:2.5px solid var(--inchiostro);border-radius:var(--r-m);padding:8px;min-height:130px;text-align:left;display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.giorno-box.festa{background:#F4F8FF}
+.giorno-box.pieno{border-color:var(--rosso)}
+.giorno-box .gtesta{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:19px}
+.giorno-box .gtesta small{font-size:14px;color:var(--inchiostro-2)}
+.consegne{font-size:13px;color:var(--inchiostro-2);line-height:1.25}
+.avviso{font-size:14px;font-weight:800;color:var(--rosso)}
+.carta-piano{display:flex;align-items:flex-start;gap:8px;line-height:1.2;background:#fff;border:2.5px solid var(--inchiostro);border-left-width:9px;border-radius:12px;padding:6px 8px;font-size:16px;font-weight:600;text-align:left;width:100%;box-shadow:2px 2px 0 rgba(0,0,0,.15)}
+.carta-piano.scelta{outline:4px solid var(--giallo);outline-offset:1px;transform:rotate(-1.5deg)}
+.carta-piano.fatto .ct{text-decoration:line-through;opacity:.55}
+.carta-piano .ct{flex:1;min-width:0;overflow-wrap:anywhere}
+.carta-piano .sotto{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:4px}
+.carta-piano .sotto small{font-size:13px;color:var(--inchiostro-2)}
+.carta-piano .tempo{flex:none;background:#E6F3FF;border-radius:8px;padding:0 6px;font-size:14px;font-weight:800}
+.carta-piano .spunta{width:30px;height:30px;font-size:24px;line-height:22px}
+.da-org .carte{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -219,6 +263,7 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 <nav id="nav">
   <button data-go="#/casa"><span>🏠</span>Casa</button>
   <button data-go="#/compiti"><span>📒</span>Compiti</button>
+  <button data-go="#/piano"><span>🗓️</span>Piano</button>
   <button data-go="#/premi"><span>🏆</span>Premi</button>
 </nav>
 <script>
@@ -360,7 +405,7 @@ function aggiornaPallino() {
 /* ---------- notifiche push ---------- */
 const urlPonte = p => DATI?.ponte ? DATI.ponte.replace(/\/compiti$/, p) : null;
 const notificheOk = () => 'PushManager' in window && 'Notification' in window && !!DATI?.ponte;
-async function attivaNotifiche(btn) {
+async function attivaNotifiche(btn, ruolo = 'figlio') {
   try {
     if (await Notification.requestPermission() !== 'granted') { toast('Notifiche bloccate: attivale dalle impostazioni di Chrome'); return; }
     const { chiave } = await (await fetch(urlPonte('/vapid'))).json();
@@ -368,9 +413,15 @@ async function attivaNotifiche(btn) {
     const reg = await navigator.serviceWorker.ready;
     const sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({ userVisibleOnly: true,
       applicationServerKey: Uint8Array.from(atob(chiave.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0)) });
-    const r = await fetch(urlPonte('/iscrivi'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) });
+    let q = '';
+    if (ruolo === 'genitore') { const codice = chiediCodice(); if (!codice) return; q = '?ruolo=genitore&codice=' + encodeURIComponent(codice); }
+    const r = await fetch(urlPonte('/iscrivi') + q, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) });
+    if (r.status === 403) { salva('ae_codfoto', ''); toast('Codice sbagliato, riprova'); return; }
     if (!r.ok) throw 0;
-    toast('Notifiche attivate! 🔔'); if (btn) btn.outerHTML = '<p class="muted">🔔 Notifiche dei compiti attive</p>';
+    await salvaRuolo(ruolo);
+    toast(ruolo === 'genitore' ? 'Ti avviso quando arriva una foto! 📷' : 'Notifiche attivate! 🔔');
+    if (btn) btn.outerHTML = '<p class="muted">🔔 Notifiche dei compiti attive</p>';
+    if (location.hash === '#/genitore') render();
   } catch { toast('Non sono riuscito ad attivare le notifiche'); }
 }
 function tuttiCompiti() {
@@ -401,7 +452,9 @@ document.addEventListener('click', e => {
 function render() {
   const app = $('#app'), h = location.hash || '#/casa', [, pag, a, b] = h.split('/');
   chiudiGioco();
+  document.body.classList.toggle('in-casa', !pag || pag === 'casa');
   document.querySelectorAll('nav button').forEach(x => x.classList.toggle('on', h.startsWith(x.dataset.go) || (pag === 'materia' || pag === 'tema') && x.dataset.go === '#/casa'));
+  if (pag === 'genitore') return paginaGenitore(app);
   if (!PROF) return paginaProfilo(app, true);
   if (!DATI) { app.innerHTML = '<p class="muted">Carico gli esercizi…</p>'; return; }
   window.scrollTo(0, 0);
@@ -409,6 +462,7 @@ function render() {
   if (pag === 'tema') return paginaTema(app, decodeURIComponent(a));
   if (pag === 'gioco') return avviaGioco(decodeURIComponent(a), +b);
   if (pag === 'compiti') return paginaCompiti(app);
+  if (pag === 'piano') return paginaPiano(app);
   if (pag === 'premi') return paginaPremi(app);
   return paginaCasa(app);
 }
@@ -420,15 +474,22 @@ function paginaCasa(app) {
   // materie: prima quelle con il tema più recente (ultimo aggiunto in contenuti.json), poi le altre
   const ultimo = k => DATI.temi.reduce((u, t, i) => t.materia === k ? i : u, -1);
   const ordine = Object.keys(M).sort((a, b) => ultimo(b) - ultimo(a));
-  app.innerHTML = `
+  app.innerHTML = `<div class="casa">
     <div class="top">
       <div class="avatar">${PROF.avatar}</div>
       <div><h1>Ciao ${esc(PROF.nome)}!</h1><div class="muted">Cosa ripassiamo oggi?</div></div>
+      <div class="mia-casa"><div class="fumetto">${aCaso([`Ciao! Sono ${guida().nome}, giochiamo insieme?`, 'Eccoti! Che bello rivederti!', 'Oggi impariamo qualcosa di nuovo!'])}</div><img src="${miaSrc('fullbody', 'master')}" alt="${guida().nome}"></div>
       <div class="stelle-tot">⭐ ${stelleTotali()}</div>
     </div>
-    <div class="mia-casa"><img src="${miaSrc('fullbody', 'master')}" alt="${guida().nome}"><div class="fumetto">${aCaso([`Ciao! Sono ${guida().nome}, giochiamo insieme?`, 'Eccoti! Che bello rivederti!', 'Oggi impariamo qualcosa di nuovo!'])}</div></div>
-    <h2>Le tue materie</h2>
-    <div class="quaderni">
+    <div class="zona-testa"><h2>Prossimi compiti</h2>
+      <button class="btn piccolo" data-go="#/piano">🗓️ Il mio piano</button>
+      <button class="btn piccolo bianco" id="orario">🎒 Zaino</button>
+      <button class="btn piccolo bianco" data-go="#/compiti">📒 Tutti</button></div>
+    <div class="zona" id="zonaCompiti">
+      ${prossimi.length ? prossimi.map(compitoHTML).join('') : '<div class="vuoto">Nessun compito in arrivo. Puoi giocare quanto vuoi!</div>'}
+    </div>
+    <div class="zona-testa"><h2>Le tue materie</h2></div>
+    <div class="zona" id="zonaMaterie"><div class="quaderni">
       ${ordine.map(k => { const m = M[k];
         const temi = DATI.temi.filter(t => t.materia === k);
         const nuovi = temi.filter(t => !PROG.temiVisti.includes(t.id)).length;
@@ -437,13 +498,9 @@ function paginaCasa(app) {
           <div>${temi.length} ${temi.length === 1 ? 'tema' : 'temi'}${nuovi ? ` <span class="badge-nuovo">${nuovi} nuov${nuovi === 1 ? 'o' : 'i'}</span>` : ''}</div>
           <span class="etichetta penna">${PROF.nome}</span></button>`;
       }).join('')}
-    </div>
-    <h2>Prossimi compiti</h2>
-    ${prossimi.length ? prossimi.map(compitoHTML).join('') : '<div class="vuoto">Nessun compito in arrivo. Puoi giocare quanto vuoi!</div>'}
-    <div class="azioni"><button class="btn bianco" data-go="#/compiti">📒 Vedi tutti i compiti</button><button class="btn bianco" id="orario">🎒 Orario per lo zaino</button></div>`;
+    </div></div></div>`;
   legaCompiti(app);
   $('#orario').onclick = mostraOrario;
-  legaCompiti(app);
 }
 
 function paginaMateria(app, k) {
@@ -493,7 +550,7 @@ function compitoHTML(c) {
   return `<div class="compito ${esc(c.materia.replace(/\s/g, '-'))} ${fatto ? 'fatto' : ''}">
     <button class="spunta" data-spunta="${esc(c.id)}" aria-label="${fatto ? 'Segna da fare' : 'Segna come fatto'}">${fatto ? '✓' : ''}</button>
     <div><div class="testo">${esc(c.testo)}${c.verifica ? '<span class="verifica">Verifica</span>' : ''}</div>
-    <div class="meta muted">${m.icona} ${esc(m.nome)} · ${nomeGiorno(c.data)}</div>
+    <div class="meta muted">${m.icona} ${esc(m.nome)} · ${nomeGiorno(c.data)}${!fatto && PIANO[c.id]?.g ? `<span class="chip-piano">🗓️ lo fai ${PIANO[c.id].g === oggiISO() ? 'oggi' : nomeGiorno(PIANO[c.id].g).toLowerCase()}</span>` : ''}</div>
     <div class="azioni-compito">${t ? `<button class="btn piccolo" data-go="#/tema/${encodeURIComponent(t.id)}">🎮 Esercitati</button>` : ''}
     ${pagineDi(c.testo).map(n => `<button class="btn piccolo bianco" data-pag="${n}" data-mat="${esc(c.materia)}" data-libro="${libroDi(c.materia, c.testo)}">📄 pag. ${n}</button>`).join('')}
     ${DATI?.ponte && /\bquaderno\b|\bq\.(?=\s|$|,)/i.test(c.testo || '') ? `<label class="btn piccolo bianco">📷 Invia foto del quaderno<input type="file" accept="image/*" capture="environment" data-foto="${esc(c.materia + '_' + c.id)}" hidden></label>` : ''}</div></div></div>`;
@@ -636,6 +693,7 @@ function paginaPremi(app) {
     <div id="boxNotif">${notificheOk() ? (Notification.permission === 'granted' ? '<p class="muted">🔔 Notifiche dei compiti attive</p>' : '<button class="btn bianco" id="attNotif">🔔 Attiva notifiche</button>') : '<p class="muted">Notifiche non disponibili su questo dispositivo</p>'}</div>
     <h2>Il tuo profilo</h2>
     <button class="btn bianco" id="modProf">✏️ Cambia nome, avatar o guida</button>
+    <p style="margin-top:24px"><button class="btn piccolo bianco" data-go="#/genitore">👨‍👩‍👧 Per i genitori</button></p>
     <p class="muted" style="font-size:14px;margin-top:30px">Esercizi aggiornati al ${esc(DATI.aggiornato || '')}</p>`;
   $('#modProf').onclick = () => paginaProfilo(app, false);
   if ($('#attNotif')) $('#attNotif').onclick = e => attivaNotifiche(e.currentTarget);
@@ -662,19 +720,146 @@ function paginaProfilo(app, primo) {
   };
 }
 
-/* ---------- suoni ---------- */
+/* ---------- Il mio piano: i compiti diventano carte da mettere sui giorni ---------- */
+// PIANO = { idCompito: { g: 'AAAA-MM-GG' (giorno in cui lo fa), min: minuti stimati } }, solo sul tablet
+let PIANO = carica('ae_piano', {}), pianoSel = null;
+const salvaPiano = () => salva('ae_piano', PIANO);
+const TEMPI = [15, 30, 45, 60, 90];
+const GIORNO_PIENO = 90; // minuti
+const isoPiu = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+const minDi = c => PIANO[c.id]?.min || (c.verifica ? 60 : 30);
+const GBREVE = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+const giornoBreve = iso => { const n = nomeGiorno(iso); return /^(Oggi|Domani)$/.test(n) ? n : (d => GBREVE[d.getDay()] + ' ' + d.getDate())(new Date(iso + 'T12:00:00')); };
+const coloreMat = k => infoMateria(k).colore || { matematica: 'var(--mate)', storia: 'var(--storia)', geografia: 'var(--geo)' }[k] || '#999';
+function paginaPiano(app) {
+  const oggi = oggiISO(), tutti = tuttiCompiti();
+  // compiti ancora da consegnare (anche quelli fatti, per vederli barrati nel giorno)
+  const attivi = tutti.filter(c => c.data >= oggi).sort((x, y) => x.data.localeCompare(y.data));
+  // un piano messo su un giorno passato torna "da organizzare"
+  for (const c of attivi) if (PIANO[c.id]?.g && PIANO[c.id].g < oggi && !PROG.compitiFatti[c.id]) delete PIANO[c.id].g;
+  const fine = attivi.reduce((m, c) => c.data > m ? c.data : m, isoPiu(oggi, 6));
+  const giorni = []; for (let d = oggi; d <= fine && giorni.length < 21; d = isoPiu(d, 1)) giorni.push(d);
+  const daFare = attivi.filter(c => !PIANO[c.id]?.g && !PROG.compitiFatti[c.id]);
+  const carta = c => {
+    const g = PIANO[c.id]?.g, fatto = !!PROG.compitiFatti[c.id], m = infoMateria(c.materia);
+    const tardi = g && g >= c.data && !fatto;
+    return `<div class="carta-piano ${pianoSel === c.id ? 'scelta' : ''} ${fatto ? 'fatto' : ''}" data-carta="${esc(c.id)}" style="border-left-color:${coloreMat(c.materia)}">
+      <button class="spunta" data-sp="${esc(c.id)}" aria-label="Fatto">${fatto ? '✓' : ''}</button>
+      <span class="ct">${m.icona} ${esc(c.testo.length > 70 ? c.testo.slice(0, 68) + '…' : c.testo)}${c.verifica ? '<span class="verifica">Verifica</span>' : ''}
+        <span class="sotto"><button class="tempo" data-tempo="${esc(c.id)}" aria-label="Quanto tempo">⏱️ ${minDi(c)}′</button><small>📌 consegna ${giornoBreve(c.data).toLowerCase()}</small></span>
+        ${tardi ? `<span class="avviso">⚠️ Troppo tardi! Spostalo prima</span>` : ''}</span></div>`;
+  };
+  app.innerHTML = `
+    <h1>🗓️ Il mio piano</h1>
+    <div class="piano-aiuto">Tocca un compito, poi tocca il giorno in cui lo vuoi fare. Tocca ⏱️ per dire quanto tempo ci metti.
+      Ricorda: un compito va fatto <b>prima</b> del giorno della consegna!</div>
+    <div class="da-org ${pianoSel ? 'bersaglio' : ''}" data-giorno="">
+      <div class="zona-testa" style="margin:0 0 8px"><h2 style="font-size:22px">📥 Da organizzare (${daFare.length})</h2>
+        ${daFare.length ? '<button class="btn piccolo" id="aiutami">✨ Aiutami a organizzare</button>' : ''}</div>
+      ${daFare.length ? `<div class="carte">${daFare.map(carta).join('')}</div>` : '<div class="muted">Tutto organizzato! 🎉</div>'}
+    </div>
+    <div class="piano-giorni">${giorni.map(d => {
+      const qui = attivi.filter(c => PIANO[c.id]?.g === d), tot = qui.filter(c => !PROG.compitiFatti[c.id]).reduce((s, c) => s + minDi(c), 0);
+      const consegne = attivi.filter(c => c.data === d), dw = new Date(d + 'T12:00:00').getDay();
+      return `<div class="giorno-box ${dw === 0 || dw === 6 ? 'festa' : ''} ${tot > GIORNO_PIENO ? 'pieno' : ''} ${pianoSel ? 'bersaglio' : ''}" data-giorno="${d}">
+        <div class="gtesta">${giornoBreve(d)}<small>${tot ? `⏱️ ${tot}′` : ''}</small></div>
+        ${tot > GIORNO_PIENO ? '<div class="avviso">😮 Giornata piena! Sposta qualcosa</div>' : ''}
+        ${qui.map(carta).join('')}
+        ${consegne.length ? `<div class="consegne">📌 Si consegna: ${consegne.map(c => infoMateria(c.materia).nome).join(', ')}</div>` : ''}
+      </div>`;
+    }).join('')}</div>`;
+  const ridisegna = () => { salvaPiano(); paginaPiano(app); };
+  app.querySelectorAll('[data-sp]').forEach(b => b.onclick = e => {
+    e.stopPropagation(); const id = b.dataset.sp;
+    if (PROG.compitiFatti[id]) delete PROG.compitiFatti[id]; else { PROG.compitiFatti[id] = Date.now(); suono('ok'); }
+    salvaProg(); aggiornaPallino(); ridisegna();
+  });
+  app.querySelectorAll('[data-tempo]').forEach(b => b.onclick = e => {
+    e.stopPropagation(); const c = attivi.find(x => x.id === b.dataset.tempo); if (!c) return;
+    PIANO[c.id] = { ...PIANO[c.id], min: TEMPI[(TEMPI.indexOf(minDi(c)) + 1) % TEMPI.length] }; suono('gira'); ridisegna();
+  });
+  app.querySelectorAll('[data-carta]').forEach(b => b.onclick = e => {
+    const id = b.dataset.carta;
+    if (pianoSel && pianoSel !== id) return; // c'è già una carta scelta: il tocco vale per il giorno
+    e.stopPropagation();
+    pianoSel = pianoSel === id ? null : id; suono('gira');
+    if (pianoSel) toast('Ora tocca il giorno in cui lo fai'); ridisegna();
+  });
+  app.querySelectorAll('[data-giorno]').forEach(b => b.onclick = () => {
+    if (!pianoSel) return;
+    const c = attivi.find(x => x.id === pianoSel), g = b.dataset.giorno; pianoSel = null;
+    if (!c) return ridisegna();
+    PIANO[c.id] = { ...PIANO[c.id], g: g || undefined };
+    if (g && g >= c.data) { suono('ko'); toast('Attenzione: così è troppo tardi per la consegna!'); }
+    else if (g) suono('ok');
+    ridisegna();
+  });
+  if ($('#aiutami')) $('#aiutami').onclick = () => {
+    // ogni compito va nel giorno meno carico tra oggi e il giorno prima della consegna (le verifiche il prima possibile)
+    const carico = d => attivi.filter(c => PIANO[c.id]?.g === d && !PROG.compitiFatti[c.id]).reduce((s, c) => s + minDi(c), 0);
+    for (const c of daFare) {
+      const ok = giorni.filter(d => d < c.data); if (!ok.length) { PIANO[c.id] = { ...PIANO[c.id], g: oggi }; continue; }
+      const scelto = ok.reduce((m, d) => carico(d) < carico(m) ? d : m, ok[0]);
+      PIANO[c.id] = { ...PIANO[c.id], g: scelto };
+    }
+    suono('fine'); toast('Fatto! Controlla e sposta quello che vuoi'); ridisegna();
+  };
+}
+
+/* ---------- pagina per i genitori: avviso quando arriva una foto dal tablet ---------- */
+// Si apre da Premi o con l'indirizzo .../#/genitore sul telefono del genitore.
+// Un dispositivo riceve o gli avvisi dei compiti o quelli delle foto (una sola iscrizione per browser).
+async function salvaRuolo(r) { try { const c = await caches.open('ginny-impostazioni'); await c.put('ruolo', new Response(r)); } catch {} }
+async function leggiRuolo() { try { const c = await caches.open('ginny-impostazioni'); const x = await c.match('ruolo'); return x ? await x.text() : 'figlio'; } catch { return 'figlio'; } }
+function paginaGenitore(app) {
+  $('#nav').style.display = PROF ? '' : 'none';
+  app.innerHTML = `
+    ${PROF ? '<button class="indietro" data-go="#/premi">‹ Premi</button>' : ''}
+    <h1>👨‍👩‍👧 Per i genitori</h1>
+    <p>Su questo telefono puoi ricevere un avviso ogni volta che dal tablet arriva una foto di compiti o del quaderno.
+      Poi apri una chat GINNYLEARN e chiedi i nuovi esercizi.</p>
+    <p class="muted">Serve il codice segreto delle foto. Questo dispositivo smetterà di ricevere gli avvisi dei compiti.</p>
+    <div id="statoGen" class="muted">…</div>
+    <div class="azioni"><button class="btn" id="attGen">🔔 Avvisami quando arriva una foto</button>
+      <button class="btn bianco" id="disGen">Torna agli avvisi dei compiti</button></div>`;
+  leggiRuolo().then(r => { $('#statoGen').textContent = r === 'genitore' ? '✅ Ora ricevi gli avvisi delle foto.' : 'Ora questo dispositivo è impostato per gli avvisi dei compiti (o nessuno).'; });
+  $('#attGen').onclick = () => attivaNotifiche(null, 'genitore');
+  $('#disGen').onclick = () => attivaNotifiche(null, 'figlio');
+}
+
+/* ---------- suoni (sintetizzati con WebAudio, niente file) ---------- */
 let AC = null, audioOn = carica('ae_audio', true);
+// Android sospende l'audio quando l'app va in background: lo riaccendiamo prima di ogni suono e al ritorno
+function audioPronto() {
+  if (!AC || AC.state === 'closed') AC = new (window.AudioContext || window.webkitAudioContext)();
+  if (AC.state !== 'running') AC.resume().catch(() => {});
+  return AC;
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden && AC) AC.resume().catch(() => {}); });
+document.addEventListener('pointerdown', () => { if (audioOn) audioPronto(); }, { passive: true });
+// una nota: onda, frequenza (anche scivolata fino a f2), inizio, durata, volume
+function nota(ac, { f, f2, t = 0, d = 0.3, v = 0.2, onda = 'sine' }) {
+  const t0 = ac.currentTime + 0.03 + t, o = ac.createOscillator(), g = ac.createGain();
+  o.type = onda; o.frequency.setValueAtTime(f, t0);
+  if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + d * 0.8);
+  g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(v, t0 + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t0 + d);
+  o.connect(g).connect(ac.destination); o.start(t0); o.stop(t0 + d + 0.05);
+}
+function campanella(ac, f, t, v = 0.16) { // fondamentale + armoniche "da campana"
+  nota(ac, { f, t, d: 0.7, v }); nota(ac, { f: f * 2.01, t, d: 0.45, v: v * 0.35 }); nota(ac, { f: f * 3.02, t, d: 0.25, v: v * 0.12 });
+}
 function suono(tipo) {
   if (!audioOn) return;
   try {
-    AC ||= new (window.AudioContext || window.webkitAudioContext)();
-    const note = { ok: [660, 880], ko: [220, 160], fine: [523, 659, 784, 1046], gira: [440] }[tipo] || [440];
-    note.forEach((f, i) => {
-      const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + i * 0.09;
-      o.type = tipo === 'ko' ? 'sawtooth' : 'triangle'; o.frequency.value = f;
-      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-      o.connect(g).connect(AC.destination); o.start(t); o.stop(t + 0.25);
-    });
+    const ac = audioPronto();
+    if (tipo === 'ok') { campanella(ac, 1046.5, 0); campanella(ac, 1568, 0.09); }
+    else if (tipo === 'ko') { nota(ac, { f: 330, f2: 140, d: 0.38, v: 0.22 }); nota(ac, { f: 335, f2: 145, d: 0.38, v: 0.08, onda: 'triangle' }); } // boing morbido
+    else if (tipo === 'fine') { // fanfara: arpeggio e accordo finale
+      [523.3, 659.3, 784, 1046.5].forEach((f, i) => { nota(ac, { f, t: i * 0.13, d: 0.3, v: 0.13, onda: 'triangle' }); nota(ac, { f: f * 2, t: i * 0.13, d: 0.2, v: 0.04 }); });
+      [523.3, 659.3, 784, 1046.5].forEach(f => nota(ac, { f, t: 0.56, d: 1.1, v: 0.09, onda: 'triangle' }));
+      campanella(ac, 2093, 0.56, 0.08);
+    }
+    else nota(ac, { f: 880, f2: 660, d: 0.09, v: 0.1 }); // gira / click
   } catch {}
 }
 
@@ -732,8 +917,8 @@ function avviaGioco(tid, idx) {
       <button class="chiudi audio" aria-label="Suono">${audioOn ? '🔊' : '🔈'}</button></div>
     <div class="pista"><div class="linea"></div><div class="meta">${W.meta}</div><div class="viaggiatore">${W.viaggiatore}</div></div>
     <div class="timer" hidden><i></i></div>
-    <div class="palco"></div>
-    <div class="mia"></div>`;
+    <div class="mia"></div>
+    <div class="palco"></div>`;
   document.body.append(el);
   G = { el, t, g, idx, W, punti: 0, serie: 0, giuste: 0, errori: 0, vite: 3, usaVite: false, fatti: 0, totale: 1, pesoErr: 1, tick: null, finito: false };
   $('.chiudi', el).onclick = () => { location.hash = '#/tema/' + encodeURIComponent(tid); };

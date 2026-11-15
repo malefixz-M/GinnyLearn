@@ -1,5 +1,5 @@
 {
-  "versione": 6,
+  "versione": 7,
   "aggiornato": "2026-11-15",
   "materie": {
     "matematica": {
@@ -307,8 +307,8 @@
               "indizio": "Santuario di Apollo"
             },
             {
-              "p": "POLIS",
-              "indizio": "Città-stato greca"
+              "p": "POLEIS",
+              "indizio": "Le città-stato greche (plurale di polis)"
             },
             {
               "p": "TEMPIO",
@@ -2038,6 +2038,761 @@
             {
               "f": "\"Detto\" è un participio passato.",
               "v": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ing-howmuchmany",
+      "materia": "inglese",
+      "titolo": "How much e How many",
+      "fonte": "Scheda di inglese (foto dal tablet, 15/11): some/any, How much / How many",
+      "parole": [
+        "how much",
+        "how many",
+        "much",
+        "many"
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "How much o How many?",
+          "domande": [
+            {
+              "d": "___ biscuits can you eat in a day?",
+              "r": [
+                "How many",
+                "How much",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ salt is there in this soup?",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ apples have we got?",
+              "r": [
+                "How many",
+                "How much",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ is a carton of milk? (il prezzo)",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ spaghetti can you eat at lunch?",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ sugar is there in this cake?",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ bars of chocolate have you got?",
+              "r": [
+                "How many",
+                "How much",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ ice cream is there?",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ homework has she got today?",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ tomatoes have we got?",
+              "r": [
+                "How many",
+                "How much",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ are these pencils? (il prezzo)",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            },
+            {
+              "d": "___ water do you drink?",
+              "r": [
+                "How much",
+                "How many",
+                "How any",
+                "How some"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Si contano o no?",
+          "gruppi": {
+            "How many (si contano)": [
+              "biscuits",
+              "apples",
+              "tomatoes",
+              "bananas",
+              "oranges",
+              "sandwiches",
+              "pencils",
+              "bars of chocolate"
+            ],
+            "How much (non si contano)": [
+              "salt",
+              "sugar",
+              "milk",
+              "butter",
+              "bread",
+              "water",
+              "ice cream",
+              "homework",
+              "food",
+              "cheese"
+            ]
+          }
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Some, any, much o many?",
+          "frasi": [
+            {
+              "f": "Have you got ___ butter?",
+              "r": [
+                "any",
+                "some",
+                "many"
+              ]
+            },
+            {
+              "f": "There are ___ oranges and two bananas.",
+              "r": [
+                "some",
+                "any",
+                "much"
+              ]
+            },
+            {
+              "f": "We haven't got ___ apple juice, sorry.",
+              "r": [
+                "any",
+                "some",
+                "many"
+              ]
+            },
+            {
+              "f": "Have we got ___ bread?",
+              "r": [
+                "any",
+                "some",
+                "many"
+              ]
+            },
+            {
+              "f": "Yes. There's ___ bread on the table.",
+              "r": [
+                "some",
+                "any",
+                "many"
+              ]
+            },
+            {
+              "f": "You can have ___ fruit if you are hungry.",
+              "r": [
+                "some",
+                "any",
+                "many"
+              ]
+            },
+            {
+              "f": "Are there ___ sandwiches with ham and cheese?",
+              "r": [
+                "any",
+                "some",
+                "much"
+              ]
+            },
+            {
+              "f": "How ___ food is there for dinner?",
+              "r": [
+                "much",
+                "many",
+                "any"
+              ]
+            },
+            {
+              "f": "How ___ is this T-shirt?",
+              "r": [
+                "much",
+                "many",
+                "some"
+              ]
+            },
+            {
+              "f": "How ___ apples are there in the bag?",
+              "r": [
+                "many",
+                "much",
+                "some"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Giusta o sbagliata?",
+          "frasi": [
+            {
+              "f": "\"How many food is there for dinner?\" è corretta.",
+              "v": false
+            },
+            {
+              "f": "\"How much is this T-shirt?\" è corretta.",
+              "v": true
+            },
+            {
+              "f": "\"How many is this T-shirt?\" è corretta.",
+              "v": false
+            },
+            {
+              "f": "\"Are there some sandwiches?\" è corretta.",
+              "v": false
+            },
+            {
+              "f": "\"How many biscuits can you eat?\" è corretta.",
+              "v": true
+            },
+            {
+              "f": "\"How much salt is there in this soup?\" è corretta.",
+              "v": true
+            },
+            {
+              "f": "\"How much apples have we got?\" è corretta.",
+              "v": false
+            },
+            {
+              "f": "\"There isn't any ice cream.\" è corretta.",
+              "v": true
+            },
+            {
+              "f": "\"We haven't got some apple juice.\" è corretta.",
+              "v": false
+            },
+            {
+              "f": "Per chiedere il prezzo si usa How much is / How much are.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "componi",
+          "titolo": "Scrivi la domanda",
+          "istruzione": "Componi la domanda con How much o How many",
+          "frasi": [
+            "How many tomatoes have we got?",
+            "How much sugar is there in this cake?",
+            "How many bars of chocolate have you got?",
+            "How much ice cream is there?",
+            "How much homework has she got today?",
+            "How much is a carton of milk?",
+            "How many biscuits can you eat in a day?"
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Inglese – italiano",
+          "coppie": [
+            [
+              "How much is a bottle of water?",
+              "Quanto costa una bottiglia d'acqua?"
+            ],
+            [
+              "How much are these pencils?",
+              "Quanto costano queste matite?"
+            ],
+            [
+              "How many apples have we got?",
+              "Quante mele abbiamo?"
+            ],
+            [
+              "How much sugar is there?",
+              "Quanto zucchero c'è?"
+            ],
+            [
+              "How many biscuits can you eat?",
+              "Quanti biscotti riesci a mangiare?"
+            ],
+            [
+              "There isn't any ice cream.",
+              "Non c'è gelato."
+            ],
+            [
+              "How much homework has she got?",
+              "Quanti compiti ha lei?"
+            ]
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory del cibo",
+          "coppie": [
+            [
+              "salt",
+              "sale"
+            ],
+            [
+              "sugar",
+              "zucchero"
+            ],
+            [
+              "butter",
+              "burro"
+            ],
+            [
+              "biscuits",
+              "biscotti"
+            ],
+            [
+              "homework",
+              "compiti"
+            ],
+            [
+              "carton of milk",
+              "cartone di latte"
+            ],
+            [
+              "bar of chocolate",
+              "tavoletta di cioccolato"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "civ-unione-europea",
+      "materia": "civica",
+      "titolo": "L'Unione Europea",
+      "fonte": "Ed. civica – Unione Europea (esercizi preparati, presidenti aggiornati a novembre 2026)",
+      "parole": [
+        "europ"
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sull'Unione Europea",
+          "domande": [
+            {
+              "d": "Quanti paesi fanno parte dell'Unione Europea?",
+              "r": [
+                "27",
+                "21",
+                "12",
+                "30"
+              ]
+            },
+            {
+              "d": "Quante stelle ci sono sulla bandiera europea?",
+              "r": [
+                "12",
+                "27",
+                "10",
+                "21"
+              ]
+            },
+            {
+              "d": "Com'è la bandiera europea?",
+              "r": [
+                "Blu con un cerchio di stelle gialle",
+                "Bianca con stelle blu",
+                "Rossa con stelle gialle",
+                "Blu con una stella gialla"
+              ]
+            },
+            {
+              "d": "Qual è l'inno europeo?",
+              "r": [
+                "L'Inno alla gioia di Beethoven",
+                "Il Canto degli Italiani",
+                "La Marsigliese",
+                "Va' pensiero"
+              ]
+            },
+            {
+              "d": "Qual è il motto dell'Unione Europea?",
+              "r": [
+                "Unita nella diversità",
+                "Tutti per uno",
+                "Libertà e lavoro",
+                "Pace nel mondo"
+              ]
+            },
+            {
+              "d": "Quando si festeggia la Festa dell'Europa?",
+              "r": [
+                "Il 9 maggio",
+                "Il 25 aprile",
+                "Il 2 giugno",
+                "Il 1° gennaio"
+              ]
+            },
+            {
+              "d": "Quanti paesi dell'UE usano l'euro?",
+              "r": [
+                "21",
+                "27",
+                "12",
+                "6"
+              ]
+            },
+            {
+              "d": "Chi è la presidente della Commissione europea?",
+              "r": [
+                "Ursula von der Leyen",
+                "Roberta Metsola",
+                "António Costa",
+                "Christine Lagarde"
+              ]
+            },
+            {
+              "d": "Chi è la presidente del Parlamento europeo?",
+              "r": [
+                "Roberta Metsola",
+                "Ursula von der Leyen",
+                "António Costa",
+                "Christine Lagarde"
+              ]
+            },
+            {
+              "d": "Chi è il presidente del Consiglio europeo?",
+              "r": [
+                "António Costa",
+                "Ursula von der Leyen",
+                "Roberta Metsola",
+                "Christine Lagarde"
+              ]
+            },
+            {
+              "d": "Chi è la presidente della Banca centrale europea (BCE)?",
+              "r": [
+                "Christine Lagarde",
+                "Ursula von der Leyen",
+                "Roberta Metsola",
+                "António Costa"
+              ]
+            },
+            {
+              "d": "In quale città ha sede la Banca centrale europea?",
+              "r": [
+                "Francoforte",
+                "Roma",
+                "Parigi",
+                "Madrid"
+              ]
+            },
+            {
+              "d": "In quale città si riunisce il Parlamento europeo?",
+              "r": [
+                "Strasburgo",
+                "Berlino",
+                "Vienna",
+                "Atene"
+              ]
+            },
+            {
+              "d": "Dove ha sede la Commissione europea?",
+              "r": [
+                "Bruxelles",
+                "Lisbona",
+                "Varsavia",
+                "Milano"
+              ]
+            },
+            {
+              "d": "Ogni quanti anni si vota per il Parlamento europeo?",
+              "r": [
+                "Ogni 5 anni",
+                "Ogni anno",
+                "Ogni 2 anni",
+                "Ogni 10 anni"
+              ]
+            },
+            {
+              "d": "In che anno sono stati firmati i Trattati di Roma?",
+              "r": [
+                "1957",
+                "1945",
+                "1992",
+                "2002"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory dei presidenti",
+          "coppie": [
+            [
+              "Commissione europea",
+              "von der Leyen"
+            ],
+            [
+              "Parlamento europeo",
+              "Roberta Metsola"
+            ],
+            [
+              "Consiglio europeo",
+              "António Costa"
+            ],
+            [
+              "Banca centrale europea",
+              "Christine Lagarde"
+            ],
+            [
+              "Festa dell'Europa",
+              "9 maggio"
+            ],
+            [
+              "Moneta unica",
+              "euro"
+            ]
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Che cosa fa?",
+          "coppie": [
+            [
+              "Parlamento europeo",
+              "È eletto dai cittadini e approva le leggi"
+            ],
+            [
+              "Commissione europea",
+              "Propone le leggi e le fa rispettare"
+            ],
+            [
+              "Consiglio europeo",
+              "Capi di Stato o di governo: decide la direzione"
+            ],
+            [
+              "Consiglio dell'UE",
+              "I ministri dei paesi: approva le leggi"
+            ],
+            [
+              "Banca centrale europea",
+              "Gestisce l'euro"
+            ],
+            [
+              "Corte di giustizia",
+              "Controlla che le leggi siano rispettate"
+            ]
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "La storia dell'Europa unita",
+          "istruzione": "Metti in ordine dal più antico al più recente",
+          "elementi": [
+            "1950 – Dichiarazione Schuman (9 maggio)",
+            "1951 – Nasce la CECA (carbone e acciaio)",
+            "1957 – Trattati di Roma: 6 paesi fondatori",
+            "1979 – Prime elezioni del Parlamento europeo",
+            "1992 – Trattato di Maastricht: nasce l'Unione Europea",
+            "2002 – Arrivano monete e banconote in euro",
+            "2026 – La Bulgaria è il 21° paese con l'euro"
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Euro sì o no?",
+          "gruppi": {
+            "Nell'UE con l'euro": [
+              "Italia",
+              "Francia",
+              "Germania",
+              "Spagna",
+              "Grecia",
+              "Croazia",
+              "Bulgaria",
+              "Irlanda"
+            ],
+            "Nell'UE senza euro": [
+              "Svezia",
+              "Danimarca",
+              "Polonia",
+              "Ungheria",
+              "Repubblica Ceca",
+              "Romania"
+            ],
+            "Fuori dall'UE": [
+              "Svizzera",
+              "Norvegia",
+              "Regno Unito",
+              "Islanda"
+            ]
+          }
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "L'Italia è uno dei 6 paesi fondatori.",
+              "v": true
+            },
+            {
+              "f": "Le stelle della bandiera sono tante quanti i paesi.",
+              "v": false
+            },
+            {
+              "f": "Il Parlamento europeo è eletto dai cittadini.",
+              "v": true
+            },
+            {
+              "f": "Tutti i paesi dell'UE usano l'euro.",
+              "v": false
+            },
+            {
+              "f": "La Svizzera fa parte dell'Unione Europea.",
+              "v": false
+            },
+            {
+              "f": "Grazie a Schengen si viaggia tra molti paesi senza controlli alle frontiere.",
+              "v": true
+            },
+            {
+              "f": "La Banca centrale europea ha sede a Roma.",
+              "v": false
+            },
+            {
+              "f": "Il Trattato di Maastricht ha fatto nascere l'Unione Europea.",
+              "v": true
+            },
+            {
+              "f": "Il Regno Unito è uscito dall'Unione Europea.",
+              "v": true
+            },
+            {
+              "f": "Nell'UE ci sono 24 lingue ufficiali.",
+              "v": true
+            },
+            {
+              "f": "La Commissione europea propone le nuove leggi.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa la frase",
+          "frasi": [
+            {
+              "f": "L'Unione Europea è formata da ___ paesi.",
+              "r": [
+                "27",
+                "21",
+                "12"
+              ]
+            },
+            {
+              "f": "La bandiera europea ha 12 stelle ___ su sfondo blu.",
+              "r": [
+                "gialle",
+                "rosse",
+                "bianche"
+              ]
+            },
+            {
+              "f": "Il motto dell'UE è «Unita nella ___».",
+              "r": [
+                "diversità",
+                "forza",
+                "pace"
+              ]
+            },
+            {
+              "f": "La moneta comune si chiama ___.",
+              "r": [
+                "euro",
+                "lira",
+                "dollaro"
+              ]
+            },
+            {
+              "f": "La Banca centrale europea si trova a ___.",
+              "r": [
+                "Francoforte",
+                "Parigi",
+                "Roma"
+              ]
+            },
+            {
+              "f": "I cittadini eleggono il Parlamento europeo ogni ___ anni.",
+              "r": [
+                "5",
+                "2",
+                "10"
+              ]
+            },
+            {
+              "f": "I Trattati di Roma sono stati firmati nel ___.",
+              "r": [
+                "1957",
+                "1945",
+                "2002"
+              ]
+            },
+            {
+              "f": "Il Consiglio europeo riunisce i capi di Stato o di ___.",
+              "r": [
+                "governo",
+                "scuola",
+                "polizia"
+              ]
             }
           ]
         }

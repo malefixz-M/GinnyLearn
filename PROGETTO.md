@@ -21,7 +21,8 @@ Chat del progetto: GINNYLEARN (le successive si chiamano GINNYLEARN 2, 3, ...).
 - La lista predefinita della pagina copre da oggi a +7 giorni: il ponte rifà la ricerca "Cerca" (postback `LinkButtonCerca`) da oggi a +21 giorni.
 - **Attenzione**: nell'HTML del server le celle non hanno `data-content` (lo aggiunge il JavaScript della pagina; le pagine salvate dal browser invece ce l'hanno). Il ponte riconosce le colonne dalle intestazioni `<th>`.
 - **Cron e notifiche (v3)**: Cron Trigger `0 14,15,21,22 * * *` (UTC); il codice lavora solo quando a Roma sono le 16 o le 23 (vale con ora solare e legale). Salva l'ultimo risultato in KV (`ultimo`); se trova compiti nuovi o cambiati salva `novita` e manda un push vuoto a tutte le iscrizioni (`iscrizioni`, max 10). Il service worker legge `/novita` e mostra la notifica; toccandola apre `#/compiti`.
-- Altri indirizzi: `/vapid` (chiave pubblica), `POST /iscrivi` (salva l'iscrizione), `/novita`, `/prova-push` (manda una notifica di prova). Se Scuola Online non risponde, `/compiti` restituisce l'ultimo risultato in KV.
+- Altri indirizzi: `/vapid` (chiave pubblica), `POST /iscrivi` (salva l'iscrizione), `/novita`, `/prova-push` (manda una notifica di prova; `?ruolo=genitore` per provare l'avviso foto).
+- **Avviso foto al genitore (v10)**: `POST /iscrivi?ruolo=genitore&codice=<FOTO_CODICE>` salva l'iscrizione in KV `iscrizioni-genitore` (e la toglie da `iscrizioni`: un dispositivo riceve un solo tipo di avviso). Quando `POST /foto` salva una foto, scrive `novita-genitore` e manda il push a quella lista. Il service worker legge il ruolo dalla cache `ginny-impostazioni` (chiave `ruolo`) e chiede `/novita?ruolo=genitore`. Nell'app: Premi → "👨‍👩‍👧 Per i genitori", oppure l'indirizzo `.../#/genitore` sul telefono del genitore (funziona anche senza profilo). Se Scuola Online non risponde, `/compiti` restituisce l'ultimo risultato in KV.
 - Variabili in più: `VAPID_PUBLIC` (testo), `VAPID_PRIVATE` (Secret), binding KV con nome `KV`.
 - Nell'app: bottone "🔔 Attiva notifiche" nella pagina Premi; pallino sull'icona con il numero di compiti da fare (`setAppBadge`); scorciatoia "Compiti" tenendo premuta l'icona (`shortcuts` nel manifest).
 - Diagnosi: `/compiti?diagnosi&fresco` restituisce solo numeri e nomi delle colonne.
@@ -115,6 +116,16 @@ Ogni gioco può avere un `titolo`. Per ogni tema conviene preparare 4-6 giochi d
 
   - 15/11 (GINNYLEARN 8): contenuti **v5**: temi `ing-someany` (Inglese, some/any, 7 giochi) e `ita-sanmartino` (Italiano, poesia di Carducci + leggenda del mantello + estate di San Martino, 7 giochi). Commit e push di v8 completo (personaggi inclusi) dal cloud.
 
+  - 15/11 (GINNYLEARN 10): v10 (sw `app-v10`, contenuti **v7**), **in attesa di ok per commit/push**. Il nuovo `ponte/worker.js` va incollato su Cloudflare.
+    - Cavallo del mondo papiro girato verso il traguardo (`scaleX(-1)`); barca e razzo erano già giusti.
+    - `sto-greci`: anagramma POLIS → POLEIS (plurale).
+    - Tablet in verticale: la guida sta in alto, sotto la pista, con il fumetto accanto alla domanda (`@media (orientation:portrait)`; nel DOM `.mia` ora è prima di `.palco`).
+    - Suoni nuovi sintetizzati (campanella, boing morbido, fanfara, click). `audioPronto()` fa `AC.resume()` prima di ogni suono, al ritorno in primo piano e al primo tocco: i suoni non spariscono più dopo il background.
+    - **Home divisa in due**: sopra i compiti, sotto le materie, due zone che scorrono separate (`body.in-casa`, `.zona`, altezza `100dvh`). Bottoni 🗓️ Il mio piano, 🎒 Zaino, 📒 Tutti.
+    - **Il mio piano** (`#/piano`, anche nella barra in basso): i compiti da consegnare sono carte; si tocca una carta e poi il giorno. ⏱️ per il tempo (15-90 min, verifiche 60 di base), spunta, avvisi "Troppo tardi" (giorno ≥ consegna) e "Giornata piena" (> 90 min), bottone "✨ Aiutami a organizzare" (mette ogni compito nel giorno meno carico prima della consegna). Salvato in `localStorage` `ae_piano`. Nei compiti compare "🗓️ lo fai lunedì".
+    - Avviso al genitore quando arriva una foto (vedi Ponte compiti).
+    - Temi nuovi: `ing-howmuchmany` (dalla foto del tablet del 15/11, compito sol-426: some/any, How much / How many, 7 giochi) e `civ-unione-europea` (Ed. civica, preparato senza quaderno: simboli, storia, istituzioni, presidenti, euro; 7 giochi). **Da aggiornare nel 2027**: Lagarde lascia la BCE il 7/2/2027, il mandato di Metsola al Parlamento scade a gennaio 2027.
+    - Scheda di matematica: tolta dai lavori (decisione di Daniele).
   - 15/11 (GINNYLEARN 9): v9 (sw `app-v9`, contenuti **v6**), **in attesa di ok per commit**.
     - Tolti i temi di prova `mat-frazioni`, `sto-etruschi`, `geo-regioni`.
     - Temi nuovi dai PDF dei libri: `geo-puglia`, `geo-basilicata`, `geo-campania` (verifica 20/11), `geo-calabria`, `geo-sicilia`, `geo-sardegna` (ripasso), 7 giochi ciascuno con 1-2 cartine; `mat-statistica` (mediana, moda, media, pag. 81-84), `mat-decimali` (pag. 170-173), `sci-sistema-solare` (pag. 88-89). Le regioni sono in fondo a `temi` così Geografia è la prima materia in home.

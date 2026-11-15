@@ -26,21 +26,28 @@ export default {
     const url = new URL(req.url);
     const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: cors });
     if (url.pathname === '/vapid') return json({ chiave: env.VAPID_PUBLIC || null });
-    if (url.pathname === '/novita') return json(env.KV ? (await env.KV.get('novita', 'json')) || {} : {});
+    const genitore = url.searchParams.get('ruolo') === 'genitore';
+    if (url.pathname === '/novita') return json(env.KV ? (await env.KV.get(genitore ? 'novita-genitore' : 'novita', 'json')) || {} : {});
+    // POST /iscrivi -> avvisi dei compiti; POST /iscrivi?ruolo=genitore&codice=... -> avvisi delle foto arrivate.
+    // Un dispositivo sta in una sola lista: iscrivendosi in una, esce dall'altra.
     if (url.pathname === '/iscrivi' && req.method === 'POST') {
       if (!env.KV) return json({ errore: 'KV mancante' }, 500);
+      if (genitore && url.searchParams.get('codice') !== env.FOTO_CODICE) return json({ errore: 'codice sbagliato' }, 403);
       const sub = await req.json().catch(() => null);
       if (!sub?.endpoint?.startsWith('https://')) return json({ errore: 'iscrizione non valida' }, 400);
-      const lista = ((await env.KV.get('iscrizioni', 'json')) || []).filter(x => x.endpoint !== sub.endpoint);
+      const chiave = genitore ? 'iscrizioni-genitore' : 'iscrizioni', altra = genitore ? 'iscrizioni' : 'iscrizioni-genitore';
+      const lista = ((await env.KV.get(chiave, 'json')) || []).filter(x => x.endpoint !== sub.endpoint);
       if (!url.searchParams.has('via')) lista.push({ endpoint: sub.endpoint });
-      await env.KV.put('iscrizioni', JSON.stringify(lista.slice(-10)));
+      await env.KV.put(chiave, JSON.stringify(lista.slice(-10)));
+      const altri = (await env.KV.get(altra, 'json')) || [];
+      if (altri.some(x => x.endpoint === sub.endpoint)) await env.KV.put(altra, JSON.stringify(altri.filter(x => x.endpoint !== sub.endpoint)));
       return json({ ok: true, iscritti: lista.length });
     }
     if (url.pathname === '/pagina') return leggiPagina(url, env, cors);
     if (url.pathname === '/foto' && req.method === 'POST') return json(...await salvaFoto(req, env));
     if (url.pathname === '/prova-push' && env.KV) {
-      await env.KV.put('novita', JSON.stringify({ quando: new Date().toISOString(), titolo: '🔔 Prova', testo: 'Le notifiche funzionano!', quanti: 0 }));
-      return json({ inviate: await inviaATutti(env) });
+      await env.KV.put(genitore ? 'novita-genitore' : 'novita', JSON.stringify({ quando: new Date().toISOString(), titolo: '🔔 Prova', testo: 'Le notifiche funzionano!', quanti: 0 }));
+      return json({ inviate: await inviaATutti(env, genitore ? 'iscrizioni-genitore' : 'iscrizioni') });
     }
     if (url.pathname !== '/compiti') return new Response('{"errore":"usa /compiti"}', { status: 404, headers: cors });
 
@@ -98,9 +105,9 @@ async function controlla(env) {
 }
 
 // Push senza contenuto (niente cifratura): il service worker poi legge /novita.
-async function inviaATutti(env) {
+async function inviaATutti(env, chiave = 'iscrizioni') {
   if (!env.KV || !env.VAPID_PUBLIC || !env.VAPID_PRIVATE) return 0;
-  const lista = (await env.KV.get('iscrizioni', 'json')) || [];
+  const lista = (await env.KV.get(chiave, 'json')) || [];
   const tenere = []; let ok = 0;
   for (const s of lista) {
     const ep = new URL(s.endpoint);
@@ -109,7 +116,7 @@ async function inviaATutti(env) {
     if (r.status === 404 || r.status === 410) continue; // iscrizione scaduta
     tenere.push(s); if (r.ok) ok++;
   }
-  if (tenere.length !== lista.length) await env.KV.put('iscrizioni', JSON.stringify(tenere));
+  if (tenere.length !== lista.length) await env.KV.put(chiave, JSON.stringify(tenere));
   return ok;
 }
 const b64u = b => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -269,7 +276,15 @@ async function salvaFoto(req, env) {
     headers: { Authorization: `Bearer ${env.GH_TOKEN}`, 'User-Agent': 'ginny-ponte', Accept: 'application/vnd.github+json' },
     body: JSON.stringify({ message: `Foto dal tablet ${ora}`, content: b.dati })
   });
-  return r.ok ? [{ ok: true, file: percorso }, 200] : [{ errore: 'GitHub ' + r.status }, 502];
+  if (!r.ok) return [{ errore: 'GitHub ' + r.status }, 502];
+  // avviso al genitore: la foto è arrivata, si possono creare gli esercizi
+  if (env.KV) {
+    const [, materia = '', compito = ''] = nomeSicuro.match(/^([a-z]+)_(.*)$/i) || [];
+    await env.KV.put('novita-genitore', JSON.stringify({ quando: new Date().toISOString(), titolo: '📷 Foto nuova dal tablet',
+      testo: (materia ? `${materia}${compito ? ' (' + compito + ')' : ''}: ` : '') + 'apri una chat GINNYLEARN per creare gli esercizi', file: percorso }));
+    await inviaATutti(env, 'iscrizioni-genitore').catch(() => 0);
+  }
+  return [{ ok: true, file: percorso }, 200];
 }
 
 // Pagina di un libro: pagine/<materia>/<n>.jpg nella repo privata. Serve il codice (FOTO_CODICE).

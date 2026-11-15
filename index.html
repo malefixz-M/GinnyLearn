@@ -218,6 +218,7 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 .record{display:inline-block;background:var(--rosso);color:#fff;padding:4px 16px;border-radius:8px;transform:rotate(-3deg);font-size:24px;margin-top:6px}
 .coriandoli{position:fixed;inset:0;pointer-events:none;z-index:20}
 
+.chip-foto{display:inline-block;margin:8px 6px 0 0;padding:3px 10px;border-radius:999px;background:#DDF5E3;color:#1C6B34;font-weight:700;font-size:15px}
 .toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:var(--inchiostro);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;z-index:40;box-shadow:0 6px 20px rgba(0,0,0,.25);animation:cala .3s}
 @media (max-width:600px){#app{padding-left:58px} h1{font-size:32px} .domanda{font-size:24px} .griglia-memory{grid-template-columns:repeat(3,1fr);max-width:none} .opzioni{grid-template-columns:1fr} .colonne{gap:12px}}
 /* home divisa in due: sopra i compiti, sotto le materie, ognuno scorre per conto suo */
@@ -285,7 +286,7 @@ function nomeGiorno(iso) {
   const s = `${GG[d.getDay()]} ${d.getDate()} ${MESI[d.getMonth()]}`;
   return s[0].toUpperCase() + s.slice(1);
 }
-function toast(t) { const el = document.createElement('div'); el.className = 'toast'; el.textContent = t; document.body.append(el); setTimeout(() => el.remove(), 3200); }
+function toast(t, ms = 3200) { const el = document.createElement('div'); el.className = 'toast'; el.textContent = t; document.body.append(el); setTimeout(() => el.remove(), ms); }
 
 /* ---------- dati ---------- */
 const MATERIE_BASE = {
@@ -356,7 +357,9 @@ let DATI = carica('ae_dati', null);
 let PROG = carica('ae_prog', { punti: 0, partite: 0, giochi: {}, compitiFatti: {}, temiVisti: [] });
 let PROF = carica('ae_prof', null);
 let PONTE = carica('ae_ponte', []); // compiti arrivati da Scuola Online
-const salvaProg = () => salva('ae_prog', PROG);
+const salvaProg = () => { salva('ae_prog', PROG); cloudPresto(); };
+// Guscio Android (APK): la pagina gira dentro una WebView che espone window.GinnyApp
+const APP = window.GinnyApp || null;
 
 /* Punto di aggancio per la futura classifica con le amiche (Firebase).
    Per ora non invia nulla: tutto resta sul tablet. */
@@ -442,6 +445,58 @@ const chiaveG = (tid, i) => tid + '#' + i;
 function stelleTema(t) { return t.giochi.reduce((s, _, i) => s + (PROG.giochi[chiaveG(t.id, i)]?.stelle || 0), 0); }
 function stelleTotali() { return Object.values(PROG.giochi).reduce((s, g) => s + (g.stelle || 0), 0); }
 const str = n => '⭐'.repeat(n) + '<span style="opacity:.25">' + '⭐'.repeat(3 - n) + '</span>';
+
+/* ---------- progressi online (repo privata, tramite il ponte) ---------- */
+// Si salvano ae_prog, ae_piano e ae_prof in progressi/<nome>.json. Serve il codice delle foto.
+// Salvataggio automatico 15 s dopo un cambiamento (fine partita, compito spuntato, piano) e quando l'app va in background.
+const quando = ts => new Date(ts).toLocaleString('it-IT', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+const slugNome = n => (n || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
+const impronta = s => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return h; };
+let cloudT = null;
+function cloudPresto() {
+  if (!PROF || !DATI?.ponte || !carica('ae_codfoto', '')) return;
+  clearTimeout(cloudT); cloudT = setTimeout(() => salvaOnline(false), 15000);
+}
+function statoCloud() {
+  const c = carica('ae_cloud', null);
+  return c ? `Ultimo salvataggio: ${quando(c.quando)} (nome "${c.nome}")` : 'Non ancora salvati online. Si salvano da soli dopo ogni partita (serve il codice di papà).';
+}
+async function salvaOnline(aMano) {
+  clearTimeout(cloudT); cloudT = null;
+  if (!PROF || !DATI?.ponte) return false;
+  const codice = aMano ? chiediCodice() : carica('ae_codfoto', ''); if (!codice) return false;
+  const dati = { ae_prog: PROG, ae_piano: PIANO, ae_prof: PROF }, nome = slugNome(PROF.nome), firma = impronta(nome + JSON.stringify(dati));
+  if (!aMano && firma === carica('ae_cloud_firma', 0)) return true; // niente di nuovo
+  try {
+    const r = await fetch(urlPonte('/progressi'), { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ codice, nome, dati }) });
+    const j = await r.json().catch(() => ({}));
+    if (r.status === 403) { salva('ae_codfoto', ''); if (aMano) toast('Codice sbagliato, riprova'); return false; }
+    if (!r.ok) throw new Error(j.errore || 'errore ' + r.status);
+    salva('ae_cloud', { quando: Date.now(), nome }); salva('ae_cloud_firma', firma);
+    if (aMano) toast('☁️ Progressi salvati!');
+    return true;
+  } catch (e) { if (aMano) toast('Non salvati: ' + (e instanceof TypeError ? 'manca internet?' : e.message), 5000); return false; }
+}
+async function recuperaOnline() {
+  if (!DATI?.ponte) return toast('Aspetta un attimo, sto caricando…');
+  const nome = slugNome((prompt('Con quale nome avevi salvato i progressi?', PROF?.nome || '') || '').trim()); if (!nome) return;
+  const codice = chiediCodice(); if (!codice) return;
+  try {
+    const r = await fetch(urlPonte('/progressi') + `?nome=${encodeURIComponent(nome)}&codice=${encodeURIComponent(codice)}`, { cache: 'no-store' });
+    const j = await r.json().catch(() => ({}));
+    if (r.status === 403) { salva('ae_codfoto', ''); return toast('Codice sbagliato, riprova'); }
+    if (r.status === 404) return toast(`Nessun salvataggio con il nome "${nome}"`, 5000);
+    if (!r.ok || !j.dati?.ae_prog) throw new Error(j.errore || 'errore ' + r.status);
+    const d = j.dati, st = Object.values(d.ae_prog.giochi || {}).reduce((s, g) => s + (g.stelle || 0), 0);
+    if (!confirm(`Ho trovato i progressi di ${d.ae_prof?.nome || nome}: ${st} stelle e ${d.ae_prog.punti || 0} punti, salvati ${quando(j.salvato)}.\n\nLi carico su questo dispositivo al posto di quelli di adesso?`)) return;
+    PROG = { punti: 0, partite: 0, giochi: {}, compitiFatti: {}, temiVisti: [], ...d.ae_prog }; salva('ae_prog', PROG);
+    PIANO = d.ae_piano || {}; salva('ae_piano', PIANO);
+    if (d.ae_prof?.nome) { PROF = d.ae_prof; salva('ae_prof', PROF); }
+    salva('ae_cloud', { quando: Date.parse(j.salvato) || Date.now(), nome }); salva('ae_cloud_firma', impronta(nome + JSON.stringify({ ae_prog: PROG, ae_piano: PIANO, ae_prof: PROF })));
+    $('#nav').style.display = ''; toast('🎉 Progressi recuperati!'); suono('fine');
+    location.hash = '#/casa'; render(); aggiornaPallino();
+  } catch (e) { toast('Non recuperati: ' + (e instanceof TypeError ? 'manca internet?' : e.message), 5000); }
+}
 
 /* ---------- router ---------- */
 window.addEventListener('hashchange', render);
@@ -553,7 +608,7 @@ function compitoHTML(c) {
     <div class="meta muted">${m.icona} ${esc(m.nome)} · ${nomeGiorno(c.data)}${!fatto && PIANO[c.id]?.g ? `<span class="chip-piano">🗓️ lo fai ${PIANO[c.id].g === oggiISO() ? 'oggi' : nomeGiorno(PIANO[c.id].g).toLowerCase()}</span>` : ''}</div>
     <div class="azioni-compito">${t ? `<button class="btn piccolo" data-go="#/tema/${encodeURIComponent(t.id)}">🎮 Esercitati</button>` : ''}
     ${pagineDi(c.testo).map(n => `<button class="btn piccolo bianco" data-pag="${n}" data-mat="${esc(c.materia)}" data-libro="${libroDi(c.materia, c.testo)}">📄 pag. ${n}</button>`).join('')}
-    ${DATI?.ponte && /\bquaderno\b|\bq\.(?=\s|$|,)/i.test(c.testo || '') ? `<label class="btn piccolo bianco">📷 Invia foto del quaderno<input type="file" accept="image/*" capture="environment" data-foto="${esc(c.materia + '_' + c.id)}" hidden></label>` : ''}</div></div></div>`;
+    ${DATI?.ponte && /\bquaderno\b|\bq\.(?=\s|$|,)/i.test(c.testo || '') ? `${PROG.fotoInviate?.[c.id] ? `<span class="chip-foto">✅ Foto inviata ${quando(PROG.fotoInviate[c.id])}</span>` : ''}<label class="btn piccolo bianco">📷 ${PROG.fotoInviate?.[c.id] ? 'Rimanda foto' : 'Invia foto del quaderno'}<input type="file" accept="image/*" capture="environment" data-foto="${esc(c.materia + '_' + c.id)}" data-id="${esc(c.id)}" hidden></label>` : ''}</div></div></div>`;
 }
 // "pag. 40", "pagg. 40-42", "pagina 12 e 13", "p. 7" -> [40, 41, 42]
 function pagineDi(t) {
@@ -565,7 +620,7 @@ function pagineDi(t) {
   return out;
 }
 function legaCompiti(app) {
-  app.querySelectorAll('[data-foto]').forEach(i => i.onchange = () => inviaFoto(i, i.dataset.foto));
+  app.querySelectorAll('[data-foto]').forEach(i => i.onchange = () => inviaFoto(i, i.dataset.foto, i.dataset.id));
   app.querySelectorAll('[data-pag]').forEach(b => b.onclick = () => mostraPagina(b.dataset.mat, +b.dataset.pag, b.dataset.libro));
   app.querySelectorAll('[data-spunta]').forEach(b => b.onclick = () => {
     const id = b.dataset.spunta;
@@ -610,7 +665,7 @@ function chiediCodice() {
   if (!codice) { codice = (prompt('Codice segreto (lo sa papà):') || '').trim(); if (codice) salva('ae_codfoto', codice); }
   return codice;
 }
-async function inviaFoto(inp, nome = 'scheda') {
+async function inviaFoto(inp, nome = 'scheda', idCompito = null) {
   const f = inp.files[0]; inp.value = ''; if (!f) return;
   const codice = chiediCodice(); if (!codice) return;
   toast('Invio la foto…');
@@ -622,9 +677,12 @@ async function inviaFoto(inp, nome = 'scheda') {
     const r = await fetch(urlPonte('/foto'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ codice, nome, dati }) });
     const j = await r.json().catch(() => ({}));
     if (r.status === 403) { salva('ae_codfoto', ''); return toast('Codice sbagliato, riprova'); }
-    if (!r.ok) throw new Error(j.errore || r.status);
+    if (!r.ok) throw new Error(j.errore || 'errore ' + r.status);
+    if (idCompito) { (PROG.fotoInviate ||= {})[idCompito] = Date.now(); salvaProg(); if (!location.hash.startsWith('#/gioco')) render(); }
     toast('Foto inviata! Presto arrivano i giochi nuovi 🎉');
-  } catch (e) { toast('Foto non inviata: ' + e.message); }
+  } catch (e) {
+    toast('❌ Foto NON inviata: ' + (e instanceof TypeError ? 'manca internet?' : e.message) + '. Riprova.', 6000);
+  }
 }
 
 /* Finestra a tutto schermo per pagina del libro e orario */
@@ -690,13 +748,21 @@ function paginaPremi(app) {
     <h2>Classifica con le amiche</h2>
     <div class="vuoto">Presto potrai sfidare le tue compagne di classe!</div>
     <h2>Notifiche</h2>
-    <div id="boxNotif">${notificheOk() ? (Notification.permission === 'granted' ? '<p class="muted">🔔 Notifiche dei compiti attive</p>' : '<button class="btn bianco" id="attNotif">🔔 Attiva notifiche</button>') : '<p class="muted">Notifiche non disponibili su questo dispositivo</p>'}</div>
+    <div id="boxNotif">${APP ? `<p class="muted">${APP.notificheAttive() ? '🔔 Ti avviso dei compiti nuovi alle 16 e alle 23' : '🔕 Notifiche spente: attivale nelle impostazioni del tablet (app GinnyLearn)'}</p><button class="btn piccolo bianco" id="provaNotif">Prova notifica</button> <button class="btn piccolo bianco" id="ctrlNotif">Controlla adesso</button>`
+      : notificheOk() ? (Notification.permission === 'granted' ? '<p class="muted">🔔 Notifiche dei compiti attive</p>' : '<button class="btn bianco" id="attNotif">🔔 Attiva notifiche</button>') : '<p class="muted">Notifiche non disponibili su questo dispositivo</p>'}</div>
+    <h2>☁️ Progressi online</h2>
+    <p class="muted" id="statoCloud">${statoCloud()}</p>
+    <div class="azioni" style="justify-content:flex-start;flex-wrap:wrap"><button class="btn bianco" id="salvaCloud">☁️ Salva adesso</button><button class="btn bianco" id="recCloud">🔄 Recupera progressi</button></div>
     <h2>Il tuo profilo</h2>
     <button class="btn bianco" id="modProf">✏️ Cambia nome, avatar o guida</button>
     <p style="margin-top:24px"><button class="btn piccolo bianco" data-go="#/genitore">👨‍👩‍👧 Per i genitori</button></p>
-    <p class="muted" style="font-size:14px;margin-top:30px">Esercizi aggiornati al ${esc(DATI.aggiornato || '')}</p>`;
+    <p class="muted" style="font-size:14px;margin-top:30px">Esercizi aggiornati al ${esc(DATI.aggiornato || '')}${APP ? ` · app ${esc(APP.versione())}` : ''}</p>`;
   $('#modProf').onclick = () => paginaProfilo(app, false);
   if ($('#attNotif')) $('#attNotif').onclick = e => attivaNotifiche(e.currentTarget);
+  if ($('#provaNotif')) $('#provaNotif').onclick = () => APP.provaNotifica();
+  if ($('#ctrlNotif')) $('#ctrlNotif').onclick = () => { APP.controllaOra(); toast('Controllo i compiti…'); };
+  $('#salvaCloud').onclick = async () => { if (await salvaOnline(true)) $('#statoCloud').textContent = statoCloud(); };
+  $('#recCloud').onclick = () => recuperaOnline();
 }
 
 function paginaProfilo(app, primo) {
@@ -710,12 +776,14 @@ function paginaProfilo(app, primo) {
     <div class="avatars">${AVATAR.map(a => `<button data-av="${a}" class="${a === av ? 'on' : ''}">${a}</button>`).join('')}</div>
     <h2>Chi ti accompagna nei giochi?</h2>
     <div class="guide">${Object.entries(GUIDE).map(([k, g]) => `<button data-gu="${k}" class="${k === gu ? 'on' : ''}"><img src="${g.cartella}/head/happy.webp" alt=""><b>${g.nome}</b></button>`).join('')}</div>
-    <br><button class="btn" id="ok">${primo ? 'Iniziamo!' : 'Salva'}</button>`;
+    <br><button class="btn" id="ok">${primo ? 'Iniziamo!' : 'Salva'}</button>
+    ${primo ? '<p style="margin-top:28px"><button class="btn piccolo bianco" id="recPrimo">🔄 Hai già giocato su un altro dispositivo? Recupera i progressi</button></p>' : ''}`;
+  if (primo) $('#recPrimo').onclick = () => recuperaOnline();
   app.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; app.querySelectorAll('[data-av]').forEach(x => x.classList.toggle('on', x === b)); });
   app.querySelectorAll('[data-gu]').forEach(b => b.onclick = () => { gu = b.dataset.gu; app.querySelectorAll('[data-gu]').forEach(x => x.classList.toggle('on', x === b)); });
   $('#ok').onclick = () => {
     const nome = $('#nome').value.trim(); if (!nome) { $('#nome').classList.add('scuoti'); setTimeout(() => $('#nome').classList.remove('scuoti'), 400); return; }
-    PROF = { nome, avatar: av, guida: gu, id: PROF?.id || Math.random().toString(36).slice(2, 10) }; salva('ae_prof', PROF);
+    PROF = { nome, avatar: av, guida: gu, id: PROF?.id || Math.random().toString(36).slice(2, 10) }; salva('ae_prof', PROF); cloudPresto();
     $('#nav').style.display = ''; location.hash = '#/casa'; render();
   };
 }
@@ -723,7 +791,7 @@ function paginaProfilo(app, primo) {
 /* ---------- Il mio piano: i compiti diventano carte da mettere sui giorni ---------- */
 // PIANO = { idCompito: { g: 'AAAA-MM-GG' (giorno in cui lo fa), min: minuti stimati } }, solo sul tablet
 let PIANO = carica('ae_piano', {}), pianoSel = null;
-const salvaPiano = () => salva('ae_piano', PIANO);
+const salvaPiano = () => { salva('ae_piano', PIANO); cloudPresto(); };
 const TEMPI = [15, 30, 45, 60, 90];
 const GIORNO_PIENO = 90; // minuti
 const isoPiu = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
@@ -1212,7 +1280,7 @@ function scelte(p, domande, sec) {
 /* ---------- avvio ---------- */
 render();
 aggiornaDati();
-document.addEventListener('visibilitychange', () => { if (!document.hidden) aggiornaDati(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) aggiornaDati(); else if (cloudT) salvaOnline(false); });
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 </body>

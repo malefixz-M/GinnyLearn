@@ -1,5 +1,5 @@
 // Cambia VERSIONE quando aggiorni index.html, così il tablet scarica la nuova app.
-const VERSIONE = 'app-v10';
+const VERSIONE = 'app-v11';
 const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png',
   ...['ecstatic','starry','sad','crying','encouraging','happy','sleepy','thinking'].map(n => `mia/head/${n}.webp`),
   ...['master','celebrating','jumping','encouraging','thinking'].map(n => `mia/fullbody/${n}.webp`),

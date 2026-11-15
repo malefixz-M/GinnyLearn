@@ -1,0 +1,71 @@
+# Costruisce l'APK "guscio" di GinnyLearn e lo pubblica nelle Release.
+# Link fisso per scaricare l'ultimo: https://github.com/malefixz-M/GinnyLearn/releases/latest/download/GinnyLearn.apk
+# Serve una volta sola: Settings > Secrets and variables > Actions > Secrets
+#   KEYSTORE_B64  = contenuto del file KEYSTORE_B64.txt
+#   KEYSTORE_PASS = contenuto del file KEYSTORE_PASS.txt
+# (sempre la stessa chiave: se cambia, il tablet non accetta l'aggiornamento)
+name: APK guscio
+
+on:
+  push:
+    branches: [main]
+    paths: ['android/**', '.github/workflows/apk.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+
+      - name: Chiave di firma
+        id: chiave
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+        run: |
+          if [ -z "$KEYSTORE_B64" ]; then
+            # senza Secret: chiave usa e getta, solo per controllare che compili (niente Release)
+            echo "::warning::Manca il Secret KEYSTORE_B64: APK di prova, non pubblicato nelle Release"
+            keytool -genkeypair -keystore "$RUNNER_TEMP/ginny.keystore" -storetype PKCS12 -alias ginny -keyalg RSA -keysize 2048 \
+              -validity 30 -storepass ginnylearn -keypass ginnylearn -dname "CN=Prova"
+            echo "vera=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/ginny.keystore"
+            echo "vera=si" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build APK
+        working-directory: android
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/ginny.keystore
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
+        run: gradle assembleRelease -PversionCode=${{ github.run_number }} --no-daemon --stacktrace
+
+      - name: Rinomina
+        run: cp android/app/build/outputs/apk/release/app-release.apk GinnyLearn.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GinnyLearn-apk
+          path: GinnyLearn.apk
+
+      - uses: softprops/action-gh-release@v2
+        if: steps.chiave.outputs.vera == 'si'
+        with:
+          tag_name: apk-${{ github.run_number }}
+          name: GinnyLearn APK 1.${{ github.run_number }}
+          body: Guscio Android di GinnyLearn. Scarica GinnyLearn.apk e installalo sul tablet.
+          files: GinnyLearn.apk
+          make_latest: true

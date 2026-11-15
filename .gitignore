@@ -1,2 +1,8 @@
 CHIAVI_VAPID_NON_PUBBLICARE.txt
 *.zip
+*.keystore
+KEYSTORE_*.txt
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties

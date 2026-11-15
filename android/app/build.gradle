@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.application'
+}
+
+// versionCode = numero della build di GitHub Actions, così ogni APK nuovo si installa sopra il vecchio
+def codice = (project.findProperty('versionCode') ?: '1').toString().toInteger()
+
+android {
+    namespace 'it.ginnylearn.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'it.ginnylearn.app'
+        minSdk 24
+        targetSdk 35
+        versionCode codice
+        versionName "1.${codice}"
+    }
+
+    signingConfigs {
+        release {
+            // il file lo crea il workflow dal Secret KEYSTORE_B64; sempre la stessa chiave, altrimenti l'aggiornamento non si installa
+            storeFile file(System.getenv('KEYSTORE_FILE') ?: 'ginny.keystore')
+            storePassword System.getenv('KEYSTORE_PASS') ?: 'ginnylearn'
+            keyAlias 'ginny'
+            keyPassword System.getenv('KEYSTORE_PASS') ?: 'ginnylearn'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.work:work-runtime:2.9.1'
+}

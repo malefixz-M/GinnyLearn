@@ -9,6 +9,7 @@
 //   GH_TOKEN            -> Secret: token GitHub "fine-grained" con permesso Contents: Read and write
 //                          SOLO sulla repo privata delle foto
 //   GH_REPO             -> repo privata delle foto, es. malefixz-M/GinnyLearn-inbox
+//                          (anche i progressi salvati: progressi/<nome>.json)
 // Cron Triggers: "0 14,15,21,22 * * *" (UTC). Il codice lavora solo quando a Roma sono le 16 o le 23,
 // così l'orario resta giusto sia con l'ora solare sia con quella legale.
 const DURATA_CACHE = 15 * 60; // secondi
@@ -45,6 +46,7 @@ export default {
     }
     if (url.pathname === '/pagina') return leggiPagina(url, env, cors);
     if (url.pathname === '/foto' && req.method === 'POST') return json(...await salvaFoto(req, env));
+    if (url.pathname === '/progressi') return json(...await progressi(req, url, env));
     if (url.pathname === '/prova-push' && env.KV) {
       await env.KV.put(genitore ? 'novita-genitore' : 'novita', JSON.stringify({ quando: new Date().toISOString(), titolo: '🔔 Prova', testo: 'Le notifiche funzionano!', quanti: 0 }));
       return json({ inviate: await inviaATutti(env, genitore ? 'iscrizioni-genitore' : 'iscrizioni') });
@@ -296,4 +298,33 @@ async function leggiPagina(url, env, cors) {
   });
   if (!r.ok) return new Response('manca', { status: 404, headers: cors });
   return new Response(r.body, { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, max-age=86400', 'Access-Control-Allow-Origin': cors['Access-Control-Allow-Origin'] } });
+}
+
+// Progressi salvati online: progressi/<nome>.json nella repo privata. Serve il codice delle foto (FOTO_CODICE).
+// POST { codice, nome, dati: { ae_prog, ae_piano, ae_prof } } -> salva;  GET ?nome=&codice= -> { salvato, dati }
+const aB64testo = s => { const by = new TextEncoder().encode(s); let bin = ''; for (let i = 0; i < by.length; i += 0x8000) bin += String.fromCharCode(...by.subarray(i, i + 0x8000)); return btoa(bin); };
+const daB64testo = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g, '')), c => c.charCodeAt(0)));
+async function progressi(req, url, env) {
+  if (!env.GH_TOKEN || !env.GH_REPO || !env.FOTO_CODICE) return [{ errore: 'salvataggio non configurato' }, 501];
+  const post = req.method === 'POST';
+  let b = {};
+  if (post) { try { b = await req.json(); } catch { return [{ errore: 'dati non validi' }, 400]; } }
+  if ((post ? b.codice : url.searchParams.get('codice')) !== env.FOTO_CODICE) return [{ errore: 'codice sbagliato' }, 403];
+  const nome = String((post ? b.nome : url.searchParams.get('nome')) || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 30);
+  if (!nome) return [{ errore: 'nome mancante' }, 400];
+  const api = `https://api.github.com/repos/${env.GH_REPO}/contents/progressi/${nome}.json`;
+  const h = { Authorization: `Bearer ${env.GH_TOKEN}`, 'User-Agent': 'ginny-ponte', Accept: 'application/vnd.github+json' };
+  const r = await fetch(api, { headers: h });
+  if (!post) {
+    if (r.status === 404) return [{ errore: 'nessun salvataggio con questo nome' }, 404];
+    if (!r.ok) return [{ errore: 'GitHub ' + r.status }, 502];
+    return [JSON.parse(daB64testo((await r.json()).content)), 200];
+  }
+  if (!b.dati || typeof b.dati !== 'object') return [{ errore: 'dati mancanti' }, 400];
+  const salvato = new Date().toISOString(), testo = JSON.stringify({ salvato, dati: b.dati });
+  if (testo.length > 500_000) return [{ errore: 'progressi troppo grandi' }, 413];
+  const sha = r.ok ? (await r.json()).sha : undefined;
+  const w = await fetch(api, { method: 'PUT', headers: h, body: JSON.stringify({ message: `Progressi ${nome}`, content: aB64testo(testo), sha }) });
+  if (!w.ok) return [{ errore: 'GitHub ' + w.status }, 502];
+  return [{ ok: true, salvato }, 200];
 }

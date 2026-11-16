@@ -10,6 +10,8 @@
 //                          SOLO sulla repo privata delle foto
 //   GH_REPO             -> repo privata delle foto, es. malefixz-M/GinnyLearn-inbox
 //                          (anche i progressi salvati: progressi/<nome>.json)
+// GET /eventi -> registro delle novità (compiti nuovi alle 16/23, foto arrivate) per l'attività
+//   programmata di Claude che avvisa papà nell'app Claude. ?visto=N segna come letti fino a N; ?tutti = ultimi 40.
 // Cron Triggers: "0 14,15,21,22 * * *" (UTC). Il codice lavora solo quando a Roma sono le 16 o le 23,
 // così l'orario resta giusto sia con l'ora solare sia con quella legale.
 const DURATA_CACHE = 15 * 60; // secondi
@@ -27,29 +29,24 @@ export default {
     const url = new URL(req.url);
     const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: cors });
     if (url.pathname === '/vapid') return json({ chiave: env.VAPID_PUBLIC || null });
-    const genitore = url.searchParams.get('ruolo') === 'genitore';
-    if (url.pathname === '/novita') return json(env.KV ? (await env.KV.get(genitore ? 'novita-genitore' : 'novita', 'json')) || {} : {});
-    // POST /iscrivi -> avvisi dei compiti; POST /iscrivi?ruolo=genitore&codice=... -> avvisi delle foto arrivate.
-    // Un dispositivo sta in una sola lista: iscrivendosi in una, esce dall'altra.
+    if (url.pathname === '/novita') return json(env.KV ? (await env.KV.get('novita', 'json')) || {} : {});
+    if (url.pathname === '/eventi') return json(await eventi(url, env));
+    // POST /iscrivi -> avvisi dei compiti (notifiche web in Chrome)
     if (url.pathname === '/iscrivi' && req.method === 'POST') {
       if (!env.KV) return json({ errore: 'KV mancante' }, 500);
-      if (genitore && url.searchParams.get('codice') !== env.FOTO_CODICE) return json({ errore: 'codice sbagliato' }, 403);
       const sub = await req.json().catch(() => null);
       if (!sub?.endpoint?.startsWith('https://')) return json({ errore: 'iscrizione non valida' }, 400);
-      const chiave = genitore ? 'iscrizioni-genitore' : 'iscrizioni', altra = genitore ? 'iscrizioni' : 'iscrizioni-genitore';
-      const lista = ((await env.KV.get(chiave, 'json')) || []).filter(x => x.endpoint !== sub.endpoint);
+      const lista = ((await env.KV.get('iscrizioni', 'json')) || []).filter(x => x.endpoint !== sub.endpoint);
       if (!url.searchParams.has('via')) lista.push({ endpoint: sub.endpoint });
-      await env.KV.put(chiave, JSON.stringify(lista.slice(-10)));
-      const altri = (await env.KV.get(altra, 'json')) || [];
-      if (altri.some(x => x.endpoint === sub.endpoint)) await env.KV.put(altra, JSON.stringify(altri.filter(x => x.endpoint !== sub.endpoint)));
+      await env.KV.put('iscrizioni', JSON.stringify(lista.slice(-10)));
       return json({ ok: true, iscritti: lista.length });
     }
     if (url.pathname === '/pagina') return leggiPagina(url, env, cors);
     if (url.pathname === '/foto' && req.method === 'POST') return json(...await salvaFoto(req, env));
     if (url.pathname === '/progressi') return json(...await progressi(req, url, env));
     if (url.pathname === '/prova-push' && env.KV) {
-      await env.KV.put(genitore ? 'novita-genitore' : 'novita', JSON.stringify({ quando: new Date().toISOString(), titolo: '🔔 Prova', testo: 'Le notifiche funzionano!', quanti: 0 }));
-      return json({ inviate: await inviaATutti(env, genitore ? 'iscrizioni-genitore' : 'iscrizioni') });
+      await env.KV.put('novita', JSON.stringify({ quando: new Date().toISOString(), titolo: '🔔 Prova', testo: 'Le notifiche funzionano!', quanti: 0 }));
+      return json({ inviate: await inviaATutti(env) });
     }
     if (url.pathname !== '/compiti') return new Response('{"errore":"usa /compiti"}', { status: 404, headers: cors });
 
@@ -90,8 +87,10 @@ export default {
 async function controlla(env) {
   if (!env.KV) return;
   const compiti = leggiCompiti(await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS));
-  const prima = JSON.parse((await env.KV.get('ultimo')) || '{"compiti":null}').compiti;
-  await env.KV.put('ultimo', JSON.stringify({ aggiornato: new Date().toISOString(), compiti }));
+  // 'visto-cron' lo scrive solo il cron: 'ultimo' lo aggiorna anche l'app, e i compiti già visti dall'app sparirebbero dal confronto
+  const prima = JSON.parse((await env.KV.get('visto-cron')) || (await env.KV.get('ultimo')) || '{"compiti":null}').compiti;
+  const corpo = JSON.stringify({ aggiornato: new Date().toISOString(), compiti });
+  await env.KV.put('ultimo', corpo); await env.KV.put('visto-cron', corpo);
   if (!prima) return; // primo giro: niente notifica
   const vecchi = new Map(prima.map(c => [c.id, c]));
   const nuovi = compiti.filter(c => !vecchi.has(c.id));
@@ -103,7 +102,25 @@ async function controlla(env) {
   const elenco = [...nuovi, ...cambiati].slice(0, 4).map(c => `${c.materia}: ${c.testo}`.slice(0, 80)).join('\n');
   const novita = { quando: new Date().toISOString(), titolo: '📒 ' + parti.join(' e '), testo: elenco, quanti: nuovi.length + cambiati.length };
   await env.KV.put('novita', JSON.stringify(novita));
+  await aggiungiEvento(env, { tipo: 'compiti', titolo: novita.titolo,
+    compiti: [...nuovi.map(c => ({ ...c, stato: 'nuovo' })), ...cambiati.map(c => ({ ...c, stato: 'cambiato' }))] });
   await inviaATutti(env);
+}
+
+/* ---- registro eventi per l'attività programmata di Claude ---- */
+// KV 'eventi' = { ultimo: N, lista: [{ n, quando, tipo, ... }] } (ultimi 40); KV 'eventi-visto' = ultimo n letto.
+async function aggiungiEvento(env, ev) {
+  const r = (await env.KV.get('eventi', 'json')) || { ultimo: 0, lista: [] };
+  r.ultimo++; r.lista.push({ n: r.ultimo, quando: new Date().toISOString(), ...ev }); r.lista = r.lista.slice(-40);
+  await env.KV.put('eventi', JSON.stringify(r));
+}
+async function eventi(url, env) {
+  if (!env.KV) return { errore: 'KV mancante' };
+  const r = (await env.KV.get('eventi', 'json')) || { ultimo: 0, lista: [] };
+  let visto = +((await env.KV.get('eventi-visto')) || 0);
+  const v = parseInt(url.searchParams.get('visto'), 10);
+  if (v >= 0 && v <= r.ultimo) { visto = v; await env.KV.put('eventi-visto', String(v)); return { ok: true, visto }; }
+  return { ora: new Date().toISOString(), visto, ultimo: r.ultimo, eventi: url.searchParams.has('tutti') ? r.lista : r.lista.filter(e => e.n > visto) };
 }
 
 // Push senza contenuto (niente cifratura): il service worker poi legge /novita.
@@ -279,12 +296,11 @@ async function salvaFoto(req, env) {
     body: JSON.stringify({ message: `Foto dal tablet ${ora}`, content: b.dati })
   });
   if (!r.ok) return [{ errore: 'GitHub ' + r.status }, 502];
-  // avviso al genitore: la foto è arrivata, si possono creare gli esercizi
+  // evento per l'attività di Claude: la foto è arrivata, si possono preparare gli esercizi
   if (env.KV) {
     const [, materia = '', compito = ''] = nomeSicuro.match(/^([a-z]+)_(.*)$/i) || [];
-    await env.KV.put('novita-genitore', JSON.stringify({ quando: new Date().toISOString(), titolo: '📷 Foto nuova dal tablet',
-      testo: (materia ? `${materia}${compito ? ' (' + compito + ')' : ''}: ` : '') + 'apri una chat GINNYLEARN per creare gli esercizi', file: percorso }));
-    await inviaATutti(env, 'iscrizioni-genitore').catch(() => 0);
+    const c = (JSON.parse((await env.KV.get('ultimo')) || '{}').compiti || []).find(x => x.id === compito);
+    await aggiungiEvento(env, { tipo: 'foto', file: percorso, materia, compito, testo: c?.testo || '', consegna: c?.data || '' }).catch(() => {});
   }
   return [{ ok: true, file: percorso }, 200];
 }

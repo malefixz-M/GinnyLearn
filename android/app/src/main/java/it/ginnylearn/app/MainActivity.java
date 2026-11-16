@@ -3,6 +3,7 @@ package it.ginnylearn.app;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.pm.ActivityInfo;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -218,6 +219,12 @@ public class MainActivity extends Activity {
 
         /** controlla subito i compiti (come alle 16 e alle 23) */
         @JavascriptInterface public void controllaOra() { ControlloCompiti.subito(MainActivity.this); }
+
+        // Zaino: 'orizzontale' = lato lungo e rotazione bloccata; 'libero' = segue il tablet
+        @JavascriptInterface public void orientamento(String modo) {
+            final int o = "orizzontale".equals(modo) ? ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+            runOnUiThread(() -> setRequestedOrientation(o));
+        }
 
         @JavascriptInterface public void riprova() {
             runOnUiThread(() -> web.loadUrl(SITO + "index.html"));

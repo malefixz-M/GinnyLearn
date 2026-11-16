@@ -41,7 +41,8 @@ h2{font-size:26px;font-weight:800;margin:28px 0 12px}
 /* header */
 .top{display:flex;align-items:center;gap:14px}
 .avatar{width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--inchiostro);display:grid;place-items:center;font-size:36px;flex:none}
-.stelle-tot{margin-left:auto;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:4px 16px;font-weight:800;font-size:22px;box-shadow:3px 3px 0 var(--inchiostro)}
+.stelle-tot{margin-left:auto;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:4px 16px;font-weight:800;font-size:22px;box-shadow:3px 3px 0 var(--inchiostro);display:inline-flex;align-items:center;gap:6px;line-height:1}
+.stelle-tot .st-ico{font-size:20px;line-height:1;display:block;transform:translateY(1px)}
 
 /* quaderni materie */
 .quaderni{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
@@ -51,7 +52,7 @@ h2{font-size:26px;font-weight:800;margin:28px 0 12px}
 .quaderno::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:8px;background:repeating-linear-gradient(transparent 0 10px,rgba(255,255,255,.55) 10px 16px)}
 .quaderno .ico{font-size:52px;line-height:1}
 .quaderno .nome{font-size:30px;font-weight:800;margin-top:6px}
-.quaderno .etichetta{position:absolute;right:14px;bottom:14px;background:#fff;color:var(--inchiostro);border-radius:6px;padding:2px 10px;font-size:15px;font-weight:700;transform:rotate(-3deg)}
+.quaderno .etichetta{position:absolute;right:10px;top:10px;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#fff;color:var(--inchiostro);border-radius:6px;padding:1px 8px;font-size:13px;font-weight:700;transform:rotate(3deg)}
 .bg-matematica{background:var(--mate)} .bg-storia{background:var(--storia)} .bg-geografia{background:var(--geo)}
 .c-matematica{color:var(--mate)} .c-storia{color:var(--storia)} .c-geografia{color:var(--geo)}
 
@@ -185,6 +186,9 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 .testo-studio h2{margin:0 0 2px;font-size:28px}.testo-studio .autore{font-style:italic;opacity:.75;margin-bottom:16px}
 .testo-studio .verso{font-size:23px;line-height:1.5;font-weight:600}.testo-studio .stacco{height:18px}
 .finestra img.pagina{max-width:100%;border-radius:10px;background:#fff}
+.finestra.orizz img.pagina{max-height:calc(100dvh - 140px);width:auto}
+.gira-tablet{display:none;color:#fff;font-size:20px;font-weight:700;margin:0 0 12px}
+@media (orientation:portrait){.finestra.orizz .gira-tablet{display:block}}
 .zaino{background:#fff;border-radius:14px;padding:12px 16px;margin:0 auto 12px;max-width:900px;font-size:19px;text-align:left}
 .guide{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .guide button{background:#fff;border:3px solid transparent;border-radius:18px;padding:8px;font:inherit;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
@@ -361,13 +365,6 @@ const salvaProg = () => { salva('ae_prog', PROG); cloudPresto(); };
 // Guscio Android (APK): la pagina gira dentro una WebView che espone window.GinnyApp
 const APP = window.GinnyApp || null;
 
-/* Punto di aggancio per la futura classifica con le amiche (Firebase).
-   Per ora non invia nulla: tutto resta sul tablet. */
-const Sync = {
-  attivo: false,
-  async inviaPartita(_partita) {},
-  async classifica() { return []; }
-};
 
 async function aggiornaDati() {
   try {
@@ -408,7 +405,7 @@ function aggiornaPallino() {
 /* ---------- notifiche push ---------- */
 const urlPonte = p => DATI?.ponte ? DATI.ponte.replace(/\/compiti$/, p) : null;
 const notificheOk = () => 'PushManager' in window && 'Notification' in window && !!DATI?.ponte;
-async function attivaNotifiche(btn, ruolo = 'figlio') {
+async function attivaNotifiche(btn) {
   try {
     if (await Notification.requestPermission() !== 'granted') { toast('Notifiche bloccate: attivale dalle impostazioni di Chrome'); return; }
     const { chiave } = await (await fetch(urlPonte('/vapid'))).json();
@@ -416,15 +413,10 @@ async function attivaNotifiche(btn, ruolo = 'figlio') {
     const reg = await navigator.serviceWorker.ready;
     const sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({ userVisibleOnly: true,
       applicationServerKey: Uint8Array.from(atob(chiave.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0)) });
-    let q = '';
-    if (ruolo === 'genitore') { const codice = chiediCodice(); if (!codice) return; q = '?ruolo=genitore&codice=' + encodeURIComponent(codice); }
-    const r = await fetch(urlPonte('/iscrivi') + q, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) });
-    if (r.status === 403) { salva('ae_codfoto', ''); toast('Codice sbagliato, riprova'); return; }
+    const r = await fetch(urlPonte('/iscrivi'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) });
     if (!r.ok) throw 0;
-    await salvaRuolo(ruolo);
-    toast(ruolo === 'genitore' ? 'Ti avviso quando arriva una foto! 📷' : 'Notifiche attivate! 🔔');
+    toast('Notifiche attivate! 🔔');
     if (btn) btn.outerHTML = '<p class="muted">🔔 Notifiche dei compiti attive</p>';
-    if (location.hash === '#/genitore') render();
   } catch { toast('Non sono riuscito ad attivare le notifiche'); }
 }
 function tuttiCompiti() {
@@ -506,10 +498,9 @@ document.addEventListener('click', e => {
 
 function render() {
   const app = $('#app'), h = location.hash || '#/casa', [, pag, a, b] = h.split('/');
-  chiudiGioco();
+  chiudiGioco(); chiudiFinestre();
   document.body.classList.toggle('in-casa', !pag || pag === 'casa');
   document.querySelectorAll('nav button').forEach(x => x.classList.toggle('on', h.startsWith(x.dataset.go) || (pag === 'materia' || pag === 'tema') && x.dataset.go === '#/casa'));
-  if (pag === 'genitore') return paginaGenitore(app);
   if (!PROF) return paginaProfilo(app, true);
   if (!DATI) { app.innerHTML = '<p class="muted">Carico gli esercizi…</p>'; return; }
   window.scrollTo(0, 0);
@@ -534,7 +525,7 @@ function paginaCasa(app) {
       <div class="avatar">${PROF.avatar}</div>
       <div><h1>Ciao ${esc(PROF.nome)}!</h1><div class="muted">Cosa ripassiamo oggi?</div></div>
       <div class="mia-casa"><div class="fumetto">${aCaso([`Ciao! Sono ${guida().nome}, giochiamo insieme?`, 'Eccoti! Che bello rivederti!', 'Oggi impariamo qualcosa di nuovo!'])}</div><img src="${miaSrc('fullbody', 'master')}" alt="${guida().nome}"></div>
-      <div class="stelle-tot">⭐ ${stelleTotali()}</div>
+      <div class="stelle-tot"><span class="st-ico">⭐</span><span>${stelleTotali()}</span></div>
     </div>
     <div class="zona-testa"><h2>Prossimi compiti</h2>
       <button class="btn piccolo" data-go="#/piano">🗓️ Il mio piano</button>
@@ -686,11 +677,18 @@ async function inviaFoto(inp, nome = 'scheda', idCompito = null) {
 }
 
 /* Finestra a tutto schermo per pagina del libro e orario */
-function finestra(html) {
+function finestra(html, alChiudere) {
   const el = document.createElement('div'); el.className = 'finestra';
   el.innerHTML = `<button class="chiudi-f" aria-label="Chiudi">✕</button><div class="dentro-f">${html}</div>`;
-  el.onclick = e => { if (e.target === el || e.target.classList.contains('chiudi-f')) el.remove(); };
+  el.chiudi = () => { el.remove(); if (alChiudere) alChiudere(); };
+  el.onclick = e => { if (e.target === el || e.target.classList.contains('chiudi-f')) el.chiudi(); };
   document.body.append(el); return el;
+}
+const chiudiFinestre = () => document.querySelectorAll('.finestra').forEach(f => f.chiudi());
+// Zaino: schermo in orizzontale e rotazione bloccata finché è aperto (APK: GinnyApp.orientamento; Chrome: solo se lo permette)
+function orientamento(orizz) {
+  if (APP?.orientamento) { try { APP.orientamento(orizz ? 'orizzontale' : 'libero'); } catch {} return; }
+  try { orizz ? screen.orientation.lock('landscape').catch(() => {}) : screen.orientation.unlock(); } catch {}
 }
 // Le pagine dei libri stanno nella repo privata (pagine/<libro>/<n>.jpg), lette dal ponte con il codice.
 // Una materia può avere più libri: il primo è quello predefinito.
@@ -728,8 +726,10 @@ function mostraOrario() {
   const o = DATI.orario || {}, d = new Date(); d.setDate(d.getDate() + 1);
   while (!o[GG[d.getDay()]] && d.getDay() !== new Date().getDay()) d.setDate(d.getDate() + 1);
   const g = GG[d.getDay()], lista = [...new Set(o[g] || [])];
-  finestra(`${lista.length ? `<div class="zaino"><b>🎒 ${g === GG[(new Date().getDay() + 1) % 7] ? 'Domani' : g[0].toUpperCase() + g.slice(1).replace(/i$/, 'ì')} nello zaino:</b> ${lista.map(esc).join(' · ')}</div>` : ''}
-    <img class="pagina" src="img/orario.webp" alt="Piano settimanale">`);
+  orientamento(true);
+  const el = finestra(`<p class="gira-tablet">↻ Gira il tablet per vedere meglio</p>${lista.length ? `<div class="zaino"><b>🎒 ${g === GG[(new Date().getDay() + 1) % 7] ? 'Domani' : g[0].toUpperCase() + g.slice(1).replace(/i$/, 'ì')} nello zaino:</b> ${lista.map(esc).join(' · ')}</div>` : ''}
+    <img class="pagina" src="img/orario.webp" alt="Piano settimanale">`, () => orientamento(false));
+  el.classList.add('orizz');
 }
 
 function paginaPremi(app) {
@@ -745,8 +745,6 @@ function paginaPremi(app) {
     <div class="top"><div class="avatar">${PROF.avatar}</div><div><h1>${esc(PROF.nome)}</h1><div class="muted">${st} stelle · ${PROG.punti} punti · ${PROG.partite} partite</div></div></div>
     <h2>Medaglie</h2>
     <div class="medaglie">${med.map(([i, n, ok]) => `<div class="medaglia ${ok ? '' : 'bloccata'}"><div class="ico">${i}</div><b>${n}</b></div>`).join('')}</div>
-    <h2>Classifica con le amiche</h2>
-    <div class="vuoto">Presto potrai sfidare le tue compagne di classe!</div>
     <h2>Notifiche</h2>
     <div id="boxNotif">${APP ? `<p class="muted">${APP.notificheAttive() ? '🔔 Ti avviso dei compiti nuovi alle 16 e alle 23' : '🔕 Notifiche spente: attivale nelle impostazioni del tablet (app GinnyLearn)'}</p><button class="btn piccolo bianco" id="provaNotif">Prova notifica</button> <button class="btn piccolo bianco" id="ctrlNotif">Controlla adesso</button>`
       : notificheOk() ? (Notification.permission === 'granted' ? '<p class="muted">🔔 Notifiche dei compiti attive</p>' : '<button class="btn bianco" id="attNotif">🔔 Attiva notifiche</button>') : '<p class="muted">Notifiche non disponibili su questo dispositivo</p>'}</div>
@@ -755,7 +753,6 @@ function paginaPremi(app) {
     <div class="azioni" style="justify-content:flex-start;flex-wrap:wrap"><button class="btn bianco" id="salvaCloud">☁️ Salva adesso</button><button class="btn bianco" id="recCloud">🔄 Recupera progressi</button></div>
     <h2>Il tuo profilo</h2>
     <button class="btn bianco" id="modProf">✏️ Cambia nome, avatar o guida</button>
-    <p style="margin-top:24px"><button class="btn piccolo bianco" data-go="#/genitore">👨‍👩‍👧 Per i genitori</button></p>
     <p class="muted" style="font-size:14px;margin-top:30px">Esercizi aggiornati al ${esc(DATI.aggiornato || '')}${APP ? ` · app ${esc(APP.versione())}` : ''}</p>`;
   $('#modProf').onclick = () => paginaProfilo(app, false);
   if ($('#attNotif')) $('#attNotif').onclick = e => attivaNotifiche(e.currentTarget);
@@ -872,27 +869,6 @@ function paginaPiano(app) {
     }
     suono('fine'); toast('Fatto! Controlla e sposta quello che vuoi'); ridisegna();
   };
-}
-
-/* ---------- pagina per i genitori: avviso quando arriva una foto dal tablet ---------- */
-// Si apre da Premi o con l'indirizzo .../#/genitore sul telefono del genitore.
-// Un dispositivo riceve o gli avvisi dei compiti o quelli delle foto (una sola iscrizione per browser).
-async function salvaRuolo(r) { try { const c = await caches.open('ginny-impostazioni'); await c.put('ruolo', new Response(r)); } catch {} }
-async function leggiRuolo() { try { const c = await caches.open('ginny-impostazioni'); const x = await c.match('ruolo'); return x ? await x.text() : 'figlio'; } catch { return 'figlio'; } }
-function paginaGenitore(app) {
-  $('#nav').style.display = PROF ? '' : 'none';
-  app.innerHTML = `
-    ${PROF ? '<button class="indietro" data-go="#/premi">‹ Premi</button>' : ''}
-    <h1>👨‍👩‍👧 Per i genitori</h1>
-    <p>Su questo telefono puoi ricevere un avviso ogni volta che dal tablet arriva una foto di compiti o del quaderno.
-      Poi apri una chat GINNYLEARN e chiedi i nuovi esercizi.</p>
-    <p class="muted">Serve il codice segreto delle foto. Questo dispositivo smetterà di ricevere gli avvisi dei compiti.</p>
-    <div id="statoGen" class="muted">…</div>
-    <div class="azioni"><button class="btn" id="attGen">🔔 Avvisami quando arriva una foto</button>
-      <button class="btn bianco" id="disGen">Torna agli avvisi dei compiti</button></div>`;
-  leggiRuolo().then(r => { $('#statoGen').textContent = r === 'genitore' ? '✅ Ora ricevi gli avvisi delle foto.' : 'Ora questo dispositivo è impostato per gli avvisi dei compiti (o nessuno).'; });
-  $('#attGen').onclick = () => attivaNotifiche(null, 'genitore');
-  $('#disGen').onclick = () => attivaNotifiche(null, 'figlio');
 }
 
 /* ---------- suoni (sintetizzati con WebAudio, niente file) ---------- */
@@ -1048,7 +1024,6 @@ function fine(perso = false) {
   const record = G.punti > prima.record && !perso;
   PROG.giochi[k] = { record: Math.max(prima.record, perso ? 0 : G.punti), stelle: Math.max(prima.stelle, stelle), ultima: Date.now() };
   PROG.punti += G.punti; PROG.partite++; salvaProg();
-  Sync.inviaPartita({ profilo: PROF.id, tema: G.t.id, gioco: G.idx, punti: G.punti, stelle });
   const tid = G.t.id, idx = G.idx, prossimo = G.t.giochi[idx + 1] ? idx + 1 : null;
   const frase = perso ? 'Hai finito i cuori!' : stelle === 3 && !G.errori ? 'Perfetto!' : ['Riprova, ce la fai!', 'Ci sei quasi!', 'Ottimo lavoro!', 'Fantastico!'][stelle];
   const posa = perso ? GUIDA.fine.perso : stelle === 3 && !G.errori ? GUIDA.fine.perfetto : stelle >= 2 ? GUIDA.fine.alto : stelle === 1 ? GUIDA.fine.medio : GUIDA.fine.basso;

@@ -138,10 +138,11 @@ async function avvisaClaude(env, subito = false) {
   if (!nuovi.length) return false;
   const adesso = Date.now(), ultimoEv = Date.parse(nuovi[nuovi.length - 1].quando), ultimoFire = +((await env.KV.get('fire-quando')) || 0);
   if (!subito && (adesso - ultimoEv < 3 * 60e3 || adesso - ultimoFire < 30 * 60e3)) return false;
-  const testo = nuovi.map(e => e.tipo === 'foto' ? `📷 foto ${e.materia} ${e.compito}` : `📒 ${e.titolo}`).join('; ');
+  // le novità complete viaggiano nel messaggio di avvio (la sessione di Claude non riesce a rileggere il ponte in modo affidabile)
+  const testo = JSON.stringify({ ultimo: r.ultimo, eventi: nuovi }).slice(0, 15000);
   const res = await fetch(env.CLAUDE_FIRE_URL, { method: 'POST', headers: { Authorization: `Bearer ${env.CLAUDE_FIRE_TOKEN}`,
     'anthropic-beta': 'experimental-cc-routine-2026-04-01', 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: 'Novità dal ponte GinnyLearn: ' + testo }) });
+    body: JSON.stringify({ text: 'NOVITA_GINNYLEARN ' + testo }) });
   await env.KV.put('fire-quando', String(adesso));
   if (res.ok) await env.KV.put('eventi-avvisato', String(r.ultimo));
   return res.ok;

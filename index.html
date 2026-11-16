@@ -40,6 +40,8 @@ h2{font-size:26px;font-weight:800;margin:28px 0 12px}
 
 /* header */
 .top{display:flex;align-items:center;gap:14px}
+.saluto{min-width:0;flex:1}
+.saluto h1{white-space:nowrap;overflow:hidden;font-size:40px}
 .avatar{width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--inchiostro);display:grid;place-items:center;font-size:36px;flex:none}
 .stelle-tot{margin-left:auto;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:4px 16px;font-weight:800;font-size:22px;box-shadow:3px 3px 0 var(--inchiostro);display:inline-flex;align-items:center;gap:6px;line-height:1}
 .stelle-tot .st-ico{font-size:20px;line-height:1;display:block;transform:translateY(1px)}
@@ -269,6 +271,7 @@ body.in-casa #app{height:100dvh;display:flex;flex-direction:column;overflow:hidd
   <button data-go="#/casa"><span>🏠</span>Casa</button>
   <button data-go="#/compiti"><span>📒</span>Compiti</button>
   <button data-go="#/piano"><span>🗓️</span>Piano</button>
+  <button id="navZaino" type="button"><span>🎒</span>Zaino</button>
   <button data-go="#/premi"><span>🏆</span>Premi</button>
 </nav>
 <script>
@@ -382,19 +385,22 @@ async function aggiornaDati() {
     aggiornaCompiti();
   } catch { if (!DATI) $('#app').innerHTML = '<div class="vuoto">Per la prima apertura serve internet. Collegati e riapri l\'app.</div>'; }
 }
-async function aggiornaCompiti() {
-  if (!DATI?.ponte) return;
+async function aggiornaCompiti(fresco = false) {
+  if (!DATI?.ponte) return null;
+  let esito = null;
   try {
-    const r = await fetch(DATI.ponte, { cache: 'no-store' });
+    const r = await fetch(DATI.ponte + (fresco ? '?fresco' : ''), { cache: 'no-store' });
     const j = await r.json();
     if (!Array.isArray(j.compiti)) throw 0;
     const nuovi = j.compiti.filter(c => !PONTE.some(x => x.id === c.id)).length;
     PONTE = j.compiti; salva('ae_ponte', PONTE);
-    if (nuovi && carica('ae_ponte_ok', false)) toast(nuovi === 1 ? 'È arrivato un compito nuovo' : `Sono arrivati ${nuovi} compiti nuovi`);
+    esito = { nuovi, tot: j.compiti.length };
+    if (nuovi && !fresco && carica('ae_ponte_ok', false)) toast(nuovi === 1 ? 'È arrivato un compito nuovo' : `Sono arrivati ${nuovi} compiti nuovi`);
     salva('ae_ponte_ok', true);
-    if (!location.hash.startsWith('#/gioco')) render();
+    if (!fresco && !location.hash.startsWith('#/gioco')) render();
   } catch {} // senza internet restano gli ultimi compiti scaricati
   aggiornaPallino();
+  return esito;
 }
 // pallino sull'icona: compiti da oggi in poi non ancora fatti
 function aggiornaPallino() {
@@ -519,18 +525,18 @@ function paginaCasa(app) {
   const prossimi = tuttiCompiti().filter(c => c.data >= oggiISO()).sort((x, y) => x.data.localeCompare(y.data));
   // materie: prima quelle con il tema più recente (ultimo aggiunto in contenuti.json), poi le altre
   const ultimo = k => DATI.temi.reduce((u, t, i) => t.materia === k ? i : u, -1);
-  const ordine = Object.keys(M).sort((a, b) => ultimo(b) - ultimo(a));
+  // prima le materie con temi nuovi (non ancora aperti), poi le altre; dentro ogni gruppo il tema più recente
+  const nuoviDi = k => DATI.temi.filter(t => t.materia === k && !PROG.temiVisti.includes(t.id)).length;
+  const ordine = Object.keys(M).sort((a, b) => (nuoviDi(b) > 0) - (nuoviDi(a) > 0) || ultimo(b) - ultimo(a));
   app.innerHTML = `<div class="casa">
     <div class="top">
-      <div class="avatar">${PROF.avatar}</div>
-      <div><h1>Ciao ${esc(PROF.nome)}!</h1><div class="muted">Cosa ripassiamo oggi?</div></div>
+      <div class="saluto"><h1>Ciao ${esc(PROF.nome)}!</h1><div class="muted">Cosa ripassiamo oggi?</div></div>
       <div class="mia-casa"><div class="fumetto">${aCaso([`Ciao! Sono ${guida().nome}, giochiamo insieme?`, 'Eccoti! Che bello rivederti!', 'Oggi impariamo qualcosa di nuovo!'])}</div><img src="${miaSrc('fullbody', 'master')}" alt="${guida().nome}"></div>
       <div class="stelle-tot"><span class="st-ico">⭐</span><span>${stelleTotali()}</span></div>
     </div>
     <div class="zona-testa"><h2>Prossimi compiti</h2>
       <button class="btn piccolo" data-go="#/piano">🗓️ Il mio piano</button>
-      <button class="btn piccolo bianco" id="orario">🎒 Zaino</button>
-      <button class="btn piccolo bianco" data-go="#/compiti">📒 Tutti</button></div>
+</div>
     <div class="zona" id="zonaCompiti">
       ${prossimi.length ? prossimi.map(compitoHTML).join('') : '<div class="vuoto">Nessun compito in arrivo. Puoi giocare quanto vuoi!</div>'}
     </div>
@@ -545,8 +551,7 @@ function paginaCasa(app) {
           <span class="etichetta penna">${PROF.nome}</span></button>`;
       }).join('')}
     </div></div></div>`;
-  legaCompiti(app);
-  $('#orario').onclick = mostraOrario;
+  legaCompiti(app); stringi(app);
 }
 
 function paginaMateria(app, k) {
@@ -742,22 +747,31 @@ function paginaPremi(app) {
     ...Object.entries(M).map(([k, m]) => [m.icona, `10 stelle in ${m.nome}`, perMat(k) >= 10])
   ];
   app.innerHTML = `
-    <div class="top"><div class="avatar">${PROF.avatar}</div><div><h1>${esc(PROF.nome)}</h1><div class="muted">${st} stelle · ${PROG.punti} punti · ${PROG.partite} partite</div></div></div>
+    <div class="top"><div class="saluto"><h1>${esc(PROF.nome)}</h1><div class="muted">${st} stelle · ${PROG.punti} punti · ${PROG.partite} partite</div></div></div>
     <h2>Medaglie</h2>
     <div class="medaglie">${med.map(([i, n, ok]) => `<div class="medaglia ${ok ? '' : 'bloccata'}"><div class="ico">${i}</div><b>${n}</b></div>`).join('')}</div>
     <h2>Notifiche</h2>
-    <div id="boxNotif">${APP ? `<p class="muted">${APP.notificheAttive() ? '🔔 Ti avviso dei compiti nuovi alle 16 e alle 23' : '🔕 Notifiche spente: attivale nelle impostazioni del tablet (app GinnyLearn)'}</p><button class="btn piccolo bianco" id="provaNotif">Prova notifica</button> <button class="btn piccolo bianco" id="ctrlNotif">Controlla adesso</button>`
-      : notificheOk() ? (Notification.permission === 'granted' ? '<p class="muted">🔔 Notifiche dei compiti attive</p>' : '<button class="btn bianco" id="attNotif">🔔 Attiva notifiche</button>') : '<p class="muted">Notifiche non disponibili su questo dispositivo</p>'}</div>
+    <div id="boxNotif">${APP ? `<p class="muted">${APP.notificheAttive() ? '🔔 Ti avviso dei compiti nuovi alle 16 e alle 23' : '🔕 Notifiche spente: attivale nelle impostazioni del tablet (app GinnyLearn)'}</p><button class="btn piccolo bianco" id="provaNotif">Prova notifica</button>`
+      : notificheOk() ? (Notification.permission === 'granted' ? '<p class="muted">🔔 Notifiche dei compiti attive</p>' : '<button class="btn bianco" id="attNotif">🔔 Attiva notifiche</button>') : '<p class="muted">Notifiche non disponibili su questo dispositivo</p>'}
+      ${DATI.ponte ? '<p><button class="btn piccolo bianco" id="ctrlNotif">🔄 Controlla adesso i compiti</button></p><p class="muted" id="esitoCtrl"></p>' : ''}</div>
     <h2>☁️ Progressi online</h2>
     <p class="muted" id="statoCloud">${statoCloud()}</p>
     <div class="azioni" style="justify-content:flex-start;flex-wrap:wrap"><button class="btn bianco" id="salvaCloud">☁️ Salva adesso</button><button class="btn bianco" id="recCloud">🔄 Recupera progressi</button></div>
     <h2>Il tuo profilo</h2>
-    <button class="btn bianco" id="modProf">✏️ Cambia nome, avatar o guida</button>
+    <button class="btn bianco" id="modProf">✏️ Cambia nome o guida</button>
     <p class="muted" style="font-size:14px;margin-top:30px">Esercizi aggiornati al ${esc(DATI.aggiornato || '')}${APP ? ` · app ${esc(APP.versione())}` : ''}</p>`;
+  stringi(app);
   $('#modProf').onclick = () => paginaProfilo(app, false);
   if ($('#attNotif')) $('#attNotif').onclick = e => attivaNotifiche(e.currentTarget);
   if ($('#provaNotif')) $('#provaNotif').onclick = () => APP.provaNotifica();
-  if ($('#ctrlNotif')) $('#ctrlNotif').onclick = () => { APP.controllaOra(); toast('Controllo i compiti…'); };
+  if ($('#ctrlNotif')) $('#ctrlNotif').onclick = async e => {
+    const b = e.currentTarget, esito = $('#esitoCtrl'); b.disabled = true; esito.textContent = 'Controllo i compiti su Scuola Online…';
+    try { APP?.controllaOra?.(); } catch {}
+    const r = await aggiornaCompiti(true);
+    esito.textContent = r ? (r.nuovi ? `✨ ${r.nuovi === 1 ? 'È arrivato 1 compito nuovo' : `Sono arrivati ${r.nuovi} compiti nuovi`}! (${r.tot} in tutto)` : `Nessun compito nuovo. Sul registro ce ne sono ${r.tot} da oggi in poi.`)
+      + ` · ${new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}` : '❌ Non riesco a raggiungere Scuola Online, riprova più tardi.';
+    b.disabled = false;
+  };
   $('#salvaCloud').onclick = async () => { if (await salvaOnline(true)) $('#statoCloud').textContent = statoCloud(); };
   $('#recCloud').onclick = () => recuperaOnline();
 }
@@ -769,14 +783,11 @@ function paginaProfilo(app, primo) {
     <h1>${primo ? 'Ti diamo il benvenuto!' : 'Il tuo profilo'}</h1>
     <h2>Come ti chiami?</h2>
     <input type="text" id="nome" maxlength="14" placeholder="Il tuo soprannome" value="${esc(PROF?.nome || '')}">
-    <h2>Scegli il tuo avatar</h2>
-    <div class="avatars">${AVATAR.map(a => `<button data-av="${a}" class="${a === av ? 'on' : ''}">${a}</button>`).join('')}</div>
     <h2>Chi ti accompagna nei giochi?</h2>
     <div class="guide">${Object.entries(GUIDE).map(([k, g]) => `<button data-gu="${k}" class="${k === gu ? 'on' : ''}"><img src="${g.cartella}/head/happy.webp" alt=""><b>${g.nome}</b></button>`).join('')}</div>
     <br><button class="btn" id="ok">${primo ? 'Iniziamo!' : 'Salva'}</button>
     ${primo ? '<p style="margin-top:28px"><button class="btn piccolo bianco" id="recPrimo">🔄 Hai già giocato su un altro dispositivo? Recupera i progressi</button></p>' : ''}`;
   if (primo) $('#recPrimo').onclick = () => recuperaOnline();
-  app.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; app.querySelectorAll('[data-av]').forEach(x => x.classList.toggle('on', x === b)); });
   app.querySelectorAll('[data-gu]').forEach(b => b.onclick = () => { gu = b.dataset.gu; app.querySelectorAll('[data-gu]').forEach(x => x.classList.toggle('on', x === b)); });
   $('#ok').onclick = () => {
     const nome = $('#nome').value.trim(); if (!nome) { $('#nome').classList.add('scuoti'); setTimeout(() => $('#nome').classList.remove('scuoti'), 400); return; }
@@ -1252,7 +1263,16 @@ function scelte(p, domande, sec) {
   giro();
 }
 
+/* testi su una riga (nome lungo): rimpicciolisce il carattere finché il testo ci sta */
+function stringi(el) {
+  requestAnimationFrame(() => el.querySelectorAll('.saluto h1, .quaderno .etichetta').forEach(t => {
+    let fs = parseFloat(getComputedStyle(t).fontSize); const min = t.tagName === 'H1' ? 18 : 9;
+    while (t.scrollWidth > t.clientWidth + 1 && fs > min) t.style.fontSize = (fs -= 1) + 'px';
+  }));
+}
+addEventListener('resize', () => { const a = $('#app'); a.querySelectorAll('.saluto h1, .quaderno .etichetta').forEach(t => t.style.fontSize = ''); stringi(a); });
 /* ---------- avvio ---------- */
+$('#navZaino').onclick = () => mostraOrario();
 render();
 aggiornaDati();
 document.addEventListener('visibilitychange', () => { if (!document.hidden) aggiornaDati(); else if (cloudT) salvaOnline(false); });

@@ -34,6 +34,16 @@ export default {
     if (url.pathname === '/vapid') return json({ chiave: env.VAPID_PUBLIC || null });
     if (url.pathname === '/novita') return json(env.KV ? (await env.KV.get('novita', 'json')) || {} : {});
     if (url.pathname === '/eventi') return json(await eventi(url, env));
+    // GET /controlla?codice=<FOTO_CODICE>: controllo dei compiti adesso (come alle 16/23) e, se ci sono novità, avvisa subito Claude
+    if (url.pathname === '/controlla') {
+      if (!env.FOTO_CODICE || url.searchParams.get('codice') !== env.FOTO_CODICE) return json({ errore: 'codice sbagliato' }, 403);
+      try { await controlla(env); } catch (e) { return json({ errore: 'Scuola Online: ' + (e.message || e) }, 502); }
+      const r = (await env.KV.get('eventi', 'json')) || { ultimo: 0, lista: [] };
+      const visto = Math.max(+((await env.KV.get('eventi-visto')) || 0), +((await env.KV.get('eventi-avvisato')) || 0));
+      const nuovi = r.lista.filter(e => e.n > visto).length;
+      const claude = nuovi ? await avvisaClaude(env, true) : false;
+      return json({ ok: true, novita: nuovi, claudeAvvisato: claude });
+    }
     // POST /iscrivi -> avvisi dei compiti (notifiche web in Chrome)
     if (url.pathname === '/iscrivi' && req.method === 'POST') {
       if (!env.KV) return json({ errore: 'KV mancante' }, 500);
@@ -120,20 +130,21 @@ async function aggiungiEvento(env, ev) {
 }
 // Ogni 10 minuti: se ci sono eventi non letti fa partire l'attività di Claude (una sola sessione per gruppo di novità).
 // Aspetta 3 minuti dall'ultimo evento (più foto di fila = un solo avviso) e non riparte prima di 30 minuti.
-async function avvisaClaude(env) {
-  if (!env.KV || !env.CLAUDE_FIRE_URL || !env.CLAUDE_FIRE_TOKEN) return;
+async function avvisaClaude(env, subito = false) {
+  if (!env.KV || !env.CLAUDE_FIRE_URL || !env.CLAUDE_FIRE_TOKEN) return false;
   const r = (await env.KV.get('eventi', 'json')) || { ultimo: 0, lista: [] };
   const visto = +((await env.KV.get('eventi-visto')) || 0), avvisato = +((await env.KV.get('eventi-avvisato')) || 0);
   const nuovi = r.lista.filter(e => e.n > Math.max(visto, avvisato));
-  if (!nuovi.length) return;
+  if (!nuovi.length) return false;
   const adesso = Date.now(), ultimoEv = Date.parse(nuovi[nuovi.length - 1].quando), ultimoFire = +((await env.KV.get('fire-quando')) || 0);
-  if (adesso - ultimoEv < 3 * 60e3 || adesso - ultimoFire < 30 * 60e3) return;
+  if (!subito && (adesso - ultimoEv < 3 * 60e3 || adesso - ultimoFire < 30 * 60e3)) return false;
   const testo = nuovi.map(e => e.tipo === 'foto' ? `📷 foto ${e.materia} ${e.compito}` : `📒 ${e.titolo}`).join('; ');
   const res = await fetch(env.CLAUDE_FIRE_URL, { method: 'POST', headers: { Authorization: `Bearer ${env.CLAUDE_FIRE_TOKEN}`,
     'anthropic-beta': 'experimental-cc-routine-2026-04-01', 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
     body: JSON.stringify({ text: 'Novità dal ponte GinnyLearn: ' + testo }) });
   await env.KV.put('fire-quando', String(adesso));
   if (res.ok) await env.KV.put('eventi-avvisato', String(r.ultimo));
+  return res.ok;
 }
 async function eventi(url, env) {
   if (!env.KV) return { errore: 'KV mancante' };

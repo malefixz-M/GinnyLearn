@@ -1,6 +1,6 @@
 {
-  "versione": 7,
-  "aggiornato": "2026-11-15",
+  "versione": 8,
+  "aggiornato": "2026-11-16",
   "materie": {
     "matematica": {
       "nome": "Matematica",
@@ -5166,6 +5166,825 @@
             {
               "p": "TIRSO",
               "indizio": "Uno dei fiumi principali"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sto-persiani",
+      "materia": "storia",
+      "titolo": "L'Impero persiano e le guerre persiane",
+      "fonte": "Storia 5, pag. 30-32",
+      "parole": [
+        "persian",
+        "dario",
+        "serse",
+        "maratona",
+        "termopil",
+        "salamina"
+      ],
+      "pagine": [
+        30,
+        31,
+        32
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "L'Impero persiano",
+          "domande": [
+            {
+              "d": "Chi fondò l'Impero persiano?",
+              "r": [
+                "Ciro il Grande",
+                "Dario",
+                "Serse",
+                "Leonida"
+              ]
+            },
+            {
+              "d": "Quale fu la prima capitale dell'Impero persiano?",
+              "r": [
+                "Persepoli",
+                "Susa",
+                "Atene",
+                "Babilonia"
+              ]
+            },
+            {
+              "d": "Quale città divenne poi capitale?",
+              "r": [
+                "Susa",
+                "Sparta",
+                "Maratona",
+                "Menfi"
+              ]
+            },
+            {
+              "d": "Nel 538 a.C. Ciro conquistò…",
+              "r": [
+                "l'Impero babilonese",
+                "la Grecia",
+                "l'Italia",
+                "Sparta"
+              ]
+            },
+            {
+              "d": "Come si chiamavano le regioni in cui Dario divise l'impero?",
+              "r": [
+                "Satrapie",
+                "Poleis",
+                "Province romane",
+                "Colonie"
+              ]
+            },
+            {
+              "d": "Chi comandava una satrapia?",
+              "r": [
+                "Il satrapo, un nobile persiano",
+                "Il re di Sparta",
+                "Un faraone",
+                "Un mercante greco"
+              ]
+            },
+            {
+              "d": "Che cosa fece costruire Dario per i commerci e le comunicazioni?",
+              "r": [
+                "Una fitta rete di strade",
+                "Un grande muro",
+                "Le piramidi",
+                "Un porto ad Atene"
+              ]
+            },
+            {
+              "d": "Che cosa introdusse Dario in tutto l'impero?",
+              "r": [
+                "Una moneta comune",
+                "L'alfabeto greco",
+                "Le Olimpiadi",
+                "La democrazia"
+              ]
+            },
+            {
+              "d": "Quanto era lunga la Strada Reale persiana?",
+              "r": [
+                "2500 km",
+                "250 km",
+                "25 km",
+                "25 000 km"
+              ]
+            },
+            {
+              "d": "Che cosa portavano i satrapi al re ogni anno?",
+              "r": [
+                "I tributi",
+                "Le leggi",
+                "I prigionieri",
+                "Le navi"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Le guerre persiane in ordine",
+          "istruzione": "Metti in ordine gli eventi delle guerre persiane",
+          "elementi": [
+            "Dario occupa l'Asia Minore",
+            "Dario dichiara guerra alla Grecia",
+            "I Greci vincono a Maratona",
+            "Serse attacca via terra e via mare",
+            "Termopili: sconfitti gli Spartani; Salamina: vincono gli Ateniesi",
+            "Battaglia di Platea: i Persiani lasciano la Grecia"
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Chi è? Che cos'è?",
+          "coppie": [
+            [
+              "Ciro il Grande",
+              "fondatore dell'impero"
+            ],
+            [
+              "Dario",
+              "divise l'impero in satrapie"
+            ],
+            [
+              "Serse",
+              "figlio di Dario"
+            ],
+            [
+              "Leonida",
+              "re di Sparta alle Termopili"
+            ],
+            [
+              "satrapo",
+              "governava una satrapia"
+            ],
+            [
+              "trireme",
+              "nave con tre file di remi"
+            ]
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Battaglie e date",
+          "coppie": [
+            [
+              "Maratona",
+              "490 a.C."
+            ],
+            [
+              "Termopili",
+              "480 a.C., vincono i Persiani"
+            ],
+            [
+              "Salamina",
+              "480 a.C., vince la flotta ateniese"
+            ],
+            [
+              "Platea",
+              "479 a.C."
+            ],
+            [
+              "Babilonia conquistata",
+              "538 a.C."
+            ],
+            [
+              "Strada Reale",
+              "da Persepoli al Mar Egeo"
+            ]
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "L'Impero persiano si estendeva dall'Egitto fino all'India settentrionale.",
+              "v": true
+            },
+            {
+              "f": "I Persiani vivevano all'inizio tra la Mesopotamia e il fiume Indo.",
+              "v": true
+            },
+            {
+              "f": "Durante le guerre persiane le poleis greche combatterono unite per la prima e unica volta.",
+              "v": true
+            },
+            {
+              "f": "A Maratona i Persiani vinsero perché erano più numerosi.",
+              "v": false
+            },
+            {
+              "f": "Alle Termopili gli Spartani combatterono fino alla fine, ma furono sconfitti.",
+              "v": true
+            },
+            {
+              "f": "Dopo Platea i Persiani lasciarono la Grecia per sempre.",
+              "v": true
+            },
+            {
+              "f": "Lungo la Strada Reale c'erano locande e stazioni per cambiare i cavalli.",
+              "v": true
+            },
+            {
+              "f": "Il palazzo di Persepoli era costruito sottoterra.",
+              "v": false
+            },
+            {
+              "f": "Le triremi avevano due file di remi.",
+              "v": false
+            },
+            {
+              "f": "Il rostro era lo sperone appuntito sulla prua della trireme.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Parole mancanti",
+          "frasi": [
+            {
+              "f": "Re Dario divise l'impero in regioni chiamate ___.",
+              "r": [
+                "satrapie",
+                "poleis",
+                "colonie"
+              ]
+            },
+            {
+              "f": "La Strada Reale collegava Persepoli alle coste del Mar ___.",
+              "r": [
+                "Egeo",
+                "Nero",
+                "Rosso"
+              ]
+            },
+            {
+              "f": "Nel 490 a.C. i Greci sconfissero i Persiani nella pianura di ___.",
+              "r": [
+                "Maratona",
+                "Platea",
+                "Salamina"
+              ]
+            },
+            {
+              "f": "Nel 480 a.C. attaccò la Grecia re ___, figlio di Dario.",
+              "r": [
+                "Serse",
+                "Ciro",
+                "Leonida"
+              ]
+            },
+            {
+              "f": "Sul mare la flotta ateniese vinse presso l'isola di ___.",
+              "r": [
+                "Salamina",
+                "Creta",
+                "Rodi"
+              ]
+            },
+            {
+              "f": "Lo scontro decisivo avvenne nel 479 a.C. a ___.",
+              "r": [
+                "Platea",
+                "Maratona",
+                "Susa"
+              ]
+            },
+            {
+              "f": "La trireme poteva portare fino a ___ persone.",
+              "r": [
+                "200",
+                "20",
+                "2000"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole persiane",
+          "parole": [
+            {
+              "p": "SATRAPO",
+              "indizio": "Nobile che governava una regione dell'impero"
+            },
+            {
+              "p": "PERSEPOLI",
+              "indizio": "Prima capitale dell'Impero persiano"
+            },
+            {
+              "p": "TRIREME",
+              "indizio": "Nave da guerra greca con tre file di remi"
+            },
+            {
+              "p": "TRIBUTI",
+              "indizio": "Ciò che i satrapi portavano al re ogni anno"
+            },
+            {
+              "p": "MARATONA",
+              "indizio": "Pianura vicino ad Atene della battaglia del 490 a.C."
+            },
+            {
+              "p": "ROSTRO",
+              "indizio": "Sperone appuntito sulla prua della nave"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ita-discorso-diretto",
+      "materia": "italiano",
+      "titolo": "Discorso diretto e indiretto",
+      "fonte": "Grammatica 5, pag. 14-15 e ripasso pag. 139",
+      "parole": [
+        "discorso diretto",
+        "discorso indiretto"
+      ],
+      "pagine": [
+        14,
+        15,
+        139
+      ],
+      "libro": "grammatica",
+      "giochi": [
+        {
+          "tipo": "categorie",
+          "titolo": "Diretto o indiretto?",
+          "gruppi": {
+            "Discorso diretto": [
+              "Il papà ha detto: “Chiedi alla mamma!”",
+              "Il poeta declama: – Che fai tu, luna, in ciel?",
+              "La mamma ha urlato: “Hai preso le chiavi?”",
+              "Il dottore ha detto: “Il bambino ha l'influenza.”",
+              "Lei esclama: “Non mi arrenderò mai!”",
+              "Il capogruppo ha detto: “Seguite il sentiero!”"
+            ],
+            "Discorso indiretto": [
+              "Giulia mi ha chiesto se le potevo portare la borsa.",
+              "Il preside ha chiesto di non essere disturbato.",
+              "Le ho detto che sbaglia a comportarsi così.",
+              "La maestra dice che se facciamo in fretta le cose non vengono bene.",
+              "La guida ci ha chiesto di fare silenzio.",
+              "Il postino chiede se gli possiamo aprire il portone."
+            ]
+          }
+        },
+        {
+          "tipo": "quiz",
+          "titolo": "Le regole",
+          "domande": [
+            {
+              "d": "Il discorso diretto…",
+              "r": [
+                "riporta esattamente le parole di chi parla",
+                "racconta le parole con parole diverse",
+                "non usa mai la punteggiatura",
+                "si usa solo nelle poesie"
+              ]
+            },
+            {
+              "d": "Come si introduce il discorso diretto?",
+              "r": [
+                "Con i due punti e il trattino o le virgolette",
+                "Con la parola «che»",
+                "Con il punto e virgola",
+                "Con il punto esclamativo"
+              ]
+            },
+            {
+              "d": "Quali parole di collegamento introducono il discorso indiretto?",
+              "r": [
+                "se, che, di",
+                "ma, però, invece",
+                "e, o, né",
+                "qui, qua, lì"
+              ]
+            },
+            {
+              "d": "Passando al discorso indiretto si eliminano…",
+              "r": [
+                "i segni di punteggiatura del discorso diretto",
+                "tutti i verbi",
+                "i nomi propri",
+                "le parole di collegamento"
+              ]
+            },
+            {
+              "d": "Passando al discorso indiretto cambiano…",
+              "r": [
+                "i tempi e le persone dei verbi e i pronomi",
+                "solo i nomi",
+                "solo gli aggettivi",
+                "niente"
+              ]
+            },
+            {
+              "d": "«Il maestro ha detto: “Portate il libro.”» In indiretto diventa…",
+              "r": [
+                "Il maestro ha detto di portare il libro.",
+                "Il maestro ha detto: portate il libro.",
+                "Il maestro ha detto se portate il libro.",
+                "Il maestro portate il libro."
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Dal diretto all'indiretto",
+          "coppie": [
+            [
+              "Mi chiede: “Vieni?”",
+              "Mi chiede se vengo"
+            ],
+            [
+              "Dice: “Sono stanco.”",
+              "Dice che è stanco"
+            ],
+            [
+              "Mi ha detto: “Siediti!”",
+              "Mi ha detto di sedermi"
+            ],
+            [
+              "Chiede: “Dove sei stato?”",
+              "Chiede dove sono stato"
+            ],
+            [
+              "Dice: “Ho fame.”",
+              "Dice che ha fame"
+            ],
+            [
+              "Mi ordina: “Taci!”",
+              "Mi ordina di tacere"
+            ]
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Trasforma il discorso",
+          "frasi": [
+            {
+              "f": "Il mister ha urlato: “Marcate bene!” → Il mister ha urlato ___ marcare bene.",
+              "r": [
+                "di",
+                "che",
+                "se"
+              ]
+            },
+            {
+              "f": "Mi ha chiesto: “Mi porti la borsa?” → Mi ha chiesto ___ le portavo la borsa.",
+              "r": [
+                "se",
+                "di",
+                "che"
+              ]
+            },
+            {
+              "f": "Luca dice: “Ho finito i compiti.” → Luca dice ___ ha finito i compiti.",
+              "r": [
+                "che",
+                "di",
+                "se"
+              ]
+            },
+            {
+              "f": "Il compagno ha bisbigliato: “Passa il bigliettino.” → Mi ha bisbigliato di ___ il bigliettino.",
+              "r": [
+                "passare",
+                "passa",
+                "passò"
+              ]
+            },
+            {
+              "f": "La mamma ha detto: “Rimetti in ordine i tuoi giochi.” → La mamma ha detto di rimettere in ordine i ___ giochi.",
+              "r": [
+                "miei",
+                "tuoi",
+                "suoi"
+              ]
+            },
+            {
+              "f": "Il re proclamò che ci sarebbe stato un ballo. → Il re proclamò: “Ci ___ un gran ballo!”",
+              "r": [
+                "sarà",
+                "sarebbe stato",
+                "era"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Ripasso: ce l'ho, ve lo, m'hai…",
+          "frasi": [
+            {
+              "f": "Sei tu che ___ detto che quel ristorante è buono?",
+              "r": [
+                "m'hai",
+                "mai",
+                "me l'hai"
+              ]
+            },
+            {
+              "f": "Chi ha vinto le Olimpiadi della matematica? Domani ___ diranno.",
+              "r": [
+                "ce lo",
+                "ce l'ho",
+                "celo"
+              ]
+            },
+            {
+              "f": "___ detto mille volte di mettere le scarpe al loro posto!",
+              "r": [
+                "Ve l'ho",
+                "Ve lo",
+                "Vel'ho"
+              ]
+            },
+            {
+              "f": "Ho comprato un gelato buonissimo, ___ porto per merenda.",
+              "r": [
+                "ve lo",
+                "ve l'ho",
+                "vel'o"
+              ]
+            },
+            {
+              "f": "Non ho ___ capito perché non vuoi assaggiare le zucchine.",
+              "r": [
+                "mai",
+                "m'hai",
+                "ma"
+              ]
+            },
+            {
+              "f": "Sì, ___ fatta a finire i compiti in tempo!",
+              "r": [
+                "ce l'ho",
+                "ce lo",
+                "c'è l'ho"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "Nel discorso diretto le parole sono racchiuse tra virgolette o introdotte da due punti e trattino.",
+              "v": true
+            },
+            {
+              "f": "«Giulia mi ha chiesto se le potevo portare la borsa» è un discorso diretto.",
+              "v": false
+            },
+            {
+              "f": "«Ha detto che le avrebbe portate lui» è un discorso indiretto.",
+              "v": true
+            },
+            {
+              "f": "Nel discorso indiretto si usano le virgolette.",
+              "v": false
+            },
+            {
+              "f": "Nel passaggio al discorso indiretto può cambiare il pronome: «tuoi» diventa «miei».",
+              "v": true
+            },
+            {
+              "f": "«Il preside ha chiesto di non essere disturbato» è un discorso diretto.",
+              "v": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ita-wangari",
+      "materia": "italiano",
+      "titolo": "Wangari, la madre degli alberi",
+      "fonte": "Letture 5, pag. 22 (racconto biografico)",
+      "parole": [
+        "wangari"
+      ],
+      "pagine": [
+        22
+      ],
+      "libro": "letture",
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Ho capito il racconto?",
+          "domande": [
+            {
+              "d": "Chi era Wangari Maathai?",
+              "r": [
+                "Una biologa africana",
+                "Una maestra italiana",
+                "Una contadina greca",
+                "Una scrittrice di favole"
+              ]
+            },
+            {
+              "d": "Quale premio vinse nel 2004?",
+              "r": [
+                "Il premio Nobel per la pace",
+                "Una medaglia olimpica",
+                "Il premio per il miglior libro",
+                "Il premio della scienza"
+              ]
+            },
+            {
+              "d": "In quale Paese si trovano le zone rurali dove era nata?",
+              "r": [
+                "Kenya",
+                "Egitto",
+                "Brasile",
+                "India"
+              ]
+            },
+            {
+              "d": "Che cosa doveva studiare all'inizio?",
+              "r": [
+                "Una zecca che faceva ammalare le mucche",
+                "Le rane del ruscello",
+                "Le piante di tè",
+                "Il clima del deserto"
+              ]
+            },
+            {
+              "d": "Perché i campi non erano più fertili?",
+              "r": [
+                "Per l'erosione del suolo dovuta al taglio degli alberi",
+                "Perché pioveva troppo",
+                "Per colpa delle rane",
+                "Perché le mucche mangiavano troppo"
+              ]
+            },
+            {
+              "d": "Che cosa coltivava ormai la gente al posto delle colture tradizionali?",
+              "r": [
+                "Tè e caffè",
+                "Grano e riso",
+                "Mele e pere",
+                "Fiori"
+              ]
+            },
+            {
+              "d": "Quale fu la sua grande impresa?",
+              "r": [
+                "Ricominciare a piantare alberi",
+                "Costruire una diga",
+                "Allevare mucche",
+                "Aprire una scuola"
+              ]
+            },
+            {
+              "d": "Quale frase mostra che da piccola amava la natura?",
+              "r": [
+                "Si incantava a osservare le rane nel ruscello",
+                "Studiava le zecche",
+                "Beveva il tè",
+                "Viaggiava in città"
+              ]
+            },
+            {
+              "d": "Che tipo di testo è?",
+              "r": [
+                "Un racconto biografico",
+                "Una poesia",
+                "Una fiaba",
+                "Una ricetta"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "Wangari fu la prima donna africana a ricevere il premio Nobel per la pace.",
+              "v": true
+            },
+            {
+              "f": "Quando tornò in campagna, le mucche erano grasse e sane.",
+              "v": false
+            },
+            {
+              "f": "Il ruscello delle rane si era prosciugato.",
+              "v": true
+            },
+            {
+              "f": "Tè e caffè servivano a sfamare la popolazione.",
+              "v": false
+            },
+            {
+              "f": "Secondo Wangari il vero problema della sua terra era ambientale.",
+              "v": true
+            },
+            {
+              "f": "Le frane erano diventate più frequenti.",
+              "v": true
+            },
+            {
+              "f": "All'inizio il suo progetto era già chiaro e preciso.",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Prima e dopo",
+          "gruppi": {
+            "Quando Wangari era piccola": [
+              "campi fertili",
+              "ruscello con acque trasparenti",
+              "tante rane",
+              "colture tradizionali"
+            ],
+            "Quando Wangari torna da adulta": [
+              "mucche magre",
+              "gente debole e smagrita",
+              "frane frequenti",
+              "alberi abbattuti"
+            ]
+          }
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "A che cosa servono gli alberi?",
+          "coppie": [
+            [
+              "le radici",
+              "rendono saldo il terreno"
+            ],
+            [
+              "le foreste",
+              "garantiscono fonti di acqua"
+            ],
+            [
+              "i rami secchi",
+              "legna da ardere"
+            ],
+            [
+              "le chiome",
+              "ombra a uomini e animali"
+            ],
+            [
+              "gli alberi da frutta",
+              "fonti di cibo"
+            ],
+            [
+              "i nidi",
+              "richiamano gli uccelli"
+            ]
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Metti in ordine la storia",
+          "istruzione": "Ordina i fatti del racconto",
+          "elementi": [
+            "Wangari deve studiare una zecca che fa ammalare le mucche",
+            "Torna nelle zone rurali del Kenya dove era nata",
+            "Vede campi poco fertili, mucche magre e gente debole",
+            "Capisce che il vero problema è l'ambiente",
+            "Decide di ricominciare a piantare alberi",
+            "Il progetto diventa la sua grande impresa"
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole del racconto",
+          "parole": [
+            {
+              "p": "ALBERI",
+              "indizio": "Wangari voleva ricominciare a piantarli"
+            },
+            {
+              "p": "KENYA",
+              "indizio": "Il Paese africano dove era nata"
+            },
+            {
+              "p": "EROSIONE",
+              "indizio": "Il suolo che si consuma senza alberi"
+            },
+            {
+              "p": "ZECCA",
+              "indizio": "Il piccolo animale che faceva ammalare le mucche"
+            },
+            {
+              "p": "BIOLOGA",
+              "indizio": "Il mestiere di Wangari"
             }
           ]
         }

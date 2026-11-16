@@ -10,6 +10,8 @@
 //                          SOLO sulla repo privata delle foto
 //   GH_REPO             -> repo privata delle foto, es. malefixz-M/GinnyLearn-inbox
 //                          (anche i progressi salvati: progressi/<nome>.json)
+// Allegati dei compiti (v4): salvati in allegati/<idcompito>/<nome> della repo privata (GH_REPO) al controllo delle 16/23
+//   e con /controlla; GET /allegato?c=<idcompito>&f=<nome>&codice=<FOTO_CODICE> li restituisce (se mancano li scarica al volo).
 // GET /eventi -> registro delle novità (compiti nuovi alle 16/23, foto arrivate) per l'attività
 //   programmata di Claude che avvisa papà nell'app Claude. ?visto=N segna come letti fino a N; ?tutti = ultimi 40.
 //   CLAUDE_FIRE_URL, CLAUDE_FIRE_TOKEN -> (facoltativi) indirizzo /fire e token dell'attività di Claude
@@ -55,6 +57,7 @@ export default {
       return json({ ok: true, iscritti: lista.length });
     }
     if (url.pathname === '/pagina') return leggiPagina(url, env, cors);
+    if (url.pathname === '/allegato') return leggiAllegato(url, env, cors);
     if (url.pathname === '/foto' && req.method === 'POST') return json(...await salvaFoto(req, env));
     if (url.pathname === '/progressi') return json(...await progressi(req, url, env));
     if (url.pathname === '/prova-push' && env.KV) {
@@ -69,7 +72,7 @@ export default {
       if (hit) return new Response(hit.body, { headers: cors });
     }
     try {
-      const html = await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS);
+      const { html } = await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS);
       const compiti = leggiCompiti(html);
       if (url.searchParams.has('diagnosi')) {
         // solo numeri e intestazioni, niente nomi
@@ -100,7 +103,10 @@ export default {
 /* ---- controllo programmato e notifiche ---- */
 async function controlla(env) {
   if (!env.KV) return;
-  const compiti = leggiCompiti(await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS));
+  const sess = await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS);
+  const compiti = leggiCompiti(sess.html);
+  // allegati nella repo privata: così l'attività di Claude li trova già pronti (un errore qui non ferma il controllo)
+  try { await salvaAllegati(env, sess, compiti); } catch (e) { /* riprova al prossimo giro */ }
   // 'visto-cron' lo scrive solo il cron: 'ultimo' lo aggiorna anche l'app, e i compiti già visti dall'app sparirebbero dal confronto
   const prima = JSON.parse((await env.KV.get('visto-cron')) || (await env.KV.get('ultimo')) || '{"compiti":null}').compiti;
   const corpo = JSON.stringify({ aggiornato: new Date().toISOString(), compiti });
@@ -108,7 +114,8 @@ async function controlla(env) {
   if (!prima) return; // primo giro: niente notifica
   const vecchi = new Map(prima.map(c => [c.id, c]));
   const nuovi = compiti.filter(c => !vecchi.has(c.id));
-  const cambiati = compiti.filter(c => vecchi.has(c.id) && (vecchi.get(c.id).testo !== c.testo || vecchi.get(c.id).data !== c.data));
+  const nomiAll = c => (c.allegati || []).map(a => a.nome).join('|');
+  const cambiati = compiti.filter(c => { const v = vecchi.get(c.id); return v && (v.testo !== c.testo || v.data !== c.data || (v.allegati && nomiAll(v) !== nomiAll(c))); });
   if (!nuovi.length && !cambiati.length) return;
   const parti = [];
   if (nuovi.length) parti.push(nuovi.length === 1 ? '1 compito nuovo' : `${nuovi.length} compiti nuovi`);
@@ -254,9 +261,9 @@ async function scaricaCompiti(scuola, user, pass) {
     const cerca = await vai(jar, BASE + 'Compiti/List.aspx', {
       method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(campi).toString()
     });
-    if (leggiCompiti(cerca.html).length >= leggiCompiti(pag.html).length) return cerca.html;
+    if (leggiCompiti(cerca.html).length >= leggiCompiti(pag.html).length) return { html: cerca.html, jar, pagina: cerca.url };
   } catch (e) { /* se la ricerca fallisce usa la lista predefinita */ }
-  return pag.html;
+  return { html: pag.html, jar, pagina: pag.url };
 }
 
 /* ---- lettura tabella ---- */
@@ -274,7 +281,9 @@ function tabella(html) {
   // toglie le tabelle annidate (dalla più interna), così le loro righe non si mescolano con quelle dei compiti
   const apertura = tab.match(/^<table\b[^>]*>/i)?.[0] || '';
   let corpo = tab.slice(apertura.length), prima;
-  do { prima = corpo; corpo = corpo.replace(/<table\b[^>]*>(?:(?!<table\b)[\s\S])*?<\/table>/gi, ' '); } while (corpo !== prima);
+  // dei link dentro le tabelle annidate (gli allegati) restano solo i tag <a>
+  const soloLink = t => ' ' + (t.match(/<a\b[^>]*\bhref="[^"]*"[^>]*>[\s\S]*?<\/a>/gi) || []).join(' ') + ' ';
+  do { prima = corpo; corpo = corpo.replace(/<table\b[^>]*>(?:(?!<table\b)[\s\S])*?<\/table>/gi, soloLink); } while (corpo !== prima);
   tab = apertura + corpo;
   const intestazioni = [...tab.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map(m => testo(m[1]).replace(/:$/, ''));
   const righe = [];
@@ -289,7 +298,7 @@ function tabella(html) {
   }
   return { intestazioni, righe };
 }
-export function leggiCompiti(html) {
+export function leggiCompiti(html, conUrl = false) {
   const t = tabella(html); if (!t) return [];
   const out = [];
   for (const { celle, grezzo } of t.righe) {
@@ -299,13 +308,28 @@ export function leggiCompiti(html) {
     const [g, m, a] = consegna.split('/');
     const idSol = (grezzo.match(/HiddenFieldIdTabellaCollegata[^>]*value="(\d+)"/) || [])[1];
     const materiaGrezza = cella('Materia').replace(/\s*\(.*\)\s*$/, '');
+    const id = 'sol-' + (idSol || `${a}${m}${g}-${hash(compito)}`);
     out.push({
-      id: 'sol-' + (idSol || `${a}${m}${g}-${hash(compito)}`),
+      id,
       data: `${a}-${m.padStart(2, '0')}-${g.padStart(2, '0')}`,
       materia: materiaGrezza.toLowerCase().trim(),
       testo: maiuscolaIniziale(compito),
-      verifica: /verific/i.test(compito)
+      verifica: /verific/i.test(compito),
+      allegati: allegatiDi(celle['Allegati'] || grezzo, id, conUrl)
     });
+  }
+  return out;
+}
+// Link degli allegati di una riga. 'file' = percorso nella repo privata. Con conUrl anche l'indirizzo su Scuola Online.
+const nomeFile = s => decodifica(s).replace(/[^\w.-]+/g, '_').replace(/^[._]+/, '').slice(-80) || 'allegato';
+function allegatiDi(h, id, conUrl = false) {
+  const out = [];
+  for (const m of (h || '').matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
+    const href = decodifica(m[1]);
+    if (/^(javascript:|#|mailto:)/i.test(href)) continue;
+    const nome = nomeFile(testo(m[2]) || href.split(/[?#]/)[0].split('/').pop());
+    if (out.some(x => x.nome === nome)) continue;
+    out.push({ nome, file: `allegati/${id}/${nome}`, ...(conUrl ? { href } : {}) });
   }
   return out;
 }
@@ -357,6 +381,71 @@ async function leggiPagina(url, env, cors) {
   });
   if (!r.ok) return new Response('manca', { status: 404, headers: cors });
   return new Response(r.body, { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, max-age=86400', 'Access-Control-Allow-Origin': cors['Access-Control-Allow-Origin'] } });
+}
+
+// Allegati dei compiti -> allegati/<idcompito>/<nome> nella repo privata. KV 'allegati-salvati' = percorsi già salvati.
+const TIPI = { pdf: 'application/pdf', jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', gif: 'image/gif', webp: 'image/webp',
+  doc: 'application/msword', docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', txt: 'text/plain; charset=utf-8' };
+const tipoDi = nome => TIPI[(nome.split('.').pop() || '').toLowerCase()] || 'application/octet-stream';
+const aB64 = by => { let bin = ''; for (let i = 0; i < by.length; i += 0x8000) bin += String.fromCharCode(...by.subarray(i, i + 0x8000)); return btoa(bin); };
+const MAX_ALLEGATO = 20 * 1024 * 1024;
+// scarica un allegato con i cookie della sessione (segue i redirect a mano); errore se arriva una pagina HTML (= login scaduto)
+async function scaricaAllegato(sess, href) {
+  let url = new URL(href, sess.pagina).href;
+  for (let n = 0; n < 6; n++) {
+    const res = await fetch(url, { redirect: 'manual', headers: { Cookie: sess.jar.header(), 'User-Agent': 'Mozilla/5.0 (Linux; Android 14) QuadernoGiochi/1.0' } });
+    sess.jar.prendi(res);
+    if (res.status >= 300 && res.status < 400 && res.headers.get('location')) { url = new URL(res.headers.get('location'), url).href; continue; }
+    if (!res.ok) throw new Error('allegato ' + res.status);
+    if (/text\/html/i.test(res.headers.get('content-type') || '')) throw new Error('allegato non disponibile');
+    const by = new Uint8Array(await res.arrayBuffer());
+    if (by.length > MAX_ALLEGATO) throw new Error('allegato troppo grande');
+    return by;
+  }
+  throw new Error('troppi redirect');
+}
+async function salvaInRepo(env, percorso, by, messaggio) {
+  const api = `https://api.github.com/repos/${env.GH_REPO}/contents/${percorso.split('/').map(encodeURIComponent).join('/')}`;
+  const h = { Authorization: `Bearer ${env.GH_TOKEN}`, 'User-Agent': 'ginny-ponte', Accept: 'application/vnd.github+json' };
+  const c = await fetch(api, { headers: h });
+  if (c.ok) return true; // c'è già
+  const w = await fetch(api, { method: 'PUT', headers: h, body: JSON.stringify({ message: messaggio, content: aB64(by) }) });
+  if (!w.ok) throw new Error('GitHub ' + w.status);
+  return true;
+}
+async function salvaAllegati(env, sess, compiti) {
+  if (!env.GH_TOKEN || !env.GH_REPO || !env.KV) return;
+  const fatti = new Set((await env.KV.get('allegati-salvati', 'json')) || []);
+  const conUrl = new Map(leggiCompiti(sess.html, true).map(c => [c.id, c.allegati]));
+  let cambiato = false;
+  for (const c of compiti) for (const a of conUrl.get(c.id) || []) {
+    if (fatti.has(a.file)) continue;
+    try { await salvaInRepo(env, a.file, await scaricaAllegato(sess, a.href), `Allegato ${c.materia} ${c.id}`); fatti.add(a.file); cambiato = true; }
+    catch (e) { /* lo riprova al prossimo controllo */ }
+  }
+  if (cambiato) await env.KV.put('allegati-salvati', JSON.stringify([...fatti].slice(-300)));
+}
+// GET /allegato?c=<idcompito>&f=<nome>&codice=  -> il file (dalla repo privata; se manca lo scarica da Scuola Online e lo salva)
+async function leggiAllegato(url, env, cors) {
+  const c = (url.searchParams.get('c') || '').replace(/[^\w-]/g, ''), f = nomeFile(url.searchParams.get('f') || '');
+  const testoErr = (t, st) => new Response(t, { status: st, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Access-Control-Allow-Origin': cors['Access-Control-Allow-Origin'] } });
+  if (!env.FOTO_CODICE || url.searchParams.get('codice') !== env.FOTO_CODICE || !c) return testoErr('Codice sbagliato', 403);
+  const percorso = `allegati/${c}/${f}`;
+  const risposta = body => new Response(body, { headers: { 'Content-Type': tipoDi(f), 'Content-Disposition': `inline; filename="${f}"`,
+    'Cache-Control': 'private, max-age=86400', 'Access-Control-Allow-Origin': cors['Access-Control-Allow-Origin'] } });
+  if (env.GH_TOKEN && env.GH_REPO) {
+    const r = await fetch(`https://api.github.com/repos/${env.GH_REPO}/contents/${percorso.split('/').map(encodeURIComponent).join('/')}`, {
+      headers: { Authorization: `Bearer ${env.GH_TOKEN}`, 'User-Agent': 'ginny-ponte', Accept: 'application/vnd.github.raw' } });
+    if (r.ok) return risposta(r.body);
+  }
+  try {
+    const sess = await scaricaCompiti(env.SOL_SCUOLA, env.SOL_USER, env.SOL_PASS);
+    const a = (leggiCompiti(sess.html, true).find(x => x.id === c)?.allegati || []).find(x => x.nome === f);
+    if (!a) return testoErr('Allegato non trovato (forse il compito non è più nel registro)', 404);
+    const by = await scaricaAllegato(sess, a.href);
+    if (env.GH_TOKEN && env.GH_REPO) await salvaInRepo(env, percorso, by, `Allegato ${c}`).catch(() => {});
+    return risposta(by);
+  } catch (e) { return testoErr('Scuola Online: ' + (e.message || e), 502); }
 }
 
 // Progressi salvati online: progressi/<nome>.json nella repo privata. Serve il codice delle foto (FOTO_CODICE).

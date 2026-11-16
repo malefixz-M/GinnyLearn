@@ -500,7 +500,15 @@ async function recuperaOnline() {
 window.addEventListener('hashchange', render);
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-go]'); if (b) { location.hash = b.dataset.go; }
+  const a = e.target.closest('[data-allegato]'); if (a) apriAllegato(a.dataset.compito, a.dataset.allegato);
 });
+// Allegati dei compiti (schede, PDF): il ponte li prende dalla repo privata con il codice.
+// Nell'APK l'indirizzo esterno si apre fuori (Chrome o il lettore PDF); in Chrome in una scheda nuova.
+function apriAllegato(id, nome) {
+  const codice = chiediCodice(); if (!codice) return;
+  const u = urlPonte('/allegato') + `?c=${encodeURIComponent(id)}&f=${encodeURIComponent(nome)}&codice=${encodeURIComponent(codice)}`;
+  if (APP) location.href = u; else window.open(u, '_blank');
+}
 
 function render() {
   const app = $('#app'), h = location.hash || '#/casa', [, pag, a, b] = h.split('/');
@@ -604,14 +612,22 @@ function compitoHTML(c) {
     <div class="meta muted">${m.icona} ${esc(m.nome)} · ${nomeGiorno(c.data)}${!fatto && PIANO[c.id]?.g ? `<span class="chip-piano">🗓️ lo fai ${PIANO[c.id].g === oggiISO() ? 'oggi' : nomeGiorno(PIANO[c.id].g).toLowerCase()}</span>` : ''}</div>
     <div class="azioni-compito">${t ? `<button class="btn piccolo" data-go="#/tema/${encodeURIComponent(t.id)}">🎮 Esercitati</button>` : ''}
     ${pagineDi(c.testo).map(n => `<button class="btn piccolo bianco" data-pag="${n}" data-mat="${esc(c.materia)}" data-libro="${libroDi(c.materia, c.testo)}">📄 pag. ${n}</button>`).join('')}
+    ${DATI?.ponte ? (c.allegati || []).map(a => `<button class="btn piccolo bianco" data-allegato="${esc(a.nome)}" data-compito="${esc(c.id)}">📎 ${esc(a.nome.replace(/\.[a-z0-9]+$/i, '').replace(/_/g, ' '))}</button>`).join('') : ''}
     ${DATI?.ponte && /\bquaderno\b|\bq\.(?=\s|$|,)/i.test(c.testo || '') ? `${PROG.fotoInviate?.[c.id] ? `<span class="chip-foto">✅ Foto inviata ${quando(PROG.fotoInviate[c.id])}</span>` : ''}<label class="btn piccolo bianco">📷 ${PROG.fotoInviate?.[c.id] ? 'Rimanda foto' : 'Invia foto del quaderno'}<input type="file" accept="image/*" capture="environment" data-foto="${esc(c.materia + '_' + c.id)}" data-id="${esc(c.id)}" hidden></label>` : ''}</div></div></div>`;
 }
 // "pag. 40", "pagg. 40-42", "pagina 12 e 13", "p. 7" -> [40, 41, 42]
 function pagineDi(t) {
   const out = [];
-  for (const m of (t || '').matchAll(/\b(?:pagg?\.?|pagin[ae]|p\.)\s*(\d{1,3})(?:\s*(?:-|–|al|e|,)\s*(\d{1,3}))?/gi)) {
-    const a = +m[1], b = m[2] && +m[2] > a && +m[2] - a < 8 ? +m[2] : a;
-    for (let n = a; n <= b; n++) if (!out.includes(n)) out.push(n);
+  // anche le catene "pag. 30-31-32" / "pagg. 40, 41 e 43"; un numero più piccolo (es. "pag. 15 e 6" = esercizio 6) chiude la catena
+  for (const m of (t || '').matchAll(/\b(?:pagg?\.?|pagin[ae]|p\.)\s*(\d{1,3}(?:\s*(?:-|–|al|e|,)\s*\d{1,3})*)/gi)) {
+    let prec = null;
+    const pezzi = m[1].split(/\s*(-|–|al|e|,)\s*/); // [n, sep, n, sep, n…]: "-" e "al" = intervallo, "e" e "," = elenco
+    for (let i = 0; i < pezzi.length; i += 2) {
+      const x = +pezzi[i], intervallo = /^(-|–|al)$/.test(pezzi[i - 1] || '');
+      if (prec !== null && !(x > prec && x - prec < 8)) break;
+      for (let n = prec !== null && intervallo ? prec + 1 : x; n <= x; n++) if (!out.includes(n)) out.push(n);
+      prec = x;
+    }
   }
   return out;
 }

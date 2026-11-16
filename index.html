@@ -1256,7 +1256,13 @@ function scelte(p, domande, sec) {
 render();
 aggiornaDati();
 document.addEventListener('visibilitychange', () => { if (!document.hidden) aggiornaDati(); else if (cloudT) salvaOnline(false); });
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator) {
+  // versione nuova dell'app: quando il nuovo service worker prende il controllo, ricarica una volta
+  // (non al primo avvio, quando prima non c'era nessun service worker)
+  const cera = !!navigator.serviceWorker.controller; let ricaricata = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (cera && !ricaricata) { ricaricata = true; location.reload(); } });
+  navigator.serviceWorker.register('sw.js').then(r => { r.update().catch(() => {}); document.addEventListener('visibilitychange', () => { if (!document.hidden) r.update().catch(() => {}); }); }).catch(() => {});
+}
 </script>
 </body>
 </html>

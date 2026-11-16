@@ -12,7 +12,10 @@
 //                          (anche i progressi salvati: progressi/<nome>.json)
 // GET /eventi -> registro delle novità (compiti nuovi alle 16/23, foto arrivate) per l'attività
 //   programmata di Claude che avvisa papà nell'app Claude. ?visto=N segna come letti fino a N; ?tutti = ultimi 40.
-// Cron Triggers: "0 14,15,21,22 * * *" (UTC). Il codice lavora solo quando a Roma sono le 16 o le 23,
+//   CLAUDE_FIRE_URL, CLAUDE_FIRE_TOKEN -> (facoltativi) indirizzo /fire e token dell'attività di Claude
+//                          "GinnyLearn – novità compiti e foto" (API trigger su claude.ai/code/routines): se ci sono,
+//                          il Worker la fa partire solo quando c'è una novità.
+// Cron Triggers: "0 14,15,21,22 * * *" (UTC) per i compiti + "*/10 * * * *" per avvisare Claude. Il codice lavora solo quando a Roma sono le 16 o le 23,
 // così l'orario resta giusto sia con l'ora solare sia con quella legale.
 const DURATA_CACHE = 15 * 60; // secondi
 const ORE_CONTROLLO = [16, 23];
@@ -77,6 +80,7 @@ export default {
   },
 
   async scheduled(evento, env, ctx) {
+    if (evento.cron === '*/10 * * * *') return ctx.waitUntil(avvisaClaude(env));
     const ora = +new Date(evento.scheduledTime).toLocaleString('en-GB', { timeZone: 'Europe/Rome', hour: '2-digit', hour12: false });
     if (!ORE_CONTROLLO.includes(ora)) return;
     ctx.waitUntil(controlla(env));
@@ -113,6 +117,23 @@ async function aggiungiEvento(env, ev) {
   const r = (await env.KV.get('eventi', 'json')) || { ultimo: 0, lista: [] };
   r.ultimo++; r.lista.push({ n: r.ultimo, quando: new Date().toISOString(), ...ev }); r.lista = r.lista.slice(-40);
   await env.KV.put('eventi', JSON.stringify(r));
+}
+// Ogni 10 minuti: se ci sono eventi non letti fa partire l'attività di Claude (una sola sessione per gruppo di novità).
+// Aspetta 3 minuti dall'ultimo evento (più foto di fila = un solo avviso) e non riparte prima di 30 minuti.
+async function avvisaClaude(env) {
+  if (!env.KV || !env.CLAUDE_FIRE_URL || !env.CLAUDE_FIRE_TOKEN) return;
+  const r = (await env.KV.get('eventi', 'json')) || { ultimo: 0, lista: [] };
+  const visto = +((await env.KV.get('eventi-visto')) || 0), avvisato = +((await env.KV.get('eventi-avvisato')) || 0);
+  const nuovi = r.lista.filter(e => e.n > Math.max(visto, avvisato));
+  if (!nuovi.length) return;
+  const adesso = Date.now(), ultimoEv = Date.parse(nuovi[nuovi.length - 1].quando), ultimoFire = +((await env.KV.get('fire-quando')) || 0);
+  if (adesso - ultimoEv < 3 * 60e3 || adesso - ultimoFire < 30 * 60e3) return;
+  const testo = nuovi.map(e => e.tipo === 'foto' ? `📷 foto ${e.materia} ${e.compito}` : `📒 ${e.titolo}`).join('; ');
+  const res = await fetch(env.CLAUDE_FIRE_URL, { method: 'POST', headers: { Authorization: `Bearer ${env.CLAUDE_FIRE_TOKEN}`,
+    'anthropic-beta': 'experimental-cc-routine-2026-04-01', 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: 'Novità dal ponte GinnyLearn: ' + testo }) });
+  await env.KV.put('fire-quando', String(adesso));
+  if (res.ok) await env.KV.put('eventi-avvisato', String(r.ultimo));
 }
 async function eventi(url, env) {
   if (!env.KV) return { errore: 'KV mancante' };

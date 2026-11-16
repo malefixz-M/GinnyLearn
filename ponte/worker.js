@@ -264,8 +264,18 @@ async function scaricaCompiti(scuola, user, pass) {
 // le colonne si riconoscono dalle intestazioni <th>.
 function tabella(html) {
   const i = html.indexOf('GridViewCompiti'); if (i < 0) return null;
-  const inizio = html.lastIndexOf('<table', i), fine = html.indexOf('</table>', i);
-  const tab = html.slice(inizio < 0 ? i : inizio, fine < 0 ? undefined : fine);
+  const inizio = html.lastIndexOf('<table', i);
+  // fine della tabella contando quelle annidate (es. gli allegati dentro una cella hanno una loro <table>):
+  // prima si fermava al primo </table> e perdeva tutte le righe dopo un compito con allegato
+  let fine = -1, prof = 0;
+  const re = /<(\/?)table\b[^>]*>/gi; re.lastIndex = inizio < 0 ? i : inizio;
+  for (let m; (m = re.exec(html));) { if (m[1]) { if (--prof === 0) { fine = m.index; break; } } else prof++; }
+  let tab = html.slice(inizio < 0 ? i : inizio, fine < 0 ? undefined : fine);
+  // toglie le tabelle annidate (dalla più interna), così le loro righe non si mescolano con quelle dei compiti
+  const apertura = tab.match(/^<table\b[^>]*>/i)?.[0] || '';
+  let corpo = tab.slice(apertura.length), prima;
+  do { prima = corpo; corpo = corpo.replace(/<table\b[^>]*>(?:(?!<table\b)[\s\S])*?<\/table>/gi, ' '); } while (corpo !== prima);
+  tab = apertura + corpo;
   const intestazioni = [...tab.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map(m => testo(m[1]).replace(/:$/, ''));
   const righe = [];
   for (const r of tab.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)) {

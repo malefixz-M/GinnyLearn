@@ -1,6 +1,6 @@
 {
-  "versione": 8,
-  "aggiornato": "2026-11-16",
+  "versione": 9,
+  "aggiornato": "2026-11-17",
   "materie": {
     "matematica": {
       "nome": "Matematica",
@@ -5985,6 +5985,465 @@
             {
               "p": "BIOLOGA",
               "indizio": "Il mestiere di Wangari"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-percentuali",
+      "materia": "matematica",
+      "titolo": "Le percentuali",
+      "fonte": "Matematica 5, pag. 52-53 (esercizi pag. 206-207)",
+      "parole": [
+        "percentual"
+      ],
+      "pagine": [
+        52,
+        53,
+        206,
+        207
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Percentuali e frazioni",
+          "domande": [
+            {
+              "d": "Il simbolo % si legge...",
+              "r": [
+                "per cento",
+                "per mille",
+                "per dieci",
+                "per uno"
+              ]
+            },
+            {
+              "d": "Il 50% corrisponde alla frazione...",
+              "r": [
+                "1/2",
+                "1/4",
+                "1/10",
+                "3/4"
+              ]
+            },
+            {
+              "d": "Il 25% corrisponde alla frazione...",
+              "r": [
+                "1/4",
+                "1/2",
+                "2/5",
+                "1/5"
+              ]
+            },
+            {
+              "d": "Il 75% corrisponde alla frazione...",
+              "r": [
+                "3/4",
+                "1/4",
+                "1/2",
+                "7/5"
+              ]
+            },
+            {
+              "d": "Il 10% corrisponde alla frazione...",
+              "r": [
+                "1/10",
+                "1/100",
+                "1/5",
+                "10/1"
+              ]
+            },
+            {
+              "d": "Il 20% corrisponde alla frazione...",
+              "r": [
+                "1/5",
+                "1/2",
+                "1/4",
+                "2/5"
+              ]
+            },
+            {
+              "d": "Il 100% rappresenta...",
+              "r": [
+                "la totalità, tutto",
+                "la metà",
+                "un quarto",
+                "niente"
+              ]
+            },
+            {
+              "d": "Il 50% degli alunni della Scuola A (600 alunni) sono...",
+              "r": [
+                "300",
+                "50",
+                "150",
+                "600"
+              ]
+            },
+            {
+              "d": "Per calcolare il 35% di 600 cerco prima...",
+              "r": [
+                "l'1% (600 : 100)",
+                "il 100% (600 × 100)",
+                "il 35% (600 : 35)",
+                "il 10% (600 : 10)"
+              ]
+            },
+            {
+              "d": "Il 35% di 600 è...",
+              "r": [
+                "210",
+                "60",
+                "350",
+                "21"
+              ]
+            },
+            {
+              "d": "Il 35% di 80 è...",
+              "r": [
+                "28",
+                "35",
+                "2,8",
+                "280"
+              ]
+            },
+            {
+              "d": "Il 30% di 120 è...",
+              "r": [
+                "36",
+                "12",
+                "3,6",
+                "360"
+              ]
+            },
+            {
+              "d": "Il 10% di 750 è...",
+              "r": [
+                "75",
+                "7,5",
+                "750",
+                "150"
+              ]
+            },
+            {
+              "d": "Il 50% di 2500 è...",
+              "r": [
+                "1250",
+                "250",
+                "500",
+                "5000"
+              ]
+            },
+            {
+              "d": "Conosco il valore di una percentuale (48 = 30%). Per trovare l'intero faccio...",
+              "r": [
+                "(48 : 30) × 100",
+                "(48 : 100) × 30",
+                "48 × 30",
+                "48 : 100"
+              ]
+            },
+            {
+              "d": "Se 48 è il 30% dell'intero, l'intero è...",
+              "r": [
+                "160",
+                "14,4",
+                "1,6",
+                "480"
+              ]
+            },
+            {
+              "d": "Se 3500 è il 50% dell'intero, l'intero è...",
+              "r": [
+                "7000",
+                "1750",
+                "350",
+                "35"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Frazione e percentuale",
+          "coppie": [
+            [
+              "1/2",
+              "50%"
+            ],
+            [
+              "1/4",
+              "25%"
+            ],
+            [
+              "3/4",
+              "75%"
+            ],
+            [
+              "1/10",
+              "10%"
+            ],
+            [
+              "1/5",
+              "20%"
+            ],
+            [
+              "1/1",
+              "100%"
+            ]
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Decimale e percentuale",
+          "coppie": [
+            [
+              "0,5",
+              "50%"
+            ],
+            [
+              "0,25",
+              "25%"
+            ],
+            [
+              "0,75",
+              "75%"
+            ],
+            [
+              "0,1",
+              "10%"
+            ],
+            [
+              "0,2",
+              "20%"
+            ],
+            [
+              "1",
+              "100%"
+            ]
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "Il 50% è la metà dell'intero.",
+              "v": true
+            },
+            {
+              "f": "Il 25% corrisponde a un quarto dell'intero.",
+              "v": true
+            },
+            {
+              "f": "Il 50% di 600 e il 50% di 80 sono lo stesso numero.",
+              "v": false
+            },
+            {
+              "f": "Il 50% di un intero dipende dal valore dell'intero.",
+              "v": true
+            },
+            {
+              "f": "Il 10% di 750 è 75.",
+              "v": true
+            },
+            {
+              "f": "Il 40% di 840 è 336.",
+              "v": true
+            },
+            {
+              "f": "Il 3% di 900 è 270.",
+              "v": false
+            },
+            {
+              "f": "Il 20% di 500 è 100.",
+              "v": true
+            },
+            {
+              "f": "Il 15% di 1000 è 150.",
+              "v": true
+            },
+            {
+              "f": "Il 25% corrisponde alla frazione 1/2.",
+              "v": false
+            },
+            {
+              "f": "Per trovare l'1% di un numero si divide per 100.",
+              "v": true
+            },
+            {
+              "f": "Il 100% di un numero è il numero stesso.",
+              "v": true
+            },
+            {
+              "f": "Il 6% di 4000 è 24.",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Metà, quarto o tutto?",
+          "gruppi": {
+            "Corrisponde alla metà": [
+              "50%",
+              "50 su 100",
+              "1/2",
+              "0,5"
+            ],
+            "Corrisponde a un quarto": [
+              "25%",
+              "25 su 100",
+              "1/4",
+              "0,25"
+            ],
+            "Corrisponde alla totalità": [
+              "100%",
+              "100 su 100",
+              "1/1",
+              "1"
+            ]
+          }
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Calcolare il 35% di 600",
+          "istruzione": "Metti in ordine i passaggi",
+          "elementi": [
+            "Cerco l'1%: 600 : 100",
+            "1% corrisponde a 6 alunni",
+            "Moltiplico per 35: 6 × 35",
+            "Il 35% corrisponde a 210 alunni"
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Calcola a mente",
+          "frasi": [
+            {
+              "f": "Il 20% di 500 = ___",
+              "r": [
+                "100",
+                "1000",
+                "10",
+                "120"
+              ]
+            },
+            {
+              "f": "Il 10% di 9900 = ___",
+              "r": [
+                "990",
+                "9900",
+                "99",
+                "1000"
+              ]
+            },
+            {
+              "f": "Il 15% di 1000 = ___",
+              "r": [
+                "150",
+                "1500",
+                "15",
+                "165"
+              ]
+            },
+            {
+              "f": "Il 3% di 900 = ___",
+              "r": [
+                "27",
+                "270",
+                "2,7",
+                "30"
+              ]
+            },
+            {
+              "f": "Il 40% di 840 = ___",
+              "r": [
+                "336",
+                "3360",
+                "33,6",
+                "376"
+              ]
+            },
+            {
+              "f": "Il 50% di 2500 = ___",
+              "r": [
+                "1250",
+                "12500",
+                "125",
+                "1300"
+              ]
+            },
+            {
+              "f": "Il 6% di 4000 = ___",
+              "r": [
+                "240",
+                "2400",
+                "2,4"
+              ]
+            },
+            {
+              "f": "Il 42% di 20000 = ___",
+              "r": [
+                "8400",
+                "84000",
+                "840"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Problemi (pag. 206)",
+          "frasi": [
+            {
+              "f": "Palestra: 560 iscritti, gli uomini sono il 45%. Gli uomini sono ___.",
+              "r": [
+                "252",
+                "45",
+                "2520"
+              ]
+            },
+            {
+              "f": "Palestra: 560 iscritti, uomini 45%. Le donne (55%) sono ___.",
+              "r": [
+                "308",
+                "252",
+                "515"
+              ]
+            },
+            {
+              "f": "Sara ha 50 braccialetti, il 6% è rosso. I braccialetti rossi sono ___.",
+              "r": [
+                "3",
+                "6",
+                "30"
+              ]
+            },
+            {
+              "f": "Sara ha 50 braccialetti, il 6% è rosso. Quelli di altri colori sono ___.",
+              "r": [
+                "47",
+                "3",
+                "44"
+              ]
+            },
+            {
+              "f": "Giacomo paga € 3500, il 20% del totale. L'auto costa € ___.",
+              "r": [
+                "17500",
+                "700",
+                "3520"
+              ]
+            },
+            {
+              "f": "43% di 158 = 1,58 × 43 = ___",
+              "r": [
+                "67,94",
+                "679,4",
+                "6,794"
+              ]
             }
           ]
         }

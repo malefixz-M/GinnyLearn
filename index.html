@@ -263,6 +263,11 @@ body.in-casa #app{height:100dvh;display:flex;flex-direction:column;overflow:hidd
 .carta-piano .spunta{width:30px;height:30px;font-size:24px;line-height:22px}
 .da-org .carte{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  details.precedenti > summary { list-style: none; cursor: pointer; }
+  details.precedenti .passati .compito { opacity: .85; filter: none; }
+  details.precedenti > summary::-webkit-details-marker { display: none; }
+  details.precedenti > summary h2::after { content: ' ▸'; }
+  details.precedenti[open] > summary h2::after { content: ' ▾'; }
 </style>
 </head>
 <body>
@@ -282,6 +287,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 const mescola = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const carica = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
 const salva = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+const isoPiu = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
 const oggiISO = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
 const GIORNI = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
 const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
@@ -405,7 +411,7 @@ async function aggiornaCompiti(fresco = false) {
 // pallino sull'icona: compiti da oggi in poi non ancora fatti
 function aggiornaPallino() {
   if (!navigator.setAppBadge || !DATI) return;
-  const n = tuttiCompiti().filter(c => c.data >= oggiISO() && !PROG.compitiFatti[c.id]).length;
+  const n = tuttiCompiti().filter(c => c.data > oggiISO() && !PROG.compitiFatti[c.id]).length;
   (n ? navigator.setAppBadge(n) : navigator.clearAppBadge()).catch(() => {});
 }
 /* ---------- notifiche push ---------- */
@@ -530,7 +536,7 @@ function render() {
 /* ---------- pagine ---------- */
 function paginaCasa(app) {
   const M = materie();
-  const prossimi = tuttiCompiti().filter(c => c.data >= oggiISO()).sort((x, y) => x.data.localeCompare(y.data));
+  const prossimi = tuttiCompiti().filter(c => c.data > oggiISO()).sort((x, y) => x.data.localeCompare(y.data)); // da domani: quelli di oggi si consegnano oggi
   // materie: prima quelle con il tema più recente (ultimo aggiunto in contenuti.json), poi le altre
   const ultimo = k => DATI.temi.reduce((u, t, i) => t.materia === k ? i : u, -1);
   // prima le materie con temi nuovi (non ancora aperti), poi le altre; dentro ogni gruppo il tema più recente
@@ -645,7 +651,9 @@ function paginaCompiti(app) {
   const oggi = oggiISO(), tutti = tuttiCompiti();
   const futuri = tutti.filter(c => c.data >= oggi).sort((x, y) => x.data.localeCompare(y.data));
   const passati = tutti.filter(c => c.data < oggi).sort((x, y) => y.data.localeCompare(x.data));
-  const arretrati = passati.filter(c => !PROG.compitiFatti[c.id] && c.data >= new Date(Date.now() - 14 * 864e5).toISOString().slice(0, 10));
+  const setteGiorniFa = isoPiu(oggi, -7);
+  const recenti = passati.filter(c => c.data >= setteGiorniFa), precedenti = passati.filter(c => c.data < setteGiorniFa);
+  const arretrati = recenti.filter(c => !PROG.compitiFatti[c.id]);
   const perGiorno = {}; futuri.forEach(c => (perGiorno[c.data] ||= []).push(c));
   app.innerHTML = `
     <h1>📒 Diario dei compiti</h1>
@@ -655,7 +663,9 @@ function paginaCompiti(app) {
     ${arretrati.length ? `<div class="giorno" style="color:var(--rosso)">Da recuperare</div>${arretrati.map(compitoHTML).join('')}` : ''}
     ${Object.keys(perGiorno).length ? Object.entries(perGiorno).map(([d, cs]) => `<div class="giorno">${nomeGiorno(d)}</div>${cs.map(compitoHTML).join('')}`).join('')
       : '<div class="vuoto" style="margin-top:20px">Nessun compito segnato. Appena le maestre li scrivono sul registro, li trovi qui.</div>'}
-    ${passati.length ? `<h2>Compiti passati</h2><div class="passati">${passati.map(compitoHTML).join('')}</div>` : ''}
+    ${recenti.length ? `<h2>Ultimi 7 giorni</h2><div class="passati">${recenti.map(compitoHTML).join('')}</div>` : ''}
+    ${precedenti.length ? `<details class="precedenti"><summary><h2>📚 COMPITI PRECEDENTI <small class="muted">(${precedenti.length}) · per ripassare</small></h2></summary>
+      <div class="passati">${precedenti.map(compitoHTML).join('')}</div></details>` : ''}
     </div>`;
   legaCompiti(app);
   const norm = x => (x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -818,7 +828,6 @@ let PIANO = carica('ae_piano', {}), pianoSel = null;
 const salvaPiano = () => { salva('ae_piano', PIANO); cloudPresto(); };
 const TEMPI = [15, 30, 45, 60, 90];
 const GIORNO_PIENO = 90; // minuti
-const isoPiu = (iso, n) => { const d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
 const minDi = c => PIANO[c.id]?.min || (c.verifica ? 60 : 30);
 const GBREVE = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
 const giornoBreve = iso => { const n = nomeGiorno(iso); return /^(Oggi|Domani)$/.test(n) ? n : (d => GBREVE[d.getDay()] + ' ' + d.getDate())(new Date(iso + 'T12:00:00')); };

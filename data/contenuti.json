@@ -1,6 +1,6 @@
 {
-  "versione": 9,
-  "aggiornato": "2026-11-17",
+  "versione": 10,
+  "aggiornato": "2026-11-18",
   "materie": {
     "matematica": {
       "nome": "Matematica",
@@ -6445,6 +6445,747 @@
                 "6,794"
               ]
             }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geo-molise",
+      "materia": "geografia",
+      "titolo": "Il Molise",
+      "fonte": "Geografia 5, pag. 76-77 (eserciziario pag. 130-131)",
+      "parole": [
+        "molis"
+      ],
+      "pagine": [
+        76,
+        77,
+        130,
+        131
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sul Molise",
+          "domande": [
+            {
+              "d": "Qual è il capoluogo del Molise?",
+              "r": [
+                "Campobasso",
+                "Isernia",
+                "Termoli",
+                "Larino"
+              ]
+            },
+            {
+              "d": "Quali sono le due province del Molise?",
+              "r": [
+                "Campobasso e Isernia",
+                "Campobasso e Termoli",
+                "Isernia e Venafro",
+                "Termoli e Larino"
+              ]
+            },
+            {
+              "d": "Fino a quando il Molise ha fatto parte dell'Abruzzo?",
+              "r": [
+                "Fino al 1963",
+                "Fino al 1861",
+                "Fino al 1946",
+                "Fino al 1990"
+              ]
+            },
+            {
+              "d": "Che posto ha il Molise tra le Regioni italiane per età?",
+              "r": [
+                "È la più giovane",
+                "È la più antica",
+                "È la più grande",
+                "È la più popolata"
+              ]
+            },
+            {
+              "d": "Dopo la Valle d'Aosta, il Molise è...",
+              "r": [
+                "la Regione più piccola",
+                "la Regione più grande",
+                "la Regione più ricca",
+                "la Regione più popolata"
+              ]
+            },
+            {
+              "d": "Quali monti si trovano a sud, al confine con la Campania?",
+              "r": [
+                "I Monti del Matese",
+                "I Monti della Meta",
+                "Il Gennargentu",
+                "Le Madonie"
+              ]
+            },
+            {
+              "d": "Quali sono i fiumi principali del Molise?",
+              "r": [
+                "Biferno e Volturno",
+                "Tirso e Coghinas",
+                "Po e Adige",
+                "Crati e Ofanto"
+              ]
+            },
+            {
+              "d": "Quale mare bagna il breve tratto di costa del Molise?",
+              "r": [
+                "Il Mar Adriatico",
+                "Il Mar Tirreno",
+                "Il Mar Ionio",
+                "Il Mar Ligure"
+              ]
+            },
+            {
+              "d": "Che clima c'è nell'interno del Molise?",
+              "r": [
+                "Appenninico, con inverni rigidi",
+                "Mediterraneo caldo",
+                "Alpino",
+                "Desertico"
+              ]
+            },
+            {
+              "d": "Quale territorio occupa la maggior parte del Molise?",
+              "r": [
+                "I rilievi (montagne e colline)",
+                "Le pianure",
+                "I laghi",
+                "Le isole"
+              ]
+            },
+            {
+              "d": "Che cos'è la transumanza?",
+              "r": [
+                "Lo spostamento stagionale delle greggi",
+                "La raccolta del grano",
+                "La lavorazione delle campane",
+                "La pesca in mare"
+              ]
+            },
+            {
+              "d": "Che cosa si coltiva nella valle del Biferno?",
+              "r": [
+                "Barbabietole da zucchero e girasoli",
+                "Agrumi e cotone",
+                "Riso e mais",
+                "Banane"
+              ]
+            },
+            {
+              "d": "Che cosa si produce con l'artigianato di Agnone?",
+              "r": [
+                "Campane in bronzo",
+                "Navi",
+                "Automobili",
+                "Orologi"
+              ]
+            },
+            {
+              "d": "Che cosa è stato penalizzato dalla morfologia del territorio?",
+              "r": [
+                "Lo sviluppo economico",
+                "Il clima",
+                "Il turismo estivo sulla costa",
+                "La lingua"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "Il Molise è la Regione più giovane d'Italia.",
+              "v": true
+            },
+            {
+              "f": "Il Molise ha circa 288 000 abitanti.",
+              "v": true
+            },
+            {
+              "f": "Il Molise ha una lunghissima costa sul Mar Tirreno.",
+              "v": false
+            },
+            {
+              "f": "Il Biferno attraversa la Regione e forma un'ampia vallata.",
+              "v": true
+            },
+            {
+              "f": "Il Volturno prosegue il suo corso in Campania.",
+              "v": true
+            },
+            {
+              "f": "Nel Molise le pianure occupano quasi tutto il territorio.",
+              "v": false
+            },
+            {
+              "f": "Il Molise è l'unica Regione dove si pratica ancora la transumanza.",
+              "v": true
+            },
+            {
+              "f": "Le campane di Agnone sono un prodotto dell'artigianato molisano.",
+              "v": true
+            },
+            {
+              "f": "Il turismo balneare è sviluppato soprattutto a Termoli.",
+              "v": true
+            },
+            {
+              "f": "Nel Molise sono presenti minoranze linguistiche croate e albanesi.",
+              "v": true
+            },
+            {
+              "f": "La capitale del Molise è Isernia.",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa le frasi",
+          "frasi": [
+            {
+              "f": "Il capoluogo del Molise è ___.",
+              "r": [
+                "Campobasso",
+                "Isernia",
+                "Termoli"
+              ]
+            },
+            {
+              "f": "Il Molise confina a sud con la ___.",
+              "r": [
+                "Campania",
+                "Puglia",
+                "Basilicata"
+              ]
+            },
+            {
+              "f": "Il clima della costa molisana è di tipo ___.",
+              "r": [
+                "adriatico",
+                "appenninico",
+                "alpino"
+              ]
+            },
+            {
+              "f": "I Monti del ___ sono un'area naturale protetta abitata da lupi.",
+              "r": [
+                "Matese",
+                "Gennargentu",
+                "Pollino"
+              ]
+            },
+            {
+              "f": "Il ___ è il fiume che attraversa la Regione e forma un'ampia vallata.",
+              "r": [
+                "Biferno",
+                "Volturno",
+                "Tevere"
+              ]
+            },
+            {
+              "f": "L'agricoltura è poco redditizia per la carenza d'___.",
+              "r": [
+                "acqua",
+                "aria",
+                "terra"
+              ]
+            },
+            {
+              "f": "In Molise si coltivano frumento e ___.",
+              "r": [
+                "ulivi",
+                "agrumi",
+                "banane"
+              ]
+            },
+            {
+              "f": "L'___ di ovini e caprini è ancora molto importante.",
+              "r": [
+                "allevamento",
+                "artigianato",
+                "industria"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Abbina",
+          "coppie": [
+            [
+              "Campobasso",
+              "capoluogo"
+            ],
+            [
+              "Isernia",
+              "altra provincia"
+            ],
+            [
+              "Biferno",
+              "fiume della vallata"
+            ],
+            [
+              "Volturno",
+              "fiume che va in Campania"
+            ],
+            [
+              "Matese",
+              "monti al confine con la Campania"
+            ],
+            [
+              "Termoli",
+              "località turistica sulla costa"
+            ],
+            [
+              "Agnone",
+              "campane in bronzo"
+            ],
+            [
+              "Sepino",
+              "area archeologica romana"
+            ]
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Territorio ed economia",
+          "gruppi": {
+            "Territorio": [
+              "Appennini",
+              "Monti del Matese",
+              "Biferno",
+              "Volturno",
+              "Calanchi",
+              "Costa bassa e sabbiosa"
+            ],
+            "Economia": [
+              "Transumanza",
+              "Allevamento",
+              "Artigianato",
+              "Barbabietole da zucchero",
+              "Girasoli",
+              "Campane in bronzo"
+            ]
+          }
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Anagramma",
+          "parole": [
+            {
+              "p": "MOLISE",
+              "indizio": "La Regione più giovane d'Italia"
+            },
+            {
+              "p": "BIFERNO",
+              "indizio": "Fiume che forma un'ampia vallata"
+            },
+            {
+              "p": "TERMOLI",
+              "indizio": "Località turistica sul mare"
+            },
+            {
+              "p": "MATESE",
+              "indizio": "Monti al confine con la Campania"
+            },
+            {
+              "p": "TRANSUMANZA",
+              "indizio": "Spostamento stagionale delle greggi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mat-potenze",
+      "materia": "matematica",
+      "titolo": "Le potenze",
+      "fonte": "Matematica 5, pag. 10-12 (esercizi pag. 166-169)",
+      "parole": [
+        "potenz",
+        "elevament"
+      ],
+      "pagine": [
+        10,
+        11,
+        12,
+        166,
+        167,
+        168,
+        169
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sulle potenze",
+          "domande": [
+            {
+              "d": "L'elevamento a potenza è...",
+              "r": [
+                "una moltiplicazione con fattori tutti uguali",
+                "una somma di numeri uguali",
+                "una divisione ripetuta",
+                "una sottrazione ripetuta"
+              ]
+            },
+            {
+              "d": "In 10³, il numero 10 si chiama...",
+              "r": [
+                "base",
+                "esponente",
+                "potenza",
+                "fattore primo"
+              ]
+            },
+            {
+              "d": "In 10³, il numero 3 si chiama...",
+              "r": [
+                "esponente",
+                "base",
+                "prodotto",
+                "addendo"
+              ]
+            },
+            {
+              "d": "L'esponente indica...",
+              "r": [
+                "quante volte moltiplicare la base per sé stessa",
+                "il numero da moltiplicare",
+                "il risultato",
+                "quante cifre ha il numero"
+              ]
+            },
+            {
+              "d": "10³ si legge...",
+              "r": [
+                "dieci alla terza",
+                "dieci per tre",
+                "tre alla decima",
+                "dieci più tre"
+              ]
+            },
+            {
+              "d": "10³ vale...",
+              "r": [
+                "1000",
+                "30",
+                "100",
+                "10 000"
+              ]
+            },
+            {
+              "d": "10² vale...",
+              "r": [
+                "100",
+                "20",
+                "1000",
+                "12"
+              ]
+            },
+            {
+              "d": "10⁵ vale...",
+              "r": [
+                "100 000",
+                "50",
+                "10 000",
+                "1 000 000"
+              ]
+            },
+            {
+              "d": "10⁰ vale...",
+              "r": [
+                "1",
+                "0",
+                "10",
+                "non si può calcolare"
+              ]
+            },
+            {
+              "d": "10² si può leggere anche...",
+              "r": [
+                "dieci al quadrato",
+                "dieci al cubo",
+                "dieci alla quarta",
+                "dieci al doppio"
+              ]
+            },
+            {
+              "d": "10³ si può leggere anche...",
+              "r": [
+                "dieci al cubo",
+                "dieci al quadrato",
+                "dieci alla sesta",
+                "dieci al triplo"
+              ]
+            },
+            {
+              "d": "2⁵ vale...",
+              "r": [
+                "32",
+                "10",
+                "25",
+                "64"
+              ]
+            },
+            {
+              "d": "2⁵ non vuol dire...",
+              "r": [
+                "2 × 5",
+                "2 × 2 × 2 × 2 × 2",
+                "32",
+                "due alla quinta"
+              ]
+            },
+            {
+              "d": "3² vale...",
+              "r": [
+                "9",
+                "6",
+                "5",
+                "32"
+              ]
+            },
+            {
+              "d": "4³ vale...",
+              "r": [
+                "64",
+                "12",
+                "16",
+                "43"
+              ]
+            },
+            {
+              "d": "Un miliardo (1 000 000 000) si scrive con la potenza...",
+              "r": [
+                "10⁹",
+                "10⁶",
+                "10¹²",
+                "10³"
+              ]
+            },
+            {
+              "d": "Un milione si scrive con la potenza...",
+              "r": [
+                "10⁶",
+                "10³",
+                "10⁹",
+                "10⁵"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Potenza e numero",
+          "coppie": [
+            [
+              "10²",
+              "100"
+            ],
+            [
+              "10³",
+              "1000"
+            ],
+            [
+              "10⁴",
+              "10 000"
+            ],
+            [
+              "10⁵",
+              "100 000"
+            ],
+            [
+              "10⁶",
+              "1 000 000"
+            ],
+            [
+              "10¹",
+              "10"
+            ]
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Come si legge",
+          "coppie": [
+            [
+              "10¹",
+              "dieci alla prima"
+            ],
+            [
+              "10²",
+              "dieci alla seconda"
+            ],
+            [
+              "10³",
+              "dieci alla terza"
+            ],
+            [
+              "10⁴",
+              "dieci alla quarta"
+            ],
+            [
+              "10⁵",
+              "dieci alla quinta"
+            ],
+            [
+              "10⁶",
+              "dieci alla sesta"
+            ]
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "10³ = 10 × 10 × 10.",
+              "v": true
+            },
+            {
+              "f": "10³ = 10 × 3.",
+              "v": false
+            },
+            {
+              "f": "2⁵ vuol dire 2 × 5.",
+              "v": false
+            },
+            {
+              "f": "2⁵ = 32.",
+              "v": true
+            },
+            {
+              "f": "L'esponente dice quante volte si moltiplica la base per sé stessa.",
+              "v": true
+            },
+            {
+              "f": "10⁰ = 0.",
+              "v": false
+            },
+            {
+              "f": "10⁰ = 1.",
+              "v": true
+            },
+            {
+              "f": "Le potenze del 10 servono per scrivere numeri molto grandi.",
+              "v": true
+            },
+            {
+              "f": "Un miliardo è 10⁹.",
+              "v": true
+            },
+            {
+              "f": "3² è uguale a 6.",
+              "v": false
+            },
+            {
+              "f": "Il googol è 10¹⁰⁰.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa",
+          "frasi": [
+            {
+              "f": "In 10², il 10 è la ___.",
+              "r": [
+                "base",
+                "potenza",
+                "somma"
+              ]
+            },
+            {
+              "f": "In 10², il 2 è l'___.",
+              "r": [
+                "esponente",
+                "addendo",
+                "fattore"
+              ]
+            },
+            {
+              "f": "10 × 10 × 10 × 10 = 10 alla ___.",
+              "r": [
+                "quarta",
+                "terza",
+                "quinta"
+              ]
+            },
+            {
+              "f": "10² = ___",
+              "r": [
+                "100",
+                "20",
+                "1000"
+              ]
+            },
+            {
+              "f": "6 497 = 6 × 10³ + 4 × 10² + 9 × 10¹ + 7 × 10⁰. Il 4 × 10² indica 4 ___.",
+              "r": [
+                "centinaia",
+                "decine",
+                "migliaia"
+              ]
+            },
+            {
+              "f": "3 014 = 3 × 10³ + 0 × 10² + 1 × 10¹ + 4 × 10⁰. Il 1 × 10¹ indica 1 ___.",
+              "r": [
+                "decina",
+                "centinaio",
+                "unità"
+              ]
+            },
+            {
+              "f": "2⁵ = 2 × 2 × 2 × 2 × 2 = ___",
+              "r": [
+                "32",
+                "10",
+                "25"
+              ]
+            },
+            {
+              "f": "Dopo il miliardo viene il ___.",
+              "r": [
+                "bilione",
+                "milione",
+                "migliaio"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Dal più piccolo al più grande",
+          "istruzione": "Metti le potenze in ordine, dalla più piccola alla più grande",
+          "elementi": [
+            "10⁰",
+            "10¹",
+            "10²",
+            "10³",
+            "10⁴",
+            "10⁵"
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Periodi dei numeri",
+          "istruzione": "Metti in ordine dal più piccolo al più grande",
+          "elementi": [
+            "Migliaio (10³)",
+            "Milione (10⁶)",
+            "Miliardo (10⁹)",
+            "Bilione (10¹²)",
+            "Biliardo (10¹⁵)",
+            "Trilione (10¹⁸)"
           ]
         }
       ]

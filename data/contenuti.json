@@ -1,6 +1,6 @@
 {
-  "versione": 10,
-  "aggiornato": "2026-11-18",
+  "versione": 11,
+  "aggiornato": "2026-11-19",
   "materie": {
     "matematica": {
       "nome": "Matematica",
@@ -7186,6 +7186,290 @@
             "Bilione (10¹²)",
             "Biliardo (10¹⁵)",
             "Trilione (10¹⁸)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sci-universo-vicino",
+      "materia": "scienze",
+      "titolo": "L'Universo vicino a noi",
+      "fonte": "Scienze 5, pag. 90-91",
+      "parole": [
+        "universo",
+        "stell",
+        "galassia",
+        "via lattea"
+      ],
+      "pagine": [
+        90,
+        91
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Quiz sull'Universo",
+          "domande": [
+            {
+              "d": "Come si chiama la grande città di stelle di cui fa parte il Sole?",
+              "r": [
+                "Galassia, o Via Lattea",
+                "Sistema Solare",
+                "Nebulosa",
+                "Supernova"
+              ]
+            },
+            {
+              "d": "Quante stelle contiene almeno la Via Lattea?",
+              "r": [
+                "100 miliardi",
+                "100 mila",
+                "10 milioni",
+                "300 mila"
+              ]
+            },
+            {
+              "d": "Che forma ha la nostra galassia?",
+              "r": [
+                "Una spirale",
+                "Un cerchio perfetto",
+                "Un quadrato",
+                "Una nuvola"
+              ]
+            },
+            {
+              "d": "Dove si trova il Sole nella Via Lattea?",
+              "r": [
+                "In un braccio della spirale",
+                "Al centro",
+                "Fuori dalla galassia",
+                "Dentro un buco nero"
+              ]
+            },
+            {
+              "d": "Che cosa si trova al centro della nostra galassia?",
+              "r": [
+                "Un buco nero gigante",
+                "Il Sole",
+                "Un pianeta",
+                "Una nebulosa planetaria"
+              ]
+            },
+            {
+              "d": "Perché i buchi neri si chiamano «neri»?",
+              "r": [
+                "Perché inghiottono anche la luce",
+                "Perché sono freddi",
+                "Perché non hanno materia",
+                "Perché sono lontani"
+              ]
+            },
+            {
+              "d": "Quale galassia è molto simile alla Via Lattea?",
+              "r": [
+                "Andromeda",
+                "Orione",
+                "Occhio di gatto",
+                "Sirio"
+              ]
+            },
+            {
+              "d": "Di che cosa sono fatte le stelle?",
+              "r": [
+                "Grandi palle di gas",
+                "Rocce",
+                "Ghiaccio",
+                "Acqua"
+              ]
+            },
+            {
+              "d": "Quanto vivrà il Sole, probabilmente?",
+              "r": [
+                "10 miliardi di anni",
+                "10 mila anni",
+                "300 mila anni",
+                "100 miliardi di anni"
+              ]
+            },
+            {
+              "d": "Come finisce la vita di una stella molto massiccia?",
+              "r": [
+                "Esplode come supernova",
+                "Diventa un pianeta",
+                "Si trasforma in una galassia",
+                "Non finisce mai"
+              ]
+            },
+            {
+              "d": "Che cosa diventerà il nostro Sole alla fine?",
+              "r": [
+                "Una nebulosa planetaria",
+                "Una supernova",
+                "Un buco nero gigante",
+                "Una galassia"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "A occhio nudo possiamo vedere al massimo qualche migliaio di stelle.",
+              "v": true
+            },
+            {
+              "f": "La Via Lattea contiene solo il Sistema Solare.",
+              "v": false
+            },
+            {
+              "f": "Non possiamo fotografare la Via Lattea intera perché ci siamo dentro.",
+              "v": true
+            },
+            {
+              "f": "Più una stella è massiccia, più luce emette.",
+              "v": true
+            },
+            {
+              "f": "Più una stella è massiccia, più a lungo vive.",
+              "v": false
+            },
+            {
+              "f": "Le stelle nascono da nubi di gas e polveri che si addensano.",
+              "v": true
+            },
+            {
+              "f": "Il Sole è una stella abbastanza grande.",
+              "v": false
+            },
+            {
+              "f": "La nascita di una stella dura pochi giorni.",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Che cos'è?",
+          "coppie": [
+            [
+              "Via Lattea",
+              "la nostra galassia"
+            ],
+            [
+              "Buco nero",
+              "inghiotte anche la luce"
+            ],
+            [
+              "Andromeda",
+              "galassia vicina e simile"
+            ],
+            [
+              "Supernova",
+              "esplosione di una stella massiccia"
+            ],
+            [
+              "Nebulosa planetaria",
+              "guscio colorato di gas attorno a un nucleo"
+            ],
+            [
+              "Nube di gas e polveri",
+              "da qui nascono le stelle"
+            ]
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa il testo",
+          "frasi": [
+            {
+              "f": "Le stelle sono grandi palle di ___.",
+              "r": [
+                "gas",
+                "roccia",
+                "ghiaccio"
+              ]
+            },
+            {
+              "f": "La nostra galassia ha la forma di una ___.",
+              "r": [
+                "spirale",
+                "sfera",
+                "stella"
+              ]
+            },
+            {
+              "f": "Il Sole si trova in un ___ della spirale.",
+              "r": [
+                "braccio",
+                "centro",
+                "buco"
+              ]
+            },
+            {
+              "f": "Nelle nubi di gas e polveri le stelle ___.",
+              "r": [
+                "nascono",
+                "muoiono",
+                "si fermano"
+              ]
+            },
+            {
+              "f": "Dopo l'espulsione degli strati esterni rimane un ___ molto caldo.",
+              "r": [
+                "nucleo",
+                "pianeta",
+                "satellite"
+              ]
+            },
+            {
+              "f": "Una stella molto massiccia muore formando una ___.",
+              "r": [
+                "supernova",
+                "galassia",
+                "cometa"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "ordina",
+          "titolo": "Dalla nascita alla fine di una stella media",
+          "istruzione": "Metti in ordine la vita di una stella come il Sole",
+          "elementi": [
+            "Una nube di gas e polveri si addensa",
+            "Si forma una palla di gas",
+            "La palla si scalda e inizia a brillare",
+            "La stella vive a lungo",
+            "Espelle gli strati esterni",
+            "Il nucleo si raffredda e si spegne"
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole dello spazio",
+          "parole": [
+            {
+              "p": "GALASSIA",
+              "indizio": "La grande città di stelle"
+            },
+            {
+              "p": "SUPERNOVA",
+              "indizio": "Esplosione di una stella massiccia"
+            },
+            {
+              "p": "NEBULOSA",
+              "indizio": "Qui nascono le stelle"
+            },
+            {
+              "p": "SPIRALE",
+              "indizio": "La forma della Via Lattea"
+            },
+            {
+              "p": "ANDROMEDA",
+              "indizio": "Galassia vicina alla nostra"
+            }
           ]
         }
       ]

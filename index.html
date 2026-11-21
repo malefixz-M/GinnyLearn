@@ -41,7 +41,7 @@ h2{font-size:26px;font-weight:800;margin:28px 0 12px}
 /* header */
 .top{display:flex;align-items:center;gap:14px}
 .saluto{min-width:0;flex:1}
-.saluto h1{white-space:nowrap;overflow:hidden;font-size:40px}
+.saluto h1{white-space:nowrap;overflow:hidden;font-size:40px;line-height:1.35;padding-top:2px}
 .avatar{width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--inchiostro);display:grid;place-items:center;font-size:36px;flex:none}
 .stelle-tot{margin-left:auto;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:4px 16px;font-weight:800;font-size:22px;box-shadow:3px 3px 0 var(--inchiostro);display:inline-flex;align-items:center;gap:6px;line-height:1}
 .stelle-tot .st-ico{font-size:20px;line-height:1;display:block;transform:translateY(1px)}
@@ -54,7 +54,7 @@ h2{font-size:26px;font-weight:800;margin:28px 0 12px}
 .quaderno::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:8px;background:repeating-linear-gradient(transparent 0 10px,rgba(255,255,255,.55) 10px 16px)}
 .quaderno .ico{font-size:52px;line-height:1}
 .quaderno .nome{font-size:30px;font-weight:800;margin-top:6px}
-.quaderno .etichetta{position:absolute;right:10px;top:10px;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#fff;color:var(--inchiostro);border-radius:6px;padding:1px 8px;font-size:13px;font-weight:700;transform:rotate(3deg)}
+.quaderno .etichetta{position:absolute;right:10px;top:10px;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:#fff;color:var(--inchiostro);border-radius:6px;padding:2px 8px;font-size:13px;line-height:1.4;font-weight:700;transform:rotate(3deg)}
 .bg-matematica{background:var(--mate)} .bg-storia{background:var(--storia)} .bg-geografia{background:var(--geo)}
 .c-matematica{color:var(--mate)} .c-storia{color:var(--storia)} .c-geografia{color:var(--geo)}
 
@@ -74,7 +74,7 @@ h2{font-size:26px;font-weight:800;margin:28px 0 12px}
 .compito.fatto .testo{text-decoration:line-through;text-decoration-color:var(--rosso);text-decoration-thickness:3px;opacity:.6}
 .compito .testo{font-size:20px;font-weight:600}
 .compito .meta{font-size:15px}
-.verifica{white-space:nowrap;background:var(--rosso);color:#fff;border-radius:6px;padding:0 8px;font-size:14px;font-weight:700;margin-left:6px}
+.verifica{display:inline-block;text-decoration:none;line-height:1.4;vertical-align:1px;white-space:nowrap;background:var(--rosso);color:#fff;border-radius:6px;padding:0 8px;font-size:14px;font-weight:700;margin-left:6px}
 .btn{color:var(--inchiostro);display:inline-flex;align-items:center;gap:8px;background:var(--giallo);border:3px solid var(--inchiostro);border-radius:999px;padding:8px 20px;font-weight:800;font-size:20px;box-shadow:3px 3px 0 var(--inchiostro)}
 .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--inchiostro)}
 .btn.piccolo{font-size:16px;padding:4px 14px;margin-top:8px}
@@ -331,7 +331,7 @@ const MONDI = {
   mare:   { viaggiatore: '⛵', meta: '🏝️', dorso: '🧭' }
 };
 const TIPI = {
-  quiz:      { nome: 'Quiz a tempo', ico: '⏱️' },
+  quiz:      { nome: 'Quiz', ico: '⏱️' },
   verofalso: { nome: 'Vero o falso', ico: '⚖️' },
   completa:  { nome: 'Completa la frase', ico: '✏️' },
   abbina:    { nome: 'Abbina le coppie', ico: '🔗' },
@@ -612,7 +612,7 @@ function mostraTesto(x) {
 
 function compitoHTML(c) {
   const m = infoMateria(c.materia), fatto = !!PROG.compitiFatti[c.id], t = temaDelCompito(c);
-  return `<div class="compito ${esc(c.materia.replace(/\s/g, '-'))} ${fatto ? 'fatto' : ''}">
+  return `<div class="compito ${esc(c.materia.replace(/\s/g, '-'))} ${fatto ? 'fatto' : ''}" style="border-left-color:${coloreMat(c.materia)}">
     <button class="spunta" data-spunta="${esc(c.id)}" aria-label="${fatto ? 'Segna da fare' : 'Segna come fatto'}">${fatto ? '✓' : ''}</button>
     <div><div class="testo">${esc(c.testo)}${c.verifica ? '<span class="verifica">Verifica</span>' : ''}</div>
     <div class="meta muted">${m.icona} ${esc(m.nome)} · ${nomeGiorno(c.data)}${!fatto && PIANO[c.id]?.g ? `<span class="chip-piano">🗓️ lo fai ${PIANO[c.id].g === oggiISO() ? 'oggi' : nomeGiorno(PIANO[c.id].g).toLowerCase()}</span>` : ''}</div>
@@ -1040,8 +1040,17 @@ function male(ref) {
 function avanza() { G.fatti++; hud(); }
 
 /* timer per domanda: restituisce funzione stop() -> frazione di tempo rimasta */
-function timer(sec, scaduto) {
-  const bar = $('.timer', G.el), i = $('i', bar); bar.hidden = false;
+/* esercizi di calcolo: niente tempo (matematica, "tempo": false nel gioco, o domanda con numeri e %/operazioni) */
+function conTempo(testo = '') {
+  if (G.g.tempo === true) return true;
+  if (G.g.tempo === false || G.t.materia === 'matematica') return false;
+  const t = String(testo).replace(/<[^>]+>/g, ' ');
+  return !(/calcol|quanto fa|risolv/i.test(t) || /\d\s*%|\d\s*(?:[×÷+−=]|\sx\s)\s*\d/.test(t));
+}
+function timer(sec, scaduto, testo) {
+  const bar = $('.timer', G.el), i = $('i', bar);
+  if (!conTempo(testo)) { clearInterval(G.tick); bar.hidden = true; return () => 0.5; }
+  bar.hidden = false;
   const t0 = Date.now(); clearInterval(G.tick);
   G.tick = setInterval(() => {
     const f = 1 - (Date.now() - t0) / (sec * 1000);
@@ -1109,7 +1118,7 @@ const MOTORI = {
       p.innerHTML = `<div class="domanda" style="font-size:22px">Dove va?</div><div class="carta-cat">${esc(c.v)}</div>
         <div class="opzioni">${gruppi.map(k => `<button class="opz" data-k="${esc(k)}">${esc(k)}</button>`).join('')}</div>`;
       let chiuso = false;
-      const stop = timer(12, () => rispondi(null));
+      const stop = timer(12, () => rispondi(null), c.v);
       const rispondi = b => {
         if (chiuso) return; chiuso = true; const resto = stop();
         const giusto = p.querySelector(`[data-k="${CSS.escape(c.k)}"]`);
@@ -1273,7 +1282,7 @@ function scelte(p, domande, sec) {
     p.innerHTML = `<div class="domanda">${d.testo}</div>
       <div class="${d.fisse ? 'vf' : 'opzioni'}">${opz.map(o => `<button class="opz">${esc(o)}</button>`).join('')}</div>`;
     const bottoni = [...p.querySelectorAll('.opz')]; let chiuso = false;
-    const stop = timer(sec, () => rispondi(null));
+    const stop = timer(sec, () => rispondi(null), d.testo + ' ' + d.opz.join(' '));
     const rispondi = b => {
       if (chiuso) return; chiuso = true; const resto = stop();
       const giusto = bottoni[opz.indexOf(d.giusta)];

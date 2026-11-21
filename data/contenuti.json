@@ -1,6 +1,6 @@
 {
-  "versione": 11,
-  "aggiornato": "2026-11-19",
+  "versione": 12,
+  "aggiornato": "2026-11-21",
   "materie": {
     "matematica": {
       "nome": "Matematica",
@@ -7471,6 +7471,108 @@
               "indizio": "Galassia vicina alla nostra"
             }
           ]
+        },
+        {
+          "tipo": "quiz",
+          "titolo": "Guarda il cielo (pag. 90)",
+          "domande": [
+            {
+              "d": "Nelle notti molto limpide nel cielo si vede questa striscia biancastra. Che cos'è?",
+              "img": "sci-universo-vicino/via-lattea.jpg",
+              "r": [
+                "La Via Lattea",
+                "Una nuvola sottile",
+                "La coda di una cometa",
+                "Il fumo di un aereo"
+              ]
+            },
+            {
+              "d": "Questa è Andromeda, una galassia simile alla nostra. Che cosa contiene una galassia come questa?",
+              "img": "sci-universo-vicino/andromeda.jpg",
+              "r": [
+                "Miliardi di stelle, gas e polveri",
+                "Un solo Sistema Solare",
+                "Soltanto pianeti",
+                "Una sola stella gigante"
+              ]
+            },
+            {
+              "d": "Di notte vedi un puntino luminoso che si muove nel cielo. Che cosa può essere?",
+              "r": [
+                "Un pianeta o un satellite artificiale",
+                "Una galassia",
+                "Un buco nero",
+                "Una stella ferma"
+              ]
+            },
+            {
+              "d": "I puntini luminosi che sembrano fermi sullo sfondo nero del cielo sono quasi tutti…",
+              "r": [
+                "stelle",
+                "satelliti artificiali",
+                "pianeti",
+                "comete"
+              ]
+            },
+            {
+              "d": "Per incontrare la prima stella fuori dal Sistema Solare, quante volte dovremmo percorrere la distanza tra la Terra e il Sole?",
+              "r": [
+                "300 000 volte",
+                "300 volte",
+                "3 000 volte",
+                "30 volte"
+              ]
+            },
+            {
+              "d": "Che cosa hanno intorno molte stelle della Via Lattea?",
+              "r": [
+                "Sistemi planetari simili al nostro",
+                "Anelli di ghiaccio",
+                "Altre galassie",
+                "Niente, sono sempre sole"
+              ]
+            },
+            {
+              "d": "In un buco nero tanta materia è concentrata…",
+              "r": [
+                "in una palla piccolissima",
+                "in una nube enorme",
+                "in un lungo anello",
+                "in tanti piccoli pianeti"
+              ]
+            },
+            {
+              "d": "Che cosa fanno i bracci della spirale della Via Lattea?",
+              "r": [
+                "Girano intorno al centro",
+                "Stanno fermi",
+                "Si allontanano dal centro",
+                "Cadono nel Sole"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Via Lattea o buco nero?",
+          "gruppi": {
+            "Via Lattea": [
+              "È la galassia in cui si trova il Sole",
+              "Contiene almeno 100 miliardi di stelle",
+              "Di notte si vede come una striscia chiara",
+              "Ha bracci che girano intorno al centro",
+              "Contiene nubi di gas e polveri",
+              "Ha molti sistemi planetari"
+            ],
+            "Buco nero": [
+              "La sua materia è stretta in una palla piccolissima",
+              "Attira con forza tutto ciò che ha intorno",
+              "Nemmeno la luce riesce a uscirne",
+              "Uno gigante sta al centro della nostra galassia",
+              "Non si può vedere perché non manda luce",
+              "La sua attrazione è fortissima"
+            ]
+          }
         }
       ]
     }

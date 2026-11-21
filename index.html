@@ -121,6 +121,7 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 .timer i{display:block;height:100%;width:100%;background:var(--giallo);transform-origin:left}
 .palco{position:relative;flex:1;overflow:auto;padding:16px 24px 30px;display:flex;flex-direction:column;align-items:center}
 .domanda{font-size:30px;font-weight:800;text-align:center;max-width:780px;margin:12px 0 22px}
+.fig-domanda{display:block;max-width:min(560px,92%);max-height:34vh;margin:0 auto 10px;border-radius:10px;border:3px solid var(--inchiostro);background:#fff;object-fit:contain}
 .lacuna{display:inline-block;min-width:110px;border-bottom:4px solid currentColor;margin:0 4px}
 .opzioni{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%;max-width:820px}
 .opz{background:#fff;color:var(--inchiostro);border:3px solid var(--inchiostro);border-radius:var(--r-m);padding:18px;font-size:24px;font-weight:700;box-shadow:4px 4px 0 rgba(0,0,0,.35);min-height:76px}
@@ -189,6 +190,10 @@ input[type=text]{font:inherit;font-size:22px;padding:8px 14px;border:3px solid v
 .testo-studio .verso{font-size:23px;line-height:1.5;font-weight:600}.testo-studio .stacco{height:18px}
 .finestra img.pagina{max-width:100%;border-radius:10px;background:#fff}
 .finestra.orizz img.pagina{max-height:calc(100dvh - 140px);width:auto}
+.finestra img.pagina{touch-action:pan-x pan-y}
+.finestra img.pagina.zoom{display:block;max-width:none;max-height:none;margin:0}
+.zoom-bar{position:fixed;bottom:16px;right:14px;z-index:51;display:flex;gap:8px}
+.zoom-bar button{width:52px;height:52px;border-radius:50%;border:3px solid var(--inchiostro);background:#fff;font-size:26px;font-weight:800;box-shadow:2px 2px 0 var(--inchiostro)}
 .gira-tablet{display:none;color:#fff;font-size:20px;font-weight:700;margin:0 0 12px}
 @media (orientation:portrait){.finestra.orizz .gira-tablet{display:block}}
 .zaino{background:#fff;border-radius:14px;padding:12px 16px;margin:0 auto 12px;max-width:900px;font-size:19px;text-align:left}
@@ -682,6 +687,13 @@ function paginaCompiti(app) {
 }
 
 /* Foto di compiti/schede: rimpicciolita e mandata al ponte, che la mette nella repo privata */
+/* immagine del libro dentro la domanda: "img": "<idtema>/<file>" -> figure/<idtema>/<file> nella repo privata, letta dal ponte.
+   Usa il codice già salvato (niente richiesta durante il gioco); senza codice o se manca il file l'immagine non compare. */
+function figuraHTML(f) {
+  const codice = carica('ae_codfoto', '');
+  if (!f || !codice) return '';
+  return `<img class="fig-domanda" alt="" src="${urlPonte('/figura')}?f=${encodeURIComponent(f)}&codice=${encodeURIComponent(codice)}" onerror="this.remove()">`;
+}
 function chiediCodice() {
   let codice = carica('ae_codfoto', '');
   if (!codice) { codice = (prompt('Codice segreto (lo sa papà):') || '').trim(); if (codice) salva('ae_codfoto', codice); }
@@ -715,6 +727,45 @@ function finestra(html, alChiudere) {
   el.onclick = e => { if (e.target === el || e.target.classList.contains('chiudi-f')) el.chiudi(); };
   document.body.append(el); return el;
 }
+/* zoom delle pagine: due dita per allargare, doppio tocco, bottoni + e − (la WebView dell'APK non ha lo zoom del browser) */
+function zoomabile(img) {
+  const box = img.closest('.finestra'); if (!box || img.dataset.zoom) return; img.dataset.zoom = 1;
+  let z = 1, base = 0;
+  const imposta = (nz, cx, cy) => {
+    nz = Math.min(5, Math.max(1, nz));
+    if (z === 1) base = img.getBoundingClientRect().width;
+    const r = img.getBoundingClientRect(), fx = (cx - r.left) / r.width, fy = (cy - r.top) / r.height;
+    z = nz;
+    if (z <= 1.02) { z = 1; img.classList.remove('zoom'); img.style.width = ''; return; }
+    img.classList.add('zoom'); img.style.width = base * z + 'px';
+    const r2 = img.getBoundingClientRect();
+    box.scrollLeft += r2.left + fx * r2.width - cx; box.scrollTop += r2.top + fy * r2.height - cy;
+  };
+  let d0 = 0, z0 = 1, tocco = 0;
+  const dist = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+  img.addEventListener('touchstart', e => {
+    if (e.touches.length === 2) { d0 = dist(e.touches); z0 = z; e.preventDefault(); return; }
+    if (e.touches.length === 1) {
+      const t = e.touches[0], ora = Date.now();
+      if (ora - tocco < 300) { e.preventDefault(); imposta(z > 1 ? 1 : 2.5, t.clientX, t.clientY); tocco = 0; } else tocco = ora;
+    }
+  }, { passive: false });
+  img.addEventListener('touchmove', e => {
+    if (e.touches.length !== 2 || !d0) return; e.preventDefault();
+    const t = e.touches; imposta(z0 * dist(t) / d0, (t[0].clientX + t[1].clientX) / 2, (t[0].clientY + t[1].clientY) / 2);
+  }, { passive: false });
+  img.addEventListener('touchend', e => { if (e.touches.length < 2) d0 = 0; });
+  img.addEventListener('dblclick', e => imposta(z > 1 ? 1 : 2.5, e.clientX, e.clientY));
+  if (!$('.zoom-bar', box)) {
+    const bar = Object.assign(document.createElement('div'), { className: 'zoom-bar',
+      innerHTML: '<button aria-label="Rimpicciolisci">−</button><button aria-label="Ingrandisci">+</button>' });
+    const [meno, piu] = bar.children, centro = f => imposta(z * f, innerWidth / 2, innerHeight / 2);
+    meno.onclick = () => { const i = $('img.pagina', box); if (i === img) centro(1 / 1.5); };
+    piu.onclick = () => { const i = $('img.pagina', box); if (i === img) centro(1.5); };
+    box.append(bar);
+  } else { const [meno, piu] = $('.zoom-bar', box).children, centro = f => imposta(z * f, innerWidth / 2, innerHeight / 2);
+    meno.onclick = () => centro(1 / 1.5); piu.onclick = () => centro(1.5); }
+}
 const chiudiFinestre = () => document.querySelectorAll('.finestra').forEach(f => f.chiudi());
 // Zaino: schermo in orizzontale e rotazione bloccata finché è aperto (APK: GinnyApp.orientamento; Chrome: solo se lo permette)
 function orientamento(orizz) {
@@ -747,6 +798,7 @@ function mostraPagina(mat, n, libro) {
     img.replaceWith(nuova); img = nuova;
     el.querySelectorAll('[data-libro]').forEach(b => b.classList.toggle('bianco', b.dataset.libro !== k));
     img.onerror = () => { img.replaceWith(Object.assign(document.createElement('div'), { className: 'vuoto', textContent: 'Questa pagina non è ancora stata caricata. Chiedi a papà di fotografarla!' })); };
+    zoomabile(img);
     img.src = urlPonte('/pagina') + `?m=${encodeURIComponent(k)}&n=${n}&codice=${encodeURIComponent(codice)}`;
   };
   el.querySelectorAll('[data-libro]').forEach(b => b.onclick = () => apri(b.dataset.libro));
@@ -760,6 +812,7 @@ function mostraOrario() {
   orientamento(true);
   const el = finestra(`<p class="gira-tablet">↻ Gira il tablet per vedere meglio</p>${lista.length ? `<div class="zaino"><b>🎒 ${g === GG[(new Date().getDay() + 1) % 7] ? 'Domani' : g[0].toUpperCase() + g.slice(1).replace(/i$/, 'ì')} nello zaino:</b> ${lista.map(esc).join(' · ')}</div>` : ''}
     <img class="pagina" src="img/orario.webp" alt="Piano settimanale">`, () => orientamento(false));
+  zoomabile($('img.pagina', el));
   el.classList.add('orizz');
 }
 
@@ -1101,11 +1154,11 @@ function coriandoli() {
 /* ---------- i giochi ---------- */
 const MOTORI = {
   /* domande a scelta: quiz, completa (r[0] = giusta) */
-  quiz(p, g) { scelte(p, (g.domande || []).map(d => ({ testo: esc(d.d), giusta: d.r[0], opz: d.r })), 18); },
+  quiz(p, g) { scelte(p, (g.domande || []).map(d => ({ testo: esc(d.d), giusta: d.r[0], opz: d.r, img: d.img })), 18); },
   completa(p, g) {
-    scelte(p, (g.frasi || []).map(d => ({ testo: esc(d.f).replace(/_{2,}/, '<span class="lacuna"></span>'), giusta: d.r[0], opz: d.r, lacuna: true })), 20);
+    scelte(p, (g.frasi || []).map(d => ({ testo: esc(d.f).replace(/_{2,}/, '<span class="lacuna"></span>'), giusta: d.r[0], opz: d.r, lacuna: true, img: d.img })), 20);
   },
-  verofalso(p, g) { scelte(p, (g.frasi || []).map(d => ({ testo: esc(d.f), giusta: d.v ? 'Vero' : 'Falso', opz: ['Vero', 'Falso'], fisse: true })), 10); },
+  verofalso(p, g) { scelte(p, (g.frasi || []).map(d => ({ testo: esc(d.f), giusta: d.v ? 'Vero' : 'Falso', opz: ['Vero', 'Falso'], fisse: true, img: d.img })), 10); },
 
   categorie(p, g) {
     G.usaVite = true;
@@ -1279,10 +1332,10 @@ function scelte(p, domande, sec) {
   const giro = () => {
     if (i >= lista.length) return fine();
     const d = lista[i], opz = d.fisse ? d.opz : mescola(d.opz);
-    p.innerHTML = `<div class="domanda">${d.testo}</div>
+    p.innerHTML = `${figuraHTML(d.img)}<div class="domanda">${d.testo}</div>
       <div class="${d.fisse ? 'vf' : 'opzioni'}">${opz.map(o => `<button class="opz">${esc(o)}</button>`).join('')}</div>`;
     const bottoni = [...p.querySelectorAll('.opz')]; let chiuso = false;
-    const stop = timer(sec, () => rispondi(null), d.testo + ' ' + d.opz.join(' '));
+    const stop = timer(d.img ? sec + 10 : sec, () => rispondi(null), d.testo + ' ' + d.opz.join(' '));
     const rispondi = b => {
       if (chiuso) return; chiuso = true; const resto = stop();
       const giusto = bottoni[opz.indexOf(d.giusta)];

@@ -58,6 +58,7 @@ export default {
     }
     if (url.pathname === '/pagina') return leggiPagina(url, env, cors);
     if (url.pathname === '/allegato') return leggiAllegato(url, env, cors);
+    if (url.pathname === '/figura') return leggiFigura(url, env, cors);
     if (url.pathname === '/foto' && req.method === 'POST') return json(...await salvaFoto(req, env));
     if (url.pathname === '/progressi') return json(...await progressi(req, url, env));
     if (url.pathname === '/prova-push' && env.KV) {
@@ -381,6 +382,17 @@ async function leggiPagina(url, env, cors) {
   });
   if (!r.ok) return new Response('manca', { status: 404, headers: cors });
   return new Response(r.body, { headers: { 'Content-Type': 'image/jpeg', 'Cache-Control': 'private, max-age=86400', 'Access-Control-Allow-Origin': cors['Access-Control-Allow-Origin'] } });
+}
+
+// Immagini del libro usate nelle domande dei giochi: figure/<idtema>/<file> nella repo privata (non nella pubblica)
+async function leggiFigura(url, env, cors) {
+  const f = url.searchParams.get('f') || '';
+  if (!env.GH_TOKEN || !env.GH_REPO || url.searchParams.get('codice') !== env.FOTO_CODICE || !/^[a-z0-9-]+\/[a-z0-9_-]+\.(jpg|jpeg|png|webp)$/i.test(f)) return new Response('no', { status: 403, headers: cors });
+  const r = await fetch(`https://api.github.com/repos/${env.GH_REPO}/contents/figure/${f}`, {
+    headers: { Authorization: `Bearer ${env.GH_TOKEN}`, 'User-Agent': 'ginny-ponte', Accept: 'application/vnd.github.raw' }
+  });
+  if (!r.ok) return new Response('manca', { status: 404, headers: cors });
+  return new Response(r.body, { headers: { 'Content-Type': tipoDi(f), 'Cache-Control': 'private, max-age=604800', 'Access-Control-Allow-Origin': cors['Access-Control-Allow-Origin'] } });
 }
 
 // Allegati dei compiti -> allegati/<idcompito>/<nome> nella repo privata. KV 'allegati-salvati' = percorsi già salvati.

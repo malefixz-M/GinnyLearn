@@ -273,6 +273,77 @@ body.in-casa #app{height:100dvh;display:flex;flex-direction:column;overflow:hidd
   details.precedenti > summary::-webkit-details-marker { display: none; }
   details.precedenti > summary h2::after { content: ' ▸'; }
   details.precedenti[open] > summary h2::after { content: ' ▾'; }
+/* ===== TELEFONO IN VERTICALE (v19): tutto più compatto. Il tablet (≥ 600 px di larghezza) non cambia. ===== */
+@media (max-width:560px) and (orientation:portrait){
+  body{font-size:16px;background-image:linear-gradient(90deg,transparent 14px,var(--margine) 14px,var(--margine) 16px,transparent 16px),linear-gradient(var(--quadretto) 1px,transparent 1px),linear-gradient(90deg,var(--quadretto) 1px,transparent 1px)}
+  #app{padding:12px 12px 84px 26px}
+  h1,.saluto h1{font-size:26px} h2{font-size:20px;margin:16px 0 8px}
+  .top{gap:8px} .stelle-tot{font-size:17px;padding:3px 10px;box-shadow:2px 2px 0 var(--inchiostro)} .stelle-tot .st-ico{font-size:15px}
+  .indietro{font-size:16px;padding:2px 0}
+  /* barra in basso */
+  nav{gap:0;padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
+  nav button{flex:1;font-size:12px;padding:3px 0;border-radius:10px}
+  nav button span{font-size:21px}
+  body.in-casa #app{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+  /* bottoni */
+  .btn{font-size:16px;padding:5px 14px;gap:6px;border-width:2.5px;box-shadow:2px 2px 0 var(--inchiostro)}
+  .btn.piccolo{font-size:13px;padding:2px 10px;margin-top:4px}
+  .azioni-compito{gap:4px}
+  .zona-testa{margin:6px 0 4px} .zona{padding:2px 4px 6px 0}
+  /* materie: due per riga */
+  .quaderni{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .quaderno{min-height:104px;padding:10px 8px 10px 24px;box-shadow:3px 3px 0 var(--inchiostro)}
+  .quaderno::before{left:7px;width:6px}
+  .quaderno .ico{font-size:30px} .quaderno .nome{font-size:18px;margin-top:2px;line-height:1.15}
+  .quaderno .etichetta{font-size:10px;padding:1px 5px;right:6px;top:6px}
+  .quaderno .badge-nuovo{font-size:11px;padding:0 5px}
+  /* liste e compiti */
+  .riga{padding:9px 10px;gap:10px;margin-bottom:8px;border-width:2px}
+  .riga .grande{font-size:17px} .riga .ico{font-size:24px} .stelline{font-size:14px;letter-spacing:0}
+  .giorno{font-size:18px;margin:14px 0 6px}
+  .compito{gap:10px;padding:8px 10px;border-left-width:7px;margin-bottom:8px;border-width:2px}
+  .compito .testo{font-size:16px;line-height:1.25} .compito .meta{font-size:13px}
+  .spunta{width:30px;height:30px;font-size:24px;line-height:20px;border-width:2.5px}
+  .verifica,.badge-nuovo,.chip-piano{font-size:12px}
+  input[type=text]{font-size:17px;padding:6px 10px}
+  .vuoto{padding:14px}
+  /* piano */
+  .piano-aiuto{font-size:14px;padding:8px 10px}
+  .piano-giorni{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .giorno-box{min-height:90px;padding:6px}
+  .giorno-box .gtesta{font-size:16px}
+  .carta-piano{font-size:14px}
+  .da-org .carte{grid-template-columns:1fr}
+  /* premi */
+  .medaglie{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .medaglia{padding:8px 4px;font-size:13px;line-height:1.2} .medaglia .ico{font-size:30px}
+  .guide img{width:56px;height:56px}
+  /* gioco: barra in alto compatta, il resto riempie tutto lo schermo */
+  .hud{gap:8px;padding:8px 10px 2px;font-size:17px}
+  .hud .chiudi{width:38px;height:38px;font-size:21px}
+  .hud .punti{white-space:nowrap} .hud .fuoco{min-width:0}
+  .pista{margin:2px 14px 0;height:34px} .pista .viaggiatore{font-size:26px} .pista .meta{font-size:24px}
+  .timer{height:8px;margin:4px 14px 0}
+  .gioco .mia{min-height:56px;margin:4px 10px 0;width:calc(100% - 20px)}
+  .gioco .mia img{width:52px} .gioco .mia .fumetto{font-size:15px;padding:5px 10px;border-width:2.5px}
+  .palco{padding:8px 12px calc(14px + env(safe-area-inset-bottom))}
+  .domanda{font-size:24px;margin:6px 0 14px}
+  .fig-domanda{max-width:100%;max-height:30vh}
+  .opzioni{flex:1 1 auto;gap:12px;grid-auto-rows:minmax(64px,1fr);max-height:560px}
+  .opz{font-size:21px;padding:12px 14px;min-height:64px}
+  .vf{flex:1 1 auto;gap:14px;max-height:300px} .vf .opz{font-size:30px}
+  .carta-cat{font-size:28px;padding:18px 28px;margin:12px 0 18px}
+  .colonne{flex:1 1 auto;gap:12px;grid-auto-rows:minmax(56px,1fr);max-height:620px} .colonne .opz{font-size:18px;padding:8px}
+  .griglia-memory{gap:10px;max-width:min(100%,calc((100dvh - 320px) / 4 * .75 * 3 + 20px))} .mcard .faccia{font-size:17px;padding:4px} .mcard .dorso{font-size:34px}
+  .tassello{font-size:20px;padding:10px 14px} .sequenza{min-height:60px;margin-bottom:18px;gap:8px} .mucchio{gap:10px}
+  .casella{width:40px;height:52px;font-size:32px}
+  .lettera{width:52px;height:52px;font-size:28px}
+  .azioni{gap:10px;margin-top:18px}
+  .cart-nome{font-size:20px;padding:8px 16px}
+  .fine .stelle-grandi{font-size:56px} .fine h1{font-size:30px} .mia-corpo{height:130px} .record{font-size:18px}
+  .testo-studio{padding:14px 16px} .testo-studio .verso{font-size:18px}
+  .zoom-bar button{width:44px;height:44px;font-size:22px}
+}
 </style>
 </head>
 <body>

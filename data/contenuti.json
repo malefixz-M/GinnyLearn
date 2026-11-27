@@ -1,6 +1,6 @@
 {
-  "versione": 13,
-  "aggiornato": "2026-11-24",
+  "versione": 14,
+  "aggiornato": "2026-11-27",
   "materie": {
     "matematica": {
       "nome": "Matematica",
@@ -8234,6 +8234,1295 @@
             "5 000 − 2 400 = 2 600",
             "1 800 + 1 500 = 3 300",
             "7 000 − 3 100 = 3 900"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ita-avverbi",
+      "materia": "italiano",
+      "titolo": "Gli avverbi",
+      "fonte": "Grammatica 5, pag. 82-83",
+      "parole": [
+        "avverb"
+      ],
+      "pagine": [
+        82,
+        83
+      ],
+      "libro": "grammatica",
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Che cosa sono gli avverbi",
+          "domande": [
+            {
+              "d": "Gli avverbi sono parole...",
+              "r": [
+                "invariabili che modificano o precisano il significato di altre parole",
+                "variabili che cambiano genere e numero",
+                "che indicano il nome di una persona",
+                "che uniscono due frasi"
+              ]
+            },
+            {
+              "d": "Quali parole può accompagnare un avverbio?",
+              "r": [
+                "Verbi, nomi, aggettivi, altri avverbi o l'intera frase",
+                "Solo i verbi",
+                "Solo i nomi",
+                "Solo le frasi"
+              ]
+            },
+            {
+              "d": "Quanti tipi di avverbi si distinguono?",
+              "r": [
+                "Sette",
+                "Tre",
+                "Cinque",
+                "Dieci"
+              ]
+            },
+            {
+              "d": "L'avverbio di modo risponde alla domanda...",
+              "r": [
+                "Come?",
+                "Quando?",
+                "Dove?",
+                "Quanto?"
+              ]
+            },
+            {
+              "d": "L'avverbio di tempo risponde alla domanda...",
+              "r": [
+                "Quando?",
+                "Come?",
+                "Dove?",
+                "Quanto?"
+              ]
+            },
+            {
+              "d": "L'avverbio di luogo risponde alla domanda...",
+              "r": [
+                "Dove?",
+                "Come?",
+                "Quando?",
+                "Quanto?"
+              ]
+            },
+            {
+              "d": "L'avverbio di quantità risponde alla domanda...",
+              "r": [
+                "Quanto?",
+                "Come?",
+                "Dove?",
+                "Quando?"
+              ]
+            },
+            {
+              "d": "Nella frase \"Guarda laggiù!\" l'avverbio \"laggiù\" è di...",
+              "r": [
+                "luogo",
+                "tempo",
+                "modo",
+                "quantità"
+              ]
+            },
+            {
+              "d": "Nella frase \"Ieri sono stato al cinema\" l'avverbio \"ieri\" è di...",
+              "r": [
+                "tempo",
+                "luogo",
+                "modo",
+                "negazione"
+              ]
+            },
+            {
+              "d": "Nella frase \"In gita ci siamo divertiti molto\" l'avverbio \"molto\" è di...",
+              "r": [
+                "quantità",
+                "modo",
+                "tempo",
+                "dubbio"
+              ]
+            },
+            {
+              "d": "Nella frase \"Probabilmente il treno arriverà in orario\" l'avverbio \"probabilmente\" è di...",
+              "r": [
+                "dubbio",
+                "modo",
+                "tempo",
+                "affermazione"
+              ]
+            },
+            {
+              "d": "Nella frase \"Non capisco che cosa c'è scritto\" l'avverbio \"non\" è di...",
+              "r": [
+                "negazione",
+                "dubbio",
+                "luogo",
+                "quantità"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Di che tipo è l'avverbio?",
+          "gruppi": {
+            "Di modo": [
+              "bene",
+              "male",
+              "piano",
+              "velocemente",
+              "lentamente",
+              "forte"
+            ],
+            "Di tempo": [
+              "adesso",
+              "dopo",
+              "prima",
+              "sempre",
+              "spesso",
+              "raramente"
+            ],
+            "Di luogo": [
+              "qui",
+              "là",
+              "laggiù",
+              "lassù",
+              "davanti",
+              "dietro",
+              "sopra",
+              "sotto"
+            ],
+            "Di quantità": [
+              "molto",
+              "poco",
+              "tanto",
+              "troppo",
+              "parecchio",
+              "abbastanza"
+            ]
+          }
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Affermazione, negazione, dubbio",
+          "gruppi": {
+            "Di affermazione": [
+              "sì",
+              "certamente",
+              "sicuramente",
+              "certo",
+              "sicuro"
+            ],
+            "Di negazione": [
+              "no",
+              "non",
+              "neppure",
+              "nemmeno",
+              "neanche"
+            ],
+            "Di dubbio": [
+              "forse",
+              "magari",
+              "probabilmente",
+              "eventualmente"
+            ]
+          }
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa con l'avverbio",
+          "frasi": [
+            {
+              "f": "Gli avverbi sono parole ___: non cambiano mai forma.",
+              "r": [
+                "invariabili",
+                "variabili",
+                "plurali"
+              ]
+            },
+            {
+              "f": "L'avverbio \"velocemente\" è un avverbio di ___.",
+              "r": [
+                "modo",
+                "tempo",
+                "luogo"
+              ]
+            },
+            {
+              "f": "Il giorno prima ho studiato; ___ mi riposo. (avverbio di tempo)",
+              "r": [
+                "adesso",
+                "qui",
+                "molto"
+              ]
+            },
+            {
+              "f": "Il libro è ___ sul tavolo, proprio sopra la sedia. (avverbio di luogo)",
+              "r": [
+                "qui",
+                "spesso",
+                "forse"
+              ]
+            },
+            {
+              "f": "\"Magari\" ed \"eventualmente\" sono avverbi di ___.",
+              "r": [
+                "dubbio",
+                "negazione",
+                "quantità"
+              ]
+            },
+            {
+              "f": "\"Nemmeno\" e \"neppure\" sono avverbi di ___.",
+              "r": [
+                "negazione",
+                "affermazione",
+                "tempo"
+              ]
+            },
+            {
+              "f": "Abbiamo mangiato ___ e ora siamo sazi. (avverbio di quantità)",
+              "r": [
+                "troppo",
+                "ieri",
+                "laggiù"
+              ]
+            },
+            {
+              "f": "Gli avverbi si distinguono in avverbi di modo, di tempo, di luogo, di quantità, di dubbio, di affermazione e di ___.",
+              "r": [
+                "negazione",
+                "persona",
+                "colore"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso sugli avverbi",
+          "frasi": [
+            {
+              "f": "Gli avverbi sono parole invariabili.",
+              "v": true
+            },
+            {
+              "f": "Gli avverbi modificano o precisano il significato di altre parole.",
+              "v": true
+            },
+            {
+              "f": "\"Sempre\", \"spesso\" e \"raramente\" sono avverbi di luogo.",
+              "v": false
+            },
+            {
+              "f": "\"Davanti\", \"dietro\" e \"sopra\" sono avverbi di luogo.",
+              "v": true
+            },
+            {
+              "f": "\"Troppo\" e \"parecchio\" sono avverbi di quantità.",
+              "v": true
+            },
+            {
+              "f": "\"Forse\" è un avverbio di affermazione.",
+              "v": false
+            },
+            {
+              "f": "\"Certamente\" e \"sicuramente\" sono avverbi di affermazione.",
+              "v": true
+            },
+            {
+              "f": "Un avverbio può accompagnare anche un aggettivo o un altro avverbio.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Abbina avverbio e tipo",
+          "coppie": [
+            [
+              "bene",
+              "di modo"
+            ],
+            [
+              "adesso",
+              "di tempo"
+            ],
+            [
+              "laggiù",
+              "di luogo"
+            ],
+            [
+              "molto",
+              "di quantità"
+            ],
+            [
+              "certo",
+              "di affermazione"
+            ],
+            [
+              "neanche",
+              "di negazione"
+            ],
+            [
+              "magari",
+              "di dubbio"
+            ],
+            [
+              "spesso",
+              "di tempo"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ita-analisi-grammaticale",
+      "materia": "italiano",
+      "titolo": "Verifica: analisi grammaticale (nomi, articoli, verbi)",
+      "fonte": "Grammatica 5, pag. 32-41, 60-63 e 89",
+      "parole": [
+        "analisi grammaticale"
+      ],
+      "pagine": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        60,
+        61,
+        62,
+        63,
+        89
+      ],
+      "libro": "grammatica",
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Il nome: genere e numero",
+          "domande": [
+            {
+              "d": "Il nome è una parte...",
+              "r": [
+                "variabile della frase che concorda con articolo, aggettivo e verbo",
+                "invariabile della frase",
+                "che indica solo azioni",
+                "che precede sempre l'avverbio"
+              ]
+            },
+            {
+              "d": "\"Marito / moglie\" sono nomi di genere...",
+              "r": [
+                "indipendente",
+                "comune",
+                "promiscuo",
+                "invariabile"
+              ]
+            },
+            {
+              "d": "\"Il giornalista / la giornalista\" sono nomi di genere...",
+              "r": [
+                "comune",
+                "indipendente",
+                "promiscuo",
+                "difettivo"
+              ]
+            },
+            {
+              "d": "\"Tigre maschio / tigre femmina\" è un nome di genere...",
+              "r": [
+                "promiscuo",
+                "comune",
+                "indipendente",
+                "alterato"
+              ]
+            },
+            {
+              "d": "Come si distingue il maschile dal femminile in un nome di genere comune?",
+              "r": [
+                "Guardando l'articolo",
+                "Guardando la desinenza del plurale",
+                "Aggiungendo \"maschio\" o \"femmina\"",
+                "Cambiando completamente la parola"
+              ]
+            },
+            {
+              "d": "Come si distinguono i nomi promiscui?",
+              "r": [
+                "Specificando \"maschio\" o \"femmina\"",
+                "Guardando l'articolo",
+                "Con una parola completamente diversa",
+                "Con un suffisso"
+              ]
+            },
+            {
+              "d": "I nomi invariabili (come \"la città / le città\") hanno...",
+              "r": [
+                "la stessa forma al singolare e al plurale",
+                "solo il singolare",
+                "solo il plurale",
+                "due plurali"
+              ]
+            },
+            {
+              "d": "\"La fame\" è un nome...",
+              "r": [
+                "difettivo del plurale (ha solo il singolare)",
+                "difettivo del singolare",
+                "sovrabbondante",
+                "invariabile"
+              ]
+            },
+            {
+              "d": "\"Le nozze\" è un nome...",
+              "r": [
+                "difettivo del singolare (ha solo il plurale)",
+                "difettivo del plurale",
+                "sovrabbondante",
+                "promiscuo"
+              ]
+            },
+            {
+              "d": "I nomi sovrabbondanti hanno...",
+              "r": [
+                "due forme di plurale di significato diverso, una maschile e una femminile",
+                "una sola forma di plurale",
+                "la stessa forma al singolare e al plurale",
+                "solo il plurale"
+              ]
+            },
+            {
+              "d": "Il plurale di \"muro\" ha due forme sovrabbondanti: quali?",
+              "r": [
+                "muri e mura",
+                "muri e mure",
+                "mure e mura",
+                "muri e muroni"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "quiz",
+          "titolo": "Il nome: tipi di nomi",
+          "domande": [
+            {
+              "d": "I nomi primitivi...",
+              "r": [
+                "non derivano da nessun altro nome (radice + desinenza)",
+                "si formano con suffissi o prefissi",
+                "indicano un insieme",
+                "indicano grandezza"
+              ]
+            },
+            {
+              "d": "I nomi derivati si formano...",
+              "r": [
+                "aggiungendo prefissi o suffissi alla radice di un nome primitivo",
+                "unendo due o più parole",
+                "cambiando solo l'articolo",
+                "togliendo la desinenza"
+              ]
+            },
+            {
+              "d": "\"Libro\" e \"libreria\": quale è il derivato?",
+              "r": [
+                "libreria",
+                "libro",
+                "tutti e due",
+                "nessuno dei due"
+              ]
+            },
+            {
+              "d": "I nomi alterati si formano...",
+              "r": [
+                "aggiungendo suffissi al nome primitivo che ne cambiano la sfumatura di significato",
+                "unendo due parole",
+                "cambiando genere",
+                "usando un articolo diverso"
+              ]
+            },
+            {
+              "d": "\"Borsina\" è un nome...",
+              "r": [
+                "diminutivo (indica piccolezza)",
+                "accrescitivo",
+                "vezzeggiativo",
+                "dispregiativo"
+              ]
+            },
+            {
+              "d": "\"Borsona\" è un nome...",
+              "r": [
+                "accrescitivo (indica grandezza)",
+                "diminutivo",
+                "vezzeggiativo",
+                "dispregiativo"
+              ]
+            },
+            {
+              "d": "\"Borsetta\" è un nome...",
+              "r": [
+                "vezzeggiativo (bellezza e piccolezza insieme)",
+                "diminutivo",
+                "accrescitivo",
+                "dispregiativo"
+              ]
+            },
+            {
+              "d": "\"Borsaccia\" è un nome...",
+              "r": [
+                "dispregiativo (peggioramento, bruttezza)",
+                "vezzeggiativo",
+                "accrescitivo",
+                "diminutivo"
+              ]
+            },
+            {
+              "d": "\"Pescespada\" è un nome composto da...",
+              "r": [
+                "nome + nome",
+                "verbo + nome",
+                "aggettivo + nome",
+                "avverbio + verbo"
+              ]
+            },
+            {
+              "d": "\"Altopiano\" è un nome composto da...",
+              "r": [
+                "aggettivo + nome",
+                "nome + nome",
+                "verbo + nome",
+                "verbo + avverbio"
+              ]
+            },
+            {
+              "d": "\"Sempreverde\" è un nome composto da...",
+              "r": [
+                "avverbio + aggettivo",
+                "nome + aggettivo",
+                "verbo + verbo",
+                "verbo + nome"
+              ]
+            },
+            {
+              "d": "\"Saliscendi\" è un nome composto da...",
+              "r": [
+                "verbo + verbo",
+                "nome + nome",
+                "verbo + nome",
+                "aggettivo + aggettivo"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "quiz",
+          "titolo": "Gli articoli e i verbi",
+          "domande": [
+            {
+              "d": "Gli articoli precedono i nomi e concordano con essi in...",
+              "r": [
+                "genere e numero",
+                "tempo e modo",
+                "persona e modo",
+                "solo numero"
+              ]
+            },
+            {
+              "d": "Quali sono gli articoli determinativi?",
+              "r": [
+                "il, lo, la, i, gli, le",
+                "un, uno, una, un'",
+                "del, dello, della",
+                "di, a, da"
+              ]
+            },
+            {
+              "d": "Gli articoli indeterminativi introducono un nome...",
+              "r": [
+                "in modo generico",
+                "in modo preciso",
+                "per indicare una quantità",
+                "solo al plurale"
+              ]
+            },
+            {
+              "d": "Quali sono gli articoli indeterminativi?",
+              "r": [
+                "un, uno, una, un'",
+                "il, lo, la",
+                "del, dello, della",
+                "i, gli, le"
+              ]
+            },
+            {
+              "d": "Gli articoli partitivi (del, dello, della, degli, delle) indicano...",
+              "r": [
+                "una quantità indeterminata e si usano spesso come plurali degli indeterminativi",
+                "un nome in modo preciso",
+                "una sola persona",
+                "un luogo"
+              ]
+            },
+            {
+              "d": "I verbi sono una parte variabile del discorso che varia in base a...",
+              "r": [
+                "modo, tempo e persona",
+                "genere e numero",
+                "solo al tempo",
+                "solo alla persona"
+              ]
+            },
+            {
+              "d": "Quali sono i modi finiti?",
+              "r": [
+                "Indicativo, congiuntivo, condizionale e imperativo",
+                "Infinito, gerundio e participio",
+                "Presente, passato e futuro",
+                "Indicativo e infinito"
+              ]
+            },
+            {
+              "d": "I modi indefiniti sono...",
+              "r": [
+                "infinito, gerundio e participio",
+                "indicativo, congiuntivo e condizionale",
+                "imperativo e indicativo",
+                "presente, passato e futuro"
+              ]
+            },
+            {
+              "d": "Quali sono le tre coniugazioni dei verbi?",
+              "r": [
+                "I -are, II -ere, III -ire",
+                "I -ano, II -ino, III -ono",
+                "I -ere, II -are, III -ore",
+                "Presente, passato, futuro"
+              ]
+            },
+            {
+              "d": "Il verbo \"essere\" ha significato proprio quando significa...",
+              "r": [
+                "esistere, stare, trovarsi, sembrare",
+                "avere, possedere",
+                "fare qualcosa",
+                "aiutare un altro verbo"
+              ]
+            },
+            {
+              "d": "Il verbo \"avere\" ha significato proprio quando significa...",
+              "r": [
+                "possedere, sentire, ottenere, provare",
+                "esistere",
+                "stare",
+                "trovarsi"
+              ]
+            },
+            {
+              "d": "Che funzione ha \"ha\" in \"Chi ha mangiato la mia merenda?\"",
+              "r": [
+                "ausiliare",
+                "significato proprio",
+                "è un nome",
+                "è un avverbio"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "quiz",
+          "titolo": "I modi finiti",
+          "domande": [
+            {
+              "d": "Il modo indicativo esprime...",
+              "r": [
+                "azioni certe, reali",
+                "dubbio e desiderio",
+                "un comando",
+                "una condizione"
+              ]
+            },
+            {
+              "d": "Il modo congiuntivo esprime...",
+              "r": [
+                "dubbio, incertezza, desiderio, possibilità",
+                "azioni certe",
+                "un comando",
+                "l'azione senza la persona"
+              ]
+            },
+            {
+              "d": "Il modo condizionale esprime...",
+              "r": [
+                "un avvenimento che potrebbe accadere a condizione che se ne verifichi un altro",
+                "un comando",
+                "un'azione certa",
+                "un dubbio senza condizione"
+              ]
+            },
+            {
+              "d": "Il modo imperativo esprime...",
+              "r": [
+                "un comando, un invito o un suggerimento",
+                "un'azione certa",
+                "un'azione incerta",
+                "una condizione"
+              ]
+            },
+            {
+              "d": "In \"Chiudi la finestra, per favore!\" il verbo \"chiudi\" è al modo...",
+              "r": [
+                "imperativo",
+                "indicativo",
+                "congiuntivo",
+                "condizionale"
+              ]
+            },
+            {
+              "d": "In \"Per pranzo ho mangiato un panino\" il verbo è al modo...",
+              "r": [
+                "indicativo",
+                "congiuntivo",
+                "condizionale",
+                "imperativo"
+              ]
+            },
+            {
+              "d": "In \"Andrei a piedi, se smettesse di piovere\" il verbo \"andrei\" è al modo...",
+              "r": [
+                "condizionale",
+                "indicativo",
+                "congiuntivo",
+                "imperativo"
+              ]
+            },
+            {
+              "d": "In \"Vorrei che tu finissi i compiti\" il verbo \"finissi\" è al modo...",
+              "r": [
+                "congiuntivo",
+                "condizionale",
+                "indicativo",
+                "imperativo"
+              ]
+            },
+            {
+              "d": "\"Sarebbe venuto\" è al modo...",
+              "r": [
+                "condizionale (passato)",
+                "indicativo",
+                "congiuntivo",
+                "gerundio"
+              ]
+            },
+            {
+              "d": "\"Avrò raccolto\" è una voce del verbo...",
+              "r": [
+                "raccogliere, indicativo futuro anteriore",
+                "raccogliere, congiuntivo",
+                "raccogliere, imperativo",
+                "avere, infinito"
+              ]
+            },
+            {
+              "d": "\"Viaggiavate\" ha come infinito...",
+              "r": [
+                "viaggiare (I coniugazione)",
+                "viaggere (II coniugazione)",
+                "viaggire (III coniugazione)",
+                "viaggio"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Nomi: tipi diversi",
+          "gruppi": {
+            "Concreti": [
+              "artista",
+              "dottore",
+              "cane",
+              "casa",
+              "quadro",
+              "mamma"
+            ],
+            "Astratti": [
+              "coraggio",
+              "gentilezza",
+              "libertà",
+              "paura",
+              "fiducia",
+              "bellezza"
+            ],
+            "Collettivi": [
+              "classe",
+              "flora",
+              "coro",
+              "folla",
+              "bosco",
+              "ciurma"
+            ]
+          }
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Nomi alterati e composti",
+          "gruppi": {
+            "Diminutivi": [
+              "borsina",
+              "casetta",
+              "fogliolina"
+            ],
+            "Accrescitivi": [
+              "borsona",
+              "barcone",
+              "librone"
+            ],
+            "Dispregiativi": [
+              "borsaccia",
+              "postaccio",
+              "ragazzaccio"
+            ],
+            "Composti": [
+              "pescespada",
+              "saliscendi",
+              "altopiano",
+              "sempreverde"
+            ]
+          }
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Articoli e modi del verbo",
+          "gruppi": {
+            "Articoli determinativi": [
+              "il",
+              "lo",
+              "la",
+              "gli"
+            ],
+            "Articoli indeterminativi": [
+              "un",
+              "uno",
+              "una",
+              "un'"
+            ],
+            "Articoli partitivi": [
+              "del",
+              "dello",
+              "della",
+              "degli"
+            ],
+            "Modi indefiniti": [
+              "infinito",
+              "gerundio",
+              "participio"
+            ]
+          }
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa: nomi e articoli",
+          "frasi": [
+            {
+              "f": "\"Coccodrillo\" è un nome di genere ___ (animale con un'unica forma: si dice \"maschio\" o \"femmina\").",
+              "r": [
+                "promiscuo",
+                "comune",
+                "indipendente"
+              ]
+            },
+            {
+              "f": "\"Sorella\" è un nome di genere ___ (forma diversa dal maschile \"fratello\").",
+              "r": [
+                "indipendente",
+                "comune",
+                "promiscuo"
+              ]
+            },
+            {
+              "f": "\"Il collega / la collega\" è un nome di genere ___.",
+              "r": [
+                "comune",
+                "indipendente",
+                "promiscuo"
+              ]
+            },
+            {
+              "f": "\"Cinema\" e \"città\" sono nomi ___ perché hanno la stessa forma al singolare e al plurale.",
+              "r": [
+                "invariabili",
+                "difettivi",
+                "sovrabbondanti"
+              ]
+            },
+            {
+              "f": "Il plurale di \"specie\" è \"specie\": è un nome ___.",
+              "r": [
+                "invariabile",
+                "difettivo",
+                "derivato"
+              ]
+            },
+            {
+              "f": "\"Ferie\" e \"viveri\" hanno solo il plurale: sono nomi difettivi del ___.",
+              "r": [
+                "singolare",
+                "plurale",
+                "genere"
+              ]
+            },
+            {
+              "f": "Davanti a \"zaino\" l'articolo determinativo è ___.",
+              "r": [
+                "lo",
+                "il",
+                "la"
+              ]
+            },
+            {
+              "f": "Davanti a \"amica\" l'articolo determinativo è ___.",
+              "r": [
+                "l'",
+                "la",
+                "un"
+              ]
+            },
+            {
+              "f": "Davanti a \"scienziato\" l'articolo indeterminativo è ___.",
+              "r": [
+                "uno",
+                "un",
+                "una"
+              ]
+            },
+            {
+              "f": "Davanti a \"emozione\" l'articolo indeterminativo è ___.",
+              "r": [
+                "un'",
+                "una",
+                "uno"
+              ]
+            },
+            {
+              "f": "Il plurale di \"lo zaino\" è ___ zaini.",
+              "r": [
+                "gli",
+                "i",
+                "le"
+              ]
+            },
+            {
+              "f": "Ho comprato ___ penne nuove per la scuola. (articolo partitivo)",
+              "r": [
+                "delle",
+                "dei",
+                "dello"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa: il verbo e l'analisi",
+          "frasi": [
+            {
+              "f": "Nell'analisi grammaticale a ogni parola si assegna la giusta ___ grammaticale.",
+              "r": [
+                "categoria",
+                "frase",
+                "sillaba"
+              ]
+            },
+            {
+              "f": "Nella frase \"La luce della luna illumina\", \"illumina\" è un ___.",
+              "r": [
+                "verbo",
+                "nome",
+                "articolo"
+              ]
+            },
+            {
+              "f": "Nella frase \"La luce della luna\", \"della\" è una preposizione ___.",
+              "r": [
+                "articolata",
+                "semplice",
+                "derivata"
+              ]
+            },
+            {
+              "f": "Nella frase \"Ieri allo spettacolo mi sono divertito\", \"ieri\" è un ___.",
+              "r": [
+                "avverbio",
+                "nome",
+                "pronome"
+              ]
+            },
+            {
+              "f": "Nella frase \"Ieri allo spettacolo teatrale mi sono divertito\", \"teatrale\" è un ___.",
+              "r": [
+                "aggettivo",
+                "avverbio",
+                "nome"
+              ]
+            },
+            {
+              "f": "Nella frase \"Leggerò subito il libro\", \"subito\" è un ___.",
+              "r": [
+                "avverbio",
+                "aggettivo",
+                "pronome"
+              ]
+            },
+            {
+              "f": "\"Sono stato al mare\": qui il verbo \"essere\" ha significato ___ (stare, trovarsi).",
+              "r": [
+                "proprio",
+                "di ausiliare",
+                "di nome"
+              ]
+            },
+            {
+              "f": "\"Ho mangiato\": qui \"ho\" ha funzione di ___.",
+              "r": [
+                "ausiliare",
+                "significato proprio",
+                "nome"
+              ]
+            },
+            {
+              "f": "\"Mangiò\" è alla ___ persona singolare del passato remoto.",
+              "r": [
+                "terza",
+                "prima",
+                "seconda"
+              ]
+            },
+            {
+              "f": "\"Partecipasti\" è alla ___ persona singolare.",
+              "r": [
+                "seconda",
+                "prima",
+                "terza"
+              ]
+            },
+            {
+              "f": "\"Avemmo finito\" è alla ___ persona plurale.",
+              "r": [
+                "prima",
+                "seconda",
+                "terza"
+              ]
+            },
+            {
+              "f": "\"Chiudi la finestra!\" è un comando: il modo è l'___.",
+              "r": [
+                "imperativo",
+                "indicativo",
+                "infinito"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso: nomi",
+          "frasi": [
+            {
+              "f": "Il nome è una parte variabile della frase.",
+              "v": true
+            },
+            {
+              "f": "\"Nozze\" è un nome difettivo del plurale.",
+              "v": false
+            },
+            {
+              "f": "\"Fame\" è un nome difettivo del plurale (ha solo il singolare).",
+              "v": true
+            },
+            {
+              "f": "\"Tigre\" è un nome di genere promiscuo.",
+              "v": true
+            },
+            {
+              "f": "\"Dentifricio\" è un nome derivato.",
+              "v": false
+            },
+            {
+              "f": "I nomi concreti indicano qualcosa che si può percepire con i sensi.",
+              "v": true
+            },
+            {
+              "f": "\"Coraggio\" è un nome concreto.",
+              "v": false
+            },
+            {
+              "f": "\"Roseto\" è un nome collettivo (insieme di piante di rosa).",
+              "v": true
+            },
+            {
+              "f": "\"Flora\" indica l'insieme delle specie vegetali.",
+              "v": true
+            },
+            {
+              "f": "\"Clero\" indica l'equipaggio di un bastimento.",
+              "v": false
+            },
+            {
+              "f": "\"Ciurma\" è l'equipaggio di un bastimento.",
+              "v": true
+            },
+            {
+              "f": "\"Bacione\" è un nome accrescitivo.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso: articoli e verbi",
+          "frasi": [
+            {
+              "f": "Gli articoli concordano con il nome in genere e numero.",
+              "v": true
+            },
+            {
+              "f": "\"Un\", \"uno\", \"una\" sono articoli determinativi.",
+              "v": false
+            },
+            {
+              "f": "\"Del\" e \"delle\" possono essere articoli partitivi.",
+              "v": true
+            },
+            {
+              "f": "\"Il verbo\" è una parte invariabile del discorso.",
+              "v": false
+            },
+            {
+              "f": "Infinito, gerundio e participio sono modi indefiniti.",
+              "v": true
+            },
+            {
+              "f": "Il congiuntivo esprime un comando.",
+              "v": false
+            },
+            {
+              "f": "Il condizionale esprime un avvenimento che potrebbe accadere a una condizione.",
+              "v": true
+            },
+            {
+              "f": "L'imperativo esprime un comando, un invito o un suggerimento.",
+              "v": true
+            },
+            {
+              "f": "\"Avere\" ha significato proprio quando significa possedere.",
+              "v": true
+            },
+            {
+              "f": "\"Essere\" non può mai avere significato proprio.",
+              "v": false
+            }
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Abbina nome e definizione",
+          "coppie": [
+            [
+              "comitiva",
+              "gruppo di compagni di viaggio"
+            ],
+            [
+              "ciurma",
+              "equipaggio di un bastimento"
+            ],
+            [
+              "flora",
+              "insieme delle specie vegetali"
+            ],
+            [
+              "clero",
+              "complesso degli ecclesiastici"
+            ],
+            [
+              "folla",
+              "gruppo numeroso di persone"
+            ],
+            [
+              "bosco",
+              "insieme di alberi d'alto fusto"
+            ]
+          ]
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Abbina suffisso e significato",
+          "coppie": [
+            [
+              "diminutivo",
+              "piccolezza"
+            ],
+            [
+              "accrescitivo",
+              "grandezza"
+            ],
+            [
+              "vezzeggiativo",
+              "bellezza e piccolezza"
+            ],
+            [
+              "dispregiativo",
+              "bruttezza, peggioramento"
+            ],
+            [
+              "indicativo",
+              "azioni certe"
+            ],
+            [
+              "congiuntivo",
+              "dubbio, desiderio"
+            ]
+          ]
+        },
+        {
+          "tipo": "memory",
+          "titolo": "Memory: composti",
+          "coppie": [
+            [
+              "pescespada",
+              "nome + nome"
+            ],
+            [
+              "altopiano",
+              "aggettivo + nome"
+            ],
+            [
+              "saliscendi",
+              "verbo + verbo"
+            ],
+            [
+              "sempreverde",
+              "avverbio + aggettivo"
+            ],
+            [
+              "scioglilingua",
+              "verbo + nome"
+            ],
+            [
+              "posapiano",
+              "verbo + avverbio"
+            ]
           ]
         }
       ]

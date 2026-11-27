@@ -1,5 +1,5 @@
 {
-  "versione": 14,
+  "versione": 15,
   "aggiornato": "2026-11-27",
   "materie": {
     "matematica": {
@@ -9523,6 +9523,422 @@
               "posapiano",
               "verbo + avverbio"
             ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ing-countable",
+      "materia": "inglese",
+      "titolo": "Nomi numerabili e non numerabili",
+      "fonte": "Libro di inglese pag. 38 e 42",
+      "pagine": [
+        38,
+        42
+      ],
+      "parole": [
+        "numerabili",
+        "plurale",
+        "some",
+        "any"
+      ],
+      "giochi": [
+        {
+          "tipo": "quiz",
+          "titolo": "Numerabili o no?",
+          "domande": [
+            {
+              "d": "Quale parola è un nome NUMERABILE?",
+              "r": [
+                "apple",
+                "milk",
+                "bread",
+                "money"
+              ]
+            },
+            {
+              "d": "Quale parola è NON numerabile (non ha il plurale)?",
+              "r": [
+                "milk",
+                "apple",
+                "pear",
+                "carrot"
+              ]
+            },
+            {
+              "d": "Come si dice \"due pere\"?",
+              "r": [
+                "two pears",
+                "two pear",
+                "two pearss",
+                "a pears"
+              ]
+            },
+            {
+              "d": "Completa: There is ___ umbrella near the table.",
+              "r": [
+                "an",
+                "a",
+                "two",
+                "many"
+              ]
+            },
+            {
+              "d": "Completa: There are ___ scooters in the garden.",
+              "r": [
+                "two",
+                "a",
+                "an",
+                "one"
+              ]
+            },
+            {
+              "d": "Completa: There is ___ bread in the cupboard.",
+              "r": [
+                "some",
+                "a",
+                "an",
+                "two"
+              ]
+            },
+            {
+              "d": "Completa: There are ___ trousers on the bed. (trousers ha solo il plurale)",
+              "r": [
+                "some",
+                "a",
+                "an",
+                "one"
+              ]
+            },
+            {
+              "d": "Quale domanda si usa con i nomi numerabili?",
+              "r": [
+                "How many apples are there?",
+                "How much apples are there?",
+                "How many milk is there?",
+                "How any apples are there?"
+              ]
+            },
+            {
+              "d": "Quale domanda si usa con i nomi non numerabili?",
+              "r": [
+                "How much milk is there in the fridge?",
+                "How many milk is there in the fridge?",
+                "How much apples are there?",
+                "How some milk is there?"
+              ]
+            },
+            {
+              "d": "Cosa indicano i nomi numerabili?",
+              "r": [
+                "Cose che si possono contare",
+                "Cose che non si possono contare",
+                "Solo cose al plurale",
+                "Solo cose da mangiare"
+              ]
+            },
+            {
+              "d": "Quale di queste parole ha solo la forma singolare o solo plurale e non si può contare?",
+              "r": [
+                "milk",
+                "potato",
+                "tomato",
+                "pear"
+              ]
+            },
+            {
+              "d": "Qual è il plurale di \"potato\"?",
+              "r": [
+                "potatoes",
+                "potatos",
+                "potatoss",
+                "potatoe"
+              ]
+            },
+            {
+              "d": "Qual è il plurale di \"tomato\"?",
+              "r": [
+                "tomatoes",
+                "tomatos",
+                "tomatoss",
+                "tomatoe"
+              ]
+            },
+            {
+              "d": "In italiano \"i compiti\" si contano. Come si dice in inglese \"homework\" (è numerabile o no)?",
+              "r": [
+                "Non numerabile: non ha il plurale",
+                "Numerabile: homeworks",
+                "Si usa sempre con a",
+                "Solo plurale: homeworks"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "completa",
+          "titolo": "Completa la frase",
+          "frasi": [
+            {
+              "f": "There is ___ bread in the cupboard.",
+              "r": [
+                "some",
+                "a",
+                "two"
+              ]
+            },
+            {
+              "f": "There are ___ umbrellas near the table.",
+              "r": [
+                "some",
+                "an",
+                "a"
+              ]
+            },
+            {
+              "f": "There is ___ umbrella near the table.",
+              "r": [
+                "an",
+                "a",
+                "some"
+              ]
+            },
+            {
+              "f": "There is ___ scooter in the garden.",
+              "r": [
+                "a",
+                "an",
+                "two"
+              ]
+            },
+            {
+              "f": "How ___ apples are there?",
+              "r": [
+                "many",
+                "much",
+                "any"
+              ]
+            },
+            {
+              "f": "How ___ milk is there in the fridge?",
+              "r": [
+                "much",
+                "many",
+                "any"
+              ]
+            },
+            {
+              "f": "Is there ___ bread at the baker's?",
+              "r": [
+                "any",
+                "some",
+                "a"
+              ]
+            },
+            {
+              "f": "I've got ___ money but there isn't any chocolate in the shop!",
+              "r": [
+                "some",
+                "a",
+                "many"
+              ]
+            },
+            {
+              "f": "Can I have ___ fruit juice, please?",
+              "r": [
+                "some",
+                "any",
+                "many"
+              ]
+            },
+            {
+              "f": "Have we got ___ homework for tomorrow?",
+              "r": [
+                "any",
+                "some",
+                "a"
+              ]
+            },
+            {
+              "f": "She hasn't got ___ fish but she has got some meatballs.",
+              "r": [
+                "any",
+                "some",
+                "a"
+              ]
+            },
+            {
+              "f": "Milk → ___ (il plurale non esiste)",
+              "r": [
+                "milk",
+                "milks",
+                "milkes"
+              ]
+            },
+            {
+              "f": "pear → ___ → two pears",
+              "r": [
+                "pears",
+                "pear",
+                "peares"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "verofalso",
+          "titolo": "Vero o falso?",
+          "frasi": [
+            {
+              "f": "Apple è un nome numerabile.",
+              "v": true
+            },
+            {
+              "f": "Milk ha la forma plurale \"milks\".",
+              "v": false
+            },
+            {
+              "f": "Si può dire \"two pears\".",
+              "v": true
+            },
+            {
+              "f": "Money è un nome numerabile.",
+              "v": false
+            },
+            {
+              "f": "Con i nomi numerabili si usa How many.",
+              "v": true
+            },
+            {
+              "f": "Con i nomi non numerabili si usa How many.",
+              "v": false
+            },
+            {
+              "f": "Trousers ha solo la forma plurale.",
+              "v": true
+            },
+            {
+              "f": "Hair, food, homework e information sono non numerabili in inglese.",
+              "v": true
+            },
+            {
+              "f": "\"There is some bread in the cupboard\" è una frase corretta.",
+              "v": true
+            },
+            {
+              "f": "\"There are a umbrellas near the table\" è una frase corretta.",
+              "v": false
+            },
+            {
+              "f": "\"How much apples are there?\" è una domanda corretta.",
+              "v": false
+            },
+            {
+              "f": "Il plurale di tomato è tomatoes.",
+              "v": true
+            }
+          ]
+        },
+        {
+          "tipo": "categorie",
+          "titolo": "Si contano o no?",
+          "gruppi": {
+            "Numerabili": [
+              "apple",
+              "pear",
+              "carrot",
+              "potato",
+              "tomato",
+              "umbrella",
+              "scooter",
+              "biscuit"
+            ],
+            "Non numerabili": [
+              "milk",
+              "bread",
+              "money",
+              "homework",
+              "salad",
+              "ham",
+              "chocolate",
+              "rain"
+            ]
+          }
+        },
+        {
+          "tipo": "abbina",
+          "titolo": "Abbina",
+          "coppie": [
+            [
+              "How many",
+              "apples, pears, carrots"
+            ],
+            [
+              "How much",
+              "milk, bread, money"
+            ],
+            [
+              "apple → apples",
+              "numerabile"
+            ],
+            [
+              "milk → milks ✗",
+              "non numerabile"
+            ],
+            [
+              "a / an / one",
+              "singolare numerabile"
+            ],
+            [
+              "some",
+              "plurale o non numerabile"
+            ],
+            [
+              "homework",
+              "non numerabile in inglese"
+            ],
+            [
+              "trousers",
+              "solo plurale"
+            ]
+          ]
+        },
+        {
+          "tipo": "anagramma",
+          "titolo": "Parole del cibo e della casa",
+          "parole": [
+            {
+              "p": "UMBRELLA",
+              "indizio": "Ombrello"
+            },
+            {
+              "p": "SCOOTER",
+              "indizio": "Monopattino"
+            },
+            {
+              "p": "CUPBOARD",
+              "indizio": "Credenza, armadietto"
+            },
+            {
+              "p": "POTATO",
+              "indizio": "Patata"
+            },
+            {
+              "p": "TOMATO",
+              "indizio": "Pomodoro"
+            },
+            {
+              "p": "CARROT",
+              "indizio": "Carota"
+            },
+            {
+              "p": "MONEY",
+              "indizio": "Soldi (non numerabile)"
+            },
+            {
+              "p": "HOMEWORK",
+              "indizio": "Compiti (non numerabile)"
+            }
           ]
         }
       ]
